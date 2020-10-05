@@ -1,0 +1,67 @@
+<div class="container">
+    <div class="card card-login mx-auto text-center bg-dark">
+        <div *ngIf="fetchDataError === undefined; else errorTemplate">
+            <div class="card-header mx-auto bg-dark">
+                <span class="logo_title mt-5"> Login </span>
+
+            </div>
+            <div class="card-body">
+                <form id="login-form" #loginForm="ngForm" (submit)="onSubmit(loginForm)" novalidate>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                            </div>
+                            <input type="email" name="username" id="username" class="form-control" [(ngModel)]="username"
+                                placeholder="username....." #Username="ngModel" required>
+                        </div>
+                        <div *ngIf="logFormSubmitted && Username.invalid && loginError === undefined">
+                            <span class="input-warning">* required</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-key"></i></span>
+                            </div>
+                            <input type="password" #Password name="password" id="password" class="form-control"
+                                [(ngModel)]="password" placeholder="Password....." #Password="ngModel" required>
+                        </div>
+                        <div *ngIf="logFormSubmitted && Password.invalid && loginError === undefined">
+                            <span class="input-warning">* required</span>
+                        </div>
+                        <div *ngIf="loginError">
+                            <span class="input-warning">* invalid email or password</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" name="btn" value="Login"
+                            class="btn btn-outline-danger float-right login_btn">
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #errorTemplate>
+        <div id="error-section">
+            <div class="row">
+                <div class="col-12">
+                    <div id="pageError">
+                        <h4 id="error-code">{{fetchDataError?.status}} {{fetchDataError?.statusText}}!</h4>
+                        <p id="error-message">{{fetchDataError?.error.detail}}</p>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-info" style="float: right;" (click)="retry()">RETRY</button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>
+
+<ngx-spinner></ngx-spinner>

@@ -1,0 +1,299 @@
+<div class="container">
+    <div class="register-new-patient-page">
+        <ngx-spinner></ngx-spinner>
+        <div class="card" *ngIf="patientExists !== true; else patientRecordTemplate">
+            <div class="card-header card-green">
+                <h4 class="page-title">Patient Registration</h4>
+                <p class="card-category">Fill all the areas marked as <u>REQUIRED</u>.</p>
+            </div>
+            <div class="card-body">
+                <form [formGroup]='newPatientRecordForm' id="patient-registration">
+
+                    <!-- PATIENT IDENTIFICATION INPUT -->
+
+                    <!-- <div class="card data-form-card">
+                        <div class="card-header">
+                            <span class="card-title">Patient Registration Number</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-group has-success bmd-form-group">
+                                        <label for="patientIdentification" class="bmd-label-floating">
+                                            <span>Registration Number</span>
+                                            <span class="input-required">(required)</span>
+                                        </label>
+                                        <input type="number" class="form-control" id="patientIdentification"
+                                            formControlName="patientRegistrationNumber">
+
+                                        <div *ngIf="patientIdentification.invalid && patientRecordFormSubmitted">
+                                            <div *ngIf="patientIdentification.errors.required">
+                                                <small class="error-message">*required field!</small>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <!-- PATIENT NAME INPUT -->
+
+                    <div class="card data-form-card">
+                        <div class="card-header">
+                            <span class="card-title">Patient Name</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group has-success bmd-form-group">
+                                        <label for="firstName" class="bmd-label-floating">
+                                            <span>First name</span>
+                                            <span class="input-required">(required)</span>
+                                        </label>
+                                        <input type="text" class="form-control capitalize" id="firstName"
+                                            formControlName="firstName" autocomplete="off">
+
+                                        <div *ngIf="firstName.invalid && patientRecordFormSubmitted">
+                                            <div *ngIf="firstName.errors.required">
+                                                <small class="error-message">*required field!</small>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group has-success bmd-form-group">
+                                        <label for="middleName" class="bmd-label-floating">Middle name</label>
+                                        <input type="text" class="form-control capitalize" id="middleName"
+                                            formControlName="middleName" autocomplete="off">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group has-success bmd-form-group">
+                                        <label for="surname" class="bmd-label-floating">
+                                            <span>Surname</span>
+                                            <span class="input-required">(required)</span>
+                                        </label>
+                                        <input type="text" class="form-control capitalize" id="surname"
+                                            formControlName="surname" autocomplete="off">
+
+                                        <div *ngIf="surname.invalid && patientRecordFormSubmitted">
+                                            <div *ngIf="surname.errors.required">
+                                                <small class="error-message">*required field!</small>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PATIENT GENDER AND AGE INPUT -->
+
+                    <div class="card data-form-card">
+                        <div class="card-header">
+                            <span class="card-title">Gender and Age</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-group has-success bmd-form-group is-filled">
+                                        <label for="gender" class="bmd-label-floating">
+                                            <span>Gender</span>
+                                            <span class="input-required">(required)</span>
+                                        </label>
+                                        <select class="form-control" id="gender" formControlName="gender">
+                                            <option value="" disabled selected>Choose gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+
+                                        <div *ngIf="gender.invalid && patientRecordFormSubmitted">
+                                            <div *ngIf="gender.errors.required">
+                                                <small class="error-message">*required field!</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-group has-success bmd-form-group">
+                                        <label for="age" class="bmd-label-floating">
+                                            <span>Age</span>
+                                            <span class="input-required">(required)</span>
+                                        </label>
+                                        <input type="text" class="form-control" id="age" formControlName="age" autocomplete="off">
+
+                                        <div *ngIf="age.invalid && patientRecordFormSubmitted">
+                                            <div *ngIf="age.errors.required">
+                                                <small class="error-message">*required field!</small>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PATIENT CONTACT INFORMATION -->
+
+                    <div class="card data-form-card">
+                        <div class="card-header">
+                            <span class="card-title">Contact Information</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group has-success bmd-form-group">
+                                        <label for="mainPhoneNumber" class="bmd-label-floating">
+                                            <span>Phone Number</span>
+                                            <span class="input-required">(required)</span>
+                                        </label>
+                                        <input type="text" class="form-control" id="mainPhoneNumber"
+                                            formControlName="mainPhoneNumber" autocomplete="off">
+
+                                        <div *ngIf="mainPhoneNumber.invalid && patientRecordFormSubmitted">
+                                            <div *ngIf="mainPhoneNumber.errors.required">
+                                                <small class="error-message">*required field!</small>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group has-success bmd-form-group">
+                                        <label for="alternativePhoneNumber" class="bmd-label-floating">Phone Number
+                                            2</label>
+                                        <input type="text" class="form-control" id="alternativePhoneNumber"
+                                            formControlName="alternativePhoneNumber" autocomplete="off">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group has-success bmd-form-group">
+                                        <label for="email" class="bmd-label-floating">Email address</label>
+                                        <input type="email" class="form-control" id="email" formControlName="email" autocomplete="off">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PATIENT LOCATION INPUT -->
+
+                    <div class="card data-form-card">
+                        <div class="card-header">
+                            <span class="card-title">Location of Residence</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group has-success bmd-form-group">
+                                        <label for="countyOfResidence" class="bmd-label-floating">
+                                            <span>County</span>
+                                            <span class="input-required">(required)</span>
+                                        </label>
+                                        <input type="text" class="form-control capitalize" id="countyOfResidence"
+                                            formControlName="county" [typeahead]="counties" [adaptivePosition]="true"
+                                            required autocomplete="off">
+
+                                        <div *ngIf="county.invalid && patientRecordFormSubmitted">
+                                            <div *ngIf="county.errors.required">
+                                                <small class="error-message">*required field!</small>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group has-success bmd-form-group">
+                                        <label for="subCounty" class="bmd-label-floating">
+                                            <span>Sub-county</span>
+                                        </label>
+                                        <input type="text" class="form-control capitalize" id="subCounty"
+                                            formControlName="subCounty">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group has-success bmd-form-group">
+                                        <label for="estateAreaName" class="bmd-label-floating">
+                                            <span>Estate/Village</span>
+                                            <span class="input-required">(required)</span>
+                                        </label>
+                                        <input type="text" class="form-control capitalize" id="estateAreaName"
+                                            formControlName="estateOrArea">
+
+                                        <div *ngIf="estateOrArea.invalid && patientRecordFormSubmitted">
+                                            <div *ngIf="estateOrArea.errors.required">
+                                                <small class="error-message">*required field!</small>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: center; margin-top: 20px;">
+                        <button (click)="onSubmit()" class="btn btn-primary submit-button">submit</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <ng-template #patientRecordTemplate>
+            <div class="card">
+                <div class="card-body">
+                    <div class="data-exists-error">
+                        <h5 class="data-exists-error-title">
+                            A patient with the same <u>{{queryString}}</u> already exists.
+                        </h5>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="table-info">
+                                    <tr>
+                                        <th></th>
+                                        <th>Name</th>
+                                        <th>Reg Number</th>
+                                        <th>Gender</th>
+                                        <th>Age</th>
+                                        <th>Reg Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-entry-clickable"
+                                        *ngFor="let patient of queryResults; let i = index"
+                                        (click)="goToDetails(patient)">
+                                        <td>{{(i+1)}}</td>
+                                        <td>{{patient.firstName}} {{patient.middleName}} {{patient.surname}}</td>
+                                        <td>{{patient.patientID}}</td>
+                                        <td>{{patient.gender}}</td>
+                                        <td>{{patient.age}}</td>
+                                        <td>{{patient.dateCreated.toDate() | date: 'dd/MM/yyyy'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-info" (click)="backToForm()">Go Back To Form</button>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>

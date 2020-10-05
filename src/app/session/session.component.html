@@ -1,0 +1,205 @@
+<div *ngIf="fetchDataError === undefined; else errorTemplate">
+    <div id="session-section">
+        <ngx-spinner></ngx-spinner>
+        <header *ngIf="session !== undefined && session !== null">
+            <div id="navbar">
+                <div class="nav-fill w-100">
+                    <nav class="navbar navbar-expand-md navbar-light" role="navigation">
+                        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarContent"
+                            aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarContent">
+                            <ul class="navbar-nav nav-fill w-100">
+
+                                <li class="nav-item" routerLink="./payments" routerLinkActive="active"
+                                    [queryParams]="{'sessionID': session.id}">
+                                    <a role="button" class="btn btn-default">Payments</a>
+                                </li>
+
+                                <!-- <li class="nav-item" routerLink="./vitals" routerLinkActive="active"
+                                    [queryParams]="{'sessionID': session.id}">
+                                    <a role="button" class="btn btn-default">Vitals</a>
+                                </li> -->
+
+                                <li class="nav-item" routerLink="./complaints" routerLinkActive="active"
+                                    [queryParams]="{'sessionID': session.id}">
+                                    <a role="button" class="btn btn-default">Complaints</a>
+                                </li>
+
+                                <li class="nav-item" routerLink="./physical-exam" routerLinkActive="active"
+                                    [queryParams]="{'sessionID': session.id}">
+                                    <a role="button" class="btn btn-default">Physical Exam</a>
+                                </li>
+
+                                <li class="nav-item" routerLink="./comorbidities" routerLinkActive="active"
+                                    [queryParams]="{'sessionID': session.id}">
+                                    <a role="button" class="btn btn-default">Comorbidities</a>
+                                </li>
+
+                                <li class="nav-item" routerLink="./investigations" routerLinkActive="active"
+                                    [queryParams]="{'sessionID': session.id}">
+                                    <a role="button" class="btn btn-default">Investigations</a>
+                                </li>
+
+                                <li class="nav-item" routerLink="./diagnosis" routerLinkActive="active"
+                                    [queryParams]="{'sessionID': session.id}">
+                                    <a role="button" class="btn btn-default">Diagnosis</a>
+                                </li>
+
+                                <li class="nav-item" routerLink="./treatment" routerLinkActive="active"
+                                    [queryParams]="{'sessionID': session.id}">
+                                    <a role="button" class="btn btn-default">Treatment</a>
+                                </li>
+
+                                <li class="nav-item" routerLink="./remarks" routerLinkActive="active"
+                                    [queryParams]="{'sessionID': session.id}">
+                                    <a role="button" class="btn btn-default">Remarks</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <div id="session-section-main">
+            <div class="row">
+                <div class="col-md-9">
+                    <router-outlet></router-outlet>
+                </div>
+                <div class="col-md-3" id="session-reg-details-section"
+                    *ngIf="session !== undefined && session !== null">
+                    <div class="row">
+
+                        <div class="col-md-12 col-sm-4">
+                            <div class="session-data-section">
+                                <p class="session-data-header">Actions</p>
+                                <p class="session-data" *ngIf="session?.status !== 'Active'">
+                                    <a class="data-value as-link" (click)="startSession()"><u><i><b>Start New
+                                                    Session</b></i></u></a>
+                                </p>
+                                <p class="session-data" *ngIf="session?.status === 'Active'">
+                                    <a class="data-value as-link" (click)="open(content, false)"><u><i><b>Close
+                                                    Session</b></i></u></a>
+                                </p>
+                                <p class="session-data">
+                                    <a class="data-value as-link" (click)="goToDetails()"><u><i><b>Session
+                                                    History</b></i></u></a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-4">
+                            <div class="session-data-section">
+                                <p class="session-data-header">Patient</p>
+                                <p class="session-data">
+                                    <span class="data-label"><i><b>Name:</b></i></span>
+                                    <span class="data-value"><b>{{session?.patient?.firstName}} {{session?.patient?.middleName}}
+                                            {{session?.patient?.surname}}</b></span>
+                                </p>
+                                <p class="session-data">
+                                    <span class="data-label"><i><b>Gender:</b></i></span>
+                                    <span class="data-value"><b>{{session?.patient?.gender}}</b></span>
+                                </p>
+                                <p class="session-data">
+                                    <span class="data-label"><i><b>Age:</b></i></span>
+                                    <span class="data-value"><b>{{session?.patient?.age}}</b></span>
+                                </p>
+                                <p class="session-data">
+                                    <a class="data-value as-link" (click)="goToDetails()" style="float: right;"><u><i><b>More Details</b></i></u></a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-4">
+                            <div class="session-data-section">
+                                <p class="session-data-header">Session</p>
+                                <p class="session-data">
+                                    <span class="data-label"><i><b>Status:</b></i></span>
+                                    <span class="data-value"><b>{{session?.status}}</b></span>
+                                    <span class="mark-data-value"><i class="fa fa-star" aria-hidden="true"></i></span>
+                                </p>
+                                <p class="session-data">
+                                    <span class="data-label"><i><b>Registration Date:</b></i></span>
+                                    <span
+                                        class="data-value"><b>{{session?.date | date: 'dd/MM/yyyy'}}</b></span>
+                                </p>
+                                <p class="session-data">
+                                    <span class="data-label"><i><b>Registration Time:</b></i></span>
+                                    <span
+                                        class="data-value"><b>{{session?.date | date: 'shortTime'}}</b></span>
+                                </p>
+                                <p class="session-data" *ngIf="session?.followUpDate !== null && session?.followUpDate !== undefined">
+                                    <span class="data-label"><i><b>Follow Up Date:</b></i></span>
+                                    <span
+                                        class="data-value"><b>{{session?.followUpDate | date: 'dd/MM/yyyy'}}</b></span>
+                                    <span class="edit-data-value" (click)="open(content, true)"><i
+                                            class="fa fa-pencil-square-o" aria-hidden="true"></i><b>Edit</b></span>
+                                </p>
+                                <p class="session-data session-data-warning">
+                                    <a class="data-value as-link" (click)="deleteSession(deleteContentWarning)"><i
+                                            class="fa fa-trash" aria-hidden="true"></i><i><b>Delete Session</b></i></a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ng-template #content let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Close Current Session</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="dateOfBirth">Follow up date</label>
+                        <div class="input-group">
+                            <ngb-datepicker (dateSelect)="onDateSelect($event)" [minDate]="minFollowUpDate">
+                            </ngb-datepicker>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Save</button>
+            </div>
+        </ng-template>
+
+        <ng-template #deleteContentWarning let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title" style="color: red;"> DELETE SESSION !</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h6>Are you sure you want to delete this session? This action is NOT reversable</h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="modal.close()">DELETE</button>
+            </div>
+        </ng-template>
+
+    </div>
+
+    <!-- <div *ngIf="session !== undefined">
+        <app-follow-up-details [patient]="patient" [session]="session"></app-follow-up-details>
+    </div> -->
+</div>
+
+<ng-template #errorTemplate>
+    <div class="row">
+        <div class="col-12">
+            <div id="pageError">
+                <h4 id="error-code">{{fetchDataError?.status}} {{fetchDataError?.statusText}}!</h4>
+                <p id="error-message">{{fetchDataError?.error.detail}}</p>
+            </div>
+        </div>
+    </div>
+</ng-template>

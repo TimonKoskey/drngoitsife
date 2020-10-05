@@ -1,0 +1,49 @@
+.card.session-reg-details{
+    margin-top: 8px;
+    margin-bottom: 30px;
+}
+
+.card.session-reg-details .card-header{
+    padding: .3rem 1.25rem;
+    background-color: #04421238;
+    color: #6d4e84;
+}
+
+.card.session-reg-details .card-body{
+    padding: .3rem;
+}
+  
+.card.session-reg-details .card-header .card-title{
+    font-size: 1.4rem;
+    font-weight: 300;
+    font-family: Roboto,Helvetica,Arial,sans-serif;
+}
+
+span.badge {
+    margin-left: 10px;
+    margin-top: 8px;
+    font-size: 1em;
+    padding: 3px 20px;
+    cursor: pointer;
+}
+
+.badge-info {
+    color: whitesmoke;
+    background-color: blue;
+}
+
+.card-header .btn.btn-info {
+    float: right;
+}
+
+.badge.badge-pill i {
+	margin-right: 5px;
+}
+
+.no-charge {
+    background-color: blue;
+    color: whitesmoke;
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+}

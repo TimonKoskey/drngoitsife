@@ -1,0 +1,244 @@
+<div class="session-registration-details-page" *ngIf="fetchDataError === undefined; else errorTemplate">
+    <ngx-spinner></ngx-spinner>
+    <div class="card session-reg-details">
+        <div class="card-header session-reg-detials">
+            <span class="card-title">Payment Information</span>
+            <button class="btn btn-info" (click)="openAdd(paymentInfoForm)"><i class="fa fa-plus"
+                    aria-hidden="true"></i>Add Payment</button>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="table-responsive" *ngIf="dataAvailable">
+                        <table class="table">
+                            <thead class="table-info">
+                                <tr>
+                                    <th></th>
+                                    <th>Concept</th>
+                                    <th>Payment Method</th>
+                                    <th>Amount (Ksh)</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let payment of payments; let i = index">
+                                    <td>{{(i+1)}}</td>
+                                    <td>{{payment.concept}}</td>
+                                    <td>{{payment.method}}</td>
+                                    <td>{{payment.amount}}</td>
+                                    <td><span (click)="openPaymentDetails(paymentInfoDetails,payment)"
+                                            class="badge badge-pill badge-info">View Details</span></td>
+                                    <td><span (click)="deletePayment(payment)"
+                                        class="badge badge-pill badge-danger">Delete</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="empty-list-feedback" *ngIf="dataAvailable === false">
+                        <h5>No records available.</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #paymentInfoDetails let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Payment Information</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <table class="table table-user-information table-sm">
+                <tbody>
+                    <tr>
+                        <td>Concept:</td>
+                        <td>{{selectedPaymentInformation.concept}}</td>
+                    </tr>
+                    <tr>
+                        <td>Payment Method:</td>
+                        <td>{{selectedPaymentInformation.method}}</td>
+                    </tr>
+                    <tr *ngIf="selectedPaymentInformation.method === 'Insurance'">
+                        <td>Company Name:</td>
+                        <td>{{selectedPaymentInformation.companyName}}</td>
+                    </tr>
+                    <!-- <tr *ngIf="selectedPaymentInformation.paymentMethod === 'In Person'">
+                        <td>Personal Payment Mode:</td>
+                        <td>{{selectedPaymentInformation.paymentMode}}</td>
+                    </tr> -->
+                    <tr *ngIf="selectedPaymentInformation.method === 'Mpesa'">
+                        <td>Mpesa Code:</td>
+                        <td>{{selectedPaymentInformation.mpesaCode}}</td>
+                    </tr>
+                    <tr>
+                        <td>Amount:</td>
+                        <td>{{selectedPaymentInformation.amount}}</td>
+                    </tr>
+                    <tr>
+                        <td>Balance:</td>
+                        <td>{{selectedPaymentInformation.balance}}</td>
+                    </tr>
+                    <tr>
+                        <td>Description:</td>
+                        <td>{{selectedPaymentInformation.description}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="modal.close(paymentInfoForm)"><i
+                    class="fa fa-pencil-square-o" aria-hidden="true"></i>EDIT</button>
+        </div>
+    </ng-template>
+
+    <ng-template #paymentInfoForm let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Payment Information</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form #EditPaymentForm="ngForm" autocomplete="off">
+
+                <div class="form-group has-success bmd-form-group">
+                    <label for="concept" class="bmd-label-floating">
+                        <span>Concept</span>
+                        <span class="input-required">(required)</span>
+                    </label>
+                    <input type="text" name="concept" class="form-control"
+                        [(ngModel)]="selectedPaymentInformation.concept"
+                        [typeahead]="concepts"
+                        #Concept="ngModel" required autocomplete="off"/>
+
+                    <div *ngIf="Concept.invalid && modalFormSubmited === true">
+                        <div *ngIf="Concept.errors.required">
+                            <small class="error-message">*required field!</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div *ngIf="selectedPaymentInformation.required !== false"> -->
+
+                <div class="form-group has-success bmd-form-group">
+                    <label for="method" class="bmd-label-floating">
+                        <span>Payment Method</span>
+                        <span class="input-required">(required)</span>
+                    </label>
+                    <select name="method" class="form-control"
+                        [(ngModel)]="selectedPaymentInformation.method" #Method="ngModel" required>
+                        <option value="" disabled selected>Choose payment method</option>
+                        <option value="Cash">Cash</option>
+                        <option value="Insurance">Insurance</option>
+                        <option value="Mpesa">Mpesa</option>
+                    </select>
+
+                    <div *ngIf="Method.invalid && modalFormSubmited === true">
+                        <div *ngIf="Method.errors.required">
+                            <small class="error-message">*required field!</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="selectedPaymentInformation.method === 'Mpesa'">
+                    <div class="form-group has-success bmd-form-group">
+                        <label for="mpesaCode" class="bmd-label-floating">
+                            <span>Mpesa Code</span>
+                            <span class="input-required">(required)</span>
+                        </label>
+                        <input type="text" id="mpesaCode" name="mpesaCode" class="form-control"
+                            [(ngModel)]="selectedPaymentInformation.mpesaCode" #MpesaCode="ngModel" required />
+
+                        <div *ngIf="MpesaCode.invalid && modalFormSubmited === true">
+                            <div *ngIf="MpesaCode.errors.required">
+                                <small class="error-message">*required field!</small>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div
+                    *ngIf="selectedPaymentInformation.method === 'Insurance'">
+                    <div class="form-group has-success bmd-form-group">
+                        <label for="insurance_company_name" class="bmd-label-floating">
+                            <span>Company Name</span>
+                            <span class="input-required">(required)</span>
+                        </label>
+                        <input type="text" [(ngModel)]="selectedPaymentInformation.companyName"
+                            [typeahead]="InsuranceProviders"
+                            [isAnimated]="true"
+                            name="companyName"
+                            #CompanyName="ngModel" class="form-control" required autocomplete="off" />
+
+                        <div *ngIf="CompanyName.invalid && modalFormSubmited === true">
+                            <div *ngIf="CompanyName.errors.required">
+                                <small class="error-message">*required field!</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group has-success bmd-form-group">
+                    <label for="amount" class="bmd-label-floating">
+                        <span>Amount</span>
+                        <span class="input-required">(required)</span>
+                    </label>
+                    <input type="number" name="amount" class="form-control"
+                        [(ngModel)]="selectedPaymentInformation.amount" #Amount="ngModel" required />
+
+                    <div *ngIf="Amount.invalid && modalFormSubmited === true">
+                        <div *ngIf="Amount.errors.required">
+                            <small class="error-message">*required field!</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group has-success bmd-form-group">
+                    <label for="balance" class="bmd-label-floating">
+                        <span>Balance</span>
+                        <span class="input-required">(required)</span>
+                    </label>
+                    <input type="text" id="balance" name="balance" class="form-control"
+                        [(ngModel)]="selectedPaymentInformation.balance" #Balance="ngModel" required />
+
+                    <div *ngIf="Balance.invalid && modalFormSubmited">
+                        <div *ngIf="Balance.errors.required">
+                            <small class="error-message">*required field!</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group has-success bmd-form-group">
+                    <label for="description" class="bmd-label-floating">
+                        <span>Description</span>
+                    </label>
+                    <input type="text" id="description" name="description" class="form-control"
+                        [(ngModel)]="selectedPaymentInformation.description" />
+                </div>
+
+                <!-- </div> -->
+
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark"
+                (click)="paymentFormSubmit(EditPaymentForm, modal)">Save</button>
+        </div>
+    </ng-template>
+</div>
+
+<ng-template #errorTemplate>
+    <div class="row">
+        <div class="col-12">
+            <div id="pageError">
+                <h4 id="error-code">{{fetchDataError?.status}} {{fetchDataError?.statusText}}!</h4>
+                <p id="error-message">{{fetchDataError?.error.detail}}</p>
+            </div>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,367 @@
+<div class="container">
+    <div class="user-information-page">
+        <ngx-spinner></ngx-spinner>
+        <div id="patient-infor-section">
+            <div id="start-session-button">
+                <button class="btn btn-start-session" (click)="startSession()"><i class="fa fa-plus-square"
+                        aria-hidden="true"></i>start session</button>
+            </div>
+            <div class="card">
+                <div class="card-header card-green">
+                    <h5 class="card-title">Patient Information</h5>
+                </div>
+                <div class="card-body" *ngIf="editPatientDetails === false">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-user-information">
+                                    <tbody>
+                                        <!-- <tr>
+                                        <td>Registration Number:</td>
+                                        <td>{{patient?.patientID}}</td>
+                                    </tr> -->
+                                        <tr>
+                                            <td>Name:</td>
+                                            <td>{{patient?.firstName}} {{patient?.middleName}} {{patient?.surname}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Age</td>
+                                            <td>{{patient?.age}}</td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>Gender</td>
+                                            <td>{{patient?.gender}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Email:</td>
+                                            <td><span class="email-value"><i>{{patient?.email}}</i></span></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Number:</td>
+                                            <td>
+                                                <span class="phone-number-label">1:</span>
+                                                <span class="phone-number-value">{{patient?.mainPhoneNumber}}</span><br>
+                                                <span class="phone-number-label">2:</span>
+                                                <span
+                                                    class="phone-number-value">{{patient?.alternativePhoneNumber}}</span>
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-user-information">
+                                    <tbody>
+                                        <tr>
+                                            <td>County:</td>
+                                            <td>{{patient?.county}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sub-county</td>
+                                            <td>{{patient?.subCounty}}</td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>Area or Estate</td>
+                                            <td>{{patient?.estateOrArea}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Registration Date</td>
+                                            <td>
+                                                <p><span style="margin-right: 10px;">{{patient?.registrationDate | date: 'dd/MM/yyyy'}}</span> at
+                                                    <span style="margin-left: 10px;">{{patient?.registrationDate | date: 'shortTime'}}</span>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body" *ngIf="editPatientDetails === true">
+                    <form #EditPatientDetailsForm="ngForm">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="row">
+                                    <!-- <div class="col-lg-4 col-md-5 col-sm-6">
+                                        <h6 class="editLabel">Registration Number:</h6>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="form-group has-success bmd-form-group">
+                                            <input type="number" name="patientID" class="form-control"
+                                                [(ngModel)]="patient.patientID" #PatientID="ngModel" required>
+
+                                            <div *ngIf="PatientID.invalid && editPatientDetailsFormSubmitted === true">
+                                                <div *ngIf="PatientID.errors.required">
+                                                    <small class="error-message">*required field!</small>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div> -->
+
+                                    <div class="col-lg-4 col-md-5 col-sm-6">
+                                        <h6 class="editLabel">First Name:</h6>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="form-group has-success bmd-form-group">
+                                            <input type="text" name="firstName" class="form-control"
+                                                [(ngModel)]="patient.firstName" #FirstName="ngModel" required>
+                                            <div *ngIf="FirstName.invalid && editPatientDetailsFormSubmitted === true">
+                                                <div *ngIf="FirstName.errors.required">
+                                                    <small class="error-message">*required field!</small>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-5 col-sm-6">
+                                        <h6 class="editLabel">Middle Name:</h6>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="form-group has-success bmd-form-group">
+                                            <input type="text" name="middleName" class="form-control"
+                                                [(ngModel)]="patient.middleName" #MiddleName="ngModel">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-5 col-sm-6">
+                                        <h6 class="editLabel">Surname:</h6>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="form-group has-success bmd-form-group">
+                                            <input type="text" name="surname" class="form-control"
+                                                [(ngModel)]="patient.surname" #Surname="ngModel" required>
+                                            <div *ngIf="Surname.invalid && editPatientDetailsFormSubmitted === true">
+                                                <div *ngIf="Surname.errors.required">
+                                                    <small class="error-message">*required field!</small>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-5 col-sm-6">
+                                        <h6 class="editLabel">Age:</h6>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="form-group has-success bmd-form-group">
+                                            <input type="text" name="age" class="form-control" [(ngModel)]="patient.age"
+                                                #Age="ngModel" required>
+                                            <div *ngIf="Age.invalid && editPatientDetailsFormSubmitted === true">
+                                                <div *ngIf="Age.errors.required">
+                                                    <small class="error-message">*required field!</small>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-5 col-sm-6">
+                                        <h6 class="editLabel">Gender:</h6>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="form-group has-success bmd-form-group">
+                                            <input type="text" name="gender" class="form-control"
+                                                [(ngModel)]="patient.gender" #Gender="ngModel" required>
+                                            <div *ngIf="Gender.invalid && editPatientDetailsFormSubmitted === true">
+                                                <div *ngIf="Gender.errors.required">
+                                                    <small class="error-message">*required field!</small>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-5  col-sm-6">
+                                        <h6 class="editLabel">Number 1:</h6>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="form-group has-success bmd-form-group">
+                                            <input type="text" name="mainPhoneNumber" class="form-control"
+                                                [(ngModel)]="patient.mainPhoneNumber" #MainPhoneNumber="ngModel"
+                                                required>
+                                            <div
+                                                *ngIf="MainPhoneNumber.invalid && editPatientDetailsFormSubmitted === true">
+                                                <div *ngIf="MainPhoneNumber.errors.required">
+                                                    <small class="error-message">*required field!</small>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-5 col-sm-6">
+                                        <h6 class="editLabel">Number 2:</h6>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="form-group has-success bmd-form-group">
+                                            <input type="text" name="alternativePhoneNumber" class="form-control"
+                                                [(ngModel)]="patient.alternativePhoneNumber"
+                                                #AlternativePhoneNumber="ngModel">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-sm-6">
+                                        <h6 class="editLabel">Email:</h6>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="form-group has-success bmd-form-group">
+                                            <input type="text" name="email" class="form-control"
+                                                [(ngModel)]="patient.email" #Email="ngModel">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-5 col-sm-6">
+                                        <h6 class="editLabel">County:</h6>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="form-group has-success bmd-form-group">
+                                            <input type="text" name="county" class="form-control"
+                                                [(ngModel)]="patient.county" #County="ngModel" required>
+
+                                            <div *ngIf="County.invalid && editPatientDetailsFormSubmitted === true">
+                                                <div *ngIf="County.errors.required">
+                                                    <small class="error-message">*required field!</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-sm-6">
+                                        <h6 class="editLabel">Sub-County:</h6>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="form-group has-success bmd-form-group">
+                                            <input type="text" name="subCounty" class="form-control"
+                                                [(ngModel)]="patient.subCounty" #SubCounty="ngModel">
+
+                                            <!-- <div *ngIf="SubCounty.invalid && editPatientDetailsFormSubmitted === true">
+                                                <div *ngIf="SubCounty.errors.required">
+                                                    <small class="error-message">*required field!</small>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-5 col-sm-6">
+                                        <h6 class="editLabel">Estate or Village:</h6>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="form-group has-success bmd-form-group">
+                                            <input type="text" name="estateOrArea" class="form-control"
+                                                [(ngModel)]="patient.estateOrArea" #EstateOrArea="ngModel" required>
+
+                                            <div
+                                                *ngIf="EstateOrArea.invalid && editPatientDetailsFormSubmitted === true">
+                                                <div *ngIf="EstateOrArea.errors.required">
+                                                    <small class="error-message">*required field!</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-12">
+                                <button class="btn btn-default btn-left" (click)="cancelEdit()"><i class="fa fa-times"
+                                        aria-hidden="true"></i>Cancel</button>
+                                <button class="btn btn-success btn-right"
+                                    (click)="submitData(EditPatientDetailsForm)"><i class="fa fa-check"
+                                        aria-hidden="true"></i>Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-left btn-edit-information" (click)="EditPatientDetails()"
+                        *ngIf="editPatientDetails === false">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>edit patient information</button>
+                    <button class="btn btn-right btn-delete-information" *ngIf="user?.is_superuser"
+                        (click)="deletePatient(deleteContentWarning)">
+                        <i class="fa fa-trash" aria-hidden="true"></i>delete patient</button>
+                </div>
+
+                <ng-template #deleteContentWarning let-modal>
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modal-basic-title" style="color: red;"> DELETE PATIENT !</h4>
+                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h6>Are you sure you want to delete this patient? This action is NOT reversable</h6>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" (click)="modal.close()">DELETE</button>
+                    </div>
+                </ng-template>
+
+            </div>
+        </div>
+
+        <div id="sessions-list-section">
+            <div class="card">
+                <div class="card-header card-green">
+                    <h5 class="card-title">Sessions History</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div *ngIf="sessionHistoryExists === true" class="table-responsive">
+                                <table class="table">
+                                    <thead class="table-info">
+                                        <tr>
+                                            <th></th>
+                                            <th>Status</th>
+                                            <th>Registration Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let session of sessionHistory; let i = index" class="session-entry"
+                                            (click)="navToSessionDetails(session)">
+                                            <td>{{(i+1)}}</td>
+                                            <td>{{session.status}}</td>
+                                            <td>
+                                                <p>
+                                                    <span
+                                                        style="margin-right: 10px;"><b>{{session.date | date: 'dd/MM/yyyy'}}</b></span>At<span
+                                                        style="margin-left: 10px;"><b>{{session.date | date: 'shortTime'}}</b></span>
+                                                    <span *ngIf="i === 0" class="badge badge-pill badge-warning">Most
+                                                        Resent</span>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="empty-list-feedback" *ngIf="sessionHistoryExists === false">
+                                <h5>No records available.</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

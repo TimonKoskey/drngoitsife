@@ -1,0 +1,110 @@
+#navbar {
+	background-color:#f90;
+}
+
+#navbar .btn {
+	border:0px solid transparent;
+}
+
+#navbar .btn-default.focus, #navbar .btn-default:focus {
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+}
+
+#navbar li.nav-item a {
+	font-weight:700;
+	color:#333;
+}
+
+#navbar li.nav-item a:hover {
+	color:#fff;
+}
+
+#navbar li.nav-item.active a {
+	color: whitesmoke;
+}
+
+#navbar a.dropdown-item {
+	font-weight:400 !important;
+}
+
+#navbar button.dropdown-toggle-split {
+
+    background-color:transparent;
+}
+#navbar button.dropdown-toggle-split:hover {
+	color:#fff;
+}
+
+#navbar button.dropdown-toggle-split:active {
+	outline:none;
+}
+
+#session-reg-details-section {
+	background-color: #fff;
+}
+
+
+.session-data-section .session-data-header{
+	margin-top: 5px;
+	padding-left: 20px;
+	margin-bottom: 0px;
+	font-weight: 400;
+	border-bottom: 1px solid grey;
+}
+
+.session-data-section .session-data{
+	font-size: .9em;
+	font-weight: 300;
+	margin-top: 5px;
+	margin-bottom: 0px;
+}
+
+.session-data-section .session-data .data-label {
+	color: green;
+}
+
+.session-data-section .session-data .data-value {
+	margin-left: 10px;
+}
+
+.session-data .data-value.as-link {
+	color: blue;
+	cursor: pointer;
+}
+
+.session-data .edit-data-value {
+	background-color: blue;
+	color: whitesmoke;
+	margin-left: 20px;
+	padding: 2px 5px;
+	font-size: small;
+	font-weight: 500;
+	cursor: pointer;
+}
+
+.session-data .edit-data-value i {
+	margin-right: 5px;
+}
+
+.session-data .mark-data-value {
+	color: #ffc107;
+	margin-left: 20px;
+}
+
+.session-data-warning {
+	margin-top: 20px;
+	float: right;
+}
+
+.session-data-warning .data-value.as-link {
+	background-color: red !important;
+	color: whitesmoke;
+	padding: 4px 10px;
+}
+
+.session-data-section i {
+	margin-right: 5px;
+}
+
+

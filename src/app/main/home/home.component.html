@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-12" style="text-align: center;">
+            <div class="feature-box" (click)="navToPatientRecords()">
+                <i class="fa fa-search icone_grande" aria-hidden="true"></i>
+                <h6 class="feature-label">Find Patient Record</h6>
+            </div>
+        </div> <!-- End Col -->
+
+        <div class="col-lg-3 col-md-4 col-sm-12">
+            <div class="feature-box" (click)="navToPatientRegistration()">
+                <i class="fa fa-user icone_grande" aria-hidden="true"></i>
+                <h6 class="feature-label">Register Patient</h6>
+            </div>
+        </div> <!-- End Col -->
+
+        <div class="col-lg-3 col-md-4 col-sm-12">
+            <div class="feature-box" (click)="navToActiveSessions()">
+                <i class="fa fa-book icone_grande" aria-hidden="true"></i>
+                <h6 class="feature-label">Active Sessions</h6>
+            </div>
+        </div> <!-- End Col -->
+
+        <div class="col-lg-3 col-md-4 col-sm-12">
+            <div class="feature-box" (click)="navToRetrieveSession()">
+                <i class="fa fa-history icone_grande" aria-hidden="true"></i>
+                <h6 class="feature-label">Retrieve Session</h6>
+            </div>
+        </div> <!-- End Col -->
+
+        <div class="col-lg-3 col-md-4 col-sm-12">
+            <div class="feature-box" (click)="navToFollowUpSessions()">
+                <i class="fa fa-calendar icone_grande" aria-hidden="true"></i>
+                <h6 class="feature-label">Follow up Sessions</h6>
+            </div>
+        </div> <!-- End Col -->
+
+        <div class="col-lg-3 col-md-4 col-sm-12" *ngIf="user?.is_superuser">
+            <div class="feature-box" (click)="navToSysAdmin()">
+                <i class="fa fa-cogs icone_grande" aria-hidden="true"></i>
+                <h6 class="feature-label">System Administration</h6>
+            </div>
+        </div> <!-- End Col -->
+    </div>
+</div>

@@ -1,0 +1,71 @@
+<div class="container">
+    <div class="retrieve-session">
+        <ngx-spinner></ngx-spinner>
+        <div class="card">
+            <div class="card-body page-content">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-header">
+                            <h4 class="page-title">Retrieve Sessions.</h4>
+                        </div>
+                    </div>
+                    <div class="col-12">
+
+                        <div class="search-by-date" style="text-align: center;">
+                            <button class="btn btn-success" (click)="open(content)"><i class="fa fa-calendar"
+                                    aria-hidden="true"></i>Check Calender</button>
+                        </div>
+
+                        <ng-template #content let-modal>
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="modal-basic-title">Select Date</h4>
+                                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <ngb-datepicker (dateSelect)="onDateSelect($event)"></ngb-datepicker>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-dark" (click)="modal.close()"><i
+                                        class="fa fa-search" aria-hidden="true"></i>Search</button>
+                            </div>
+                        </ng-template>
+                    </div>
+                    <div class="col-12">
+                        <div class="table-responsive" *ngIf="recordsAvailable === true">
+                            <table class="table">
+                                <thead class="table-info">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Status</th>
+                                        <th>Registration Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="session-entry" *ngFor="let session of retrievedSessions"
+                                        (click)="navToSessionDetails(session)">
+                                        <td>{{session.patient.firstName}} {{session.patient.middleName}}
+                                            {{session.patient.surname}}</td>
+                                        <td>{{session.status}}</td>
+                                        <td>{{session.date | date: 'dd/MM/yyyy'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="empty-list-feedback" *ngIf="recordsAvailable === false">
+                            <h5>No records available.</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

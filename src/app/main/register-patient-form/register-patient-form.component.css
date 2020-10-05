@@ -1,0 +1,8 @@
+.error-message a {
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.data-exists-error-title {
+    color: red;
+}

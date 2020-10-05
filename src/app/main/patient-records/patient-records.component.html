@@ -1,0 +1,63 @@
+<div class="container">
+    <div class="patient-records">
+        <ngx-spinner></ngx-spinner>
+        <div class="card">
+            <div class="card-body page-content">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-header">
+                            <h4 class="page-title">Find Patient</h4>
+                        </div>
+                    </div>
+                    <div class="col-12 ">
+                        <div id="custom-search-input">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control"
+                                    placeholder="Enter Patient Reg Number, Name or Phone Number" (keyup)="onKey($event)"
+                                    aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button"><span
+                                            class="fa fa-search"></span> search </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="table-responsive" *ngIf="recordsAvailable === true">
+                            <table class="table">
+                                <thead class="table-info">
+                                    <tr>
+                                        <th></th>
+                                        <th>Name</th>
+                                        <!-- <th>Reg Number</th> -->
+                                        <th>Gender</th>
+                                        <th>Age</th>
+                                        <th>Reg Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-entry-clickable"
+                                        *ngFor="let patient of paginatedPatientList; let i = index"
+                                        (click)="goToDetails(patient)">
+                                        <td>{{getItemCount(i)}}</td>
+                                        <td>{{patient.firstName}} {{patient.middleName}} {{patient.surname}}</td>
+                                        <!-- <td>{{patient.id}}</td> -->
+                                        <td>{{patient.gender}}</td>
+                                        <td>{{patient.age}}</td>
+                                        <td>{{patient.registrationDate | date: 'dd/MM/yyyy'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <pagination [totalItems]="patientsList.length" (pageChanged)="pageChanged($event)">
+                            </pagination>
+                        </div>
+
+                        <div class="empty-list-feedback" *ngIf="recordsAvailable === false">
+                            <h5>No records available.</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
