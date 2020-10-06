@@ -6,6 +6,7 @@ import { User } from '../../models/user';
 import { Patient } from '../../models/patient';
 import { Session } from '../../models/session';
 import { Payment } from '../../models/payment';
+import { Notes } from '../../models/notes';
 
 @Injectable({
   providedIn: 'root'
@@ -106,6 +107,90 @@ export class APIService {
 
   deleteSessionPaymentDetails(paymentID: number){
     return this.http.delete(`${this.sessionUrl}/payment/details/${paymentID}`);
+  }
+
+  createSessionComplaints(sessionID: number, notes: Notes): Observable<Notes> {
+    return this.http.post<Notes>(`${this.sessionUrl}/complaints/create/${sessionID}`, notes);
+  }
+
+  getSessionComplaints(sessionID: number): Observable<Notes> {
+    return this.http.get<Notes>(`${this.sessionUrl}/complaints/details/${sessionID}`);
+  }
+
+  updateSessionComplaintsDetails(notesID: number, notes: Notes): Observable<Notes> {
+    return this.http.put<Notes>(`${this.sessionUrl}/complaints/update/${notesID}`, notes);
+  }
+
+  createSessionPhycExam(sessionID: number, notes: Notes): Observable<Notes> {
+    return this.http.post<Notes>(`${this.sessionUrl}/physc-exams/create/${sessionID}`, notes);
+  }
+
+  getSessionPhycExam(sessionID: number): Observable<Notes> {
+    return this.http.get<Notes>(`${this.sessionUrl}/physc-exams/details/${sessionID}`);
+  }
+
+  updateSessionPhycExam(notesID: number, notes: Notes): Observable<Notes> {
+    return this.http.put<Notes>(`${this.sessionUrl}/physc-exams/update/${notesID}`, notes);
+  }
+
+  createSessionComorbities(sessionID: number, notes: Notes): Observable<Notes> {
+    return this.http.post<Notes>(`${this.sessionUrl}/comorbidities/create/${sessionID}`, notes);
+  }
+
+  getSessionComorbities(sessionID: number): Observable<Notes> {
+    return this.http.get<Notes>(`${this.sessionUrl}/comorbidities/details/${sessionID}`);
+  }
+
+  updateSessionComorbities(notesID: number, notes: Notes): Observable<Notes> {
+    return this.http.put<Notes>(`${this.sessionUrl}/comorbidities/update/${notesID}`, notes);
+  }
+
+  createSessionInvestigations(sessionID: number, notes: Notes): Observable<Notes> {
+    return this.http.post<Notes>(`${this.sessionUrl}/investigations/create/${sessionID}`, notes);
+  }
+
+  getSessionInvestigations(sessionID: number): Observable<Notes> {
+    return this.http.get<Notes>(`${this.sessionUrl}/investigations/details/${sessionID}`);
+  }
+
+  updateSessionInvestigations(notesID: number, notes: Notes): Observable<Notes> {
+    return this.http.put<Notes>(`${this.sessionUrl}/investigations/update/${notesID}`, notes);
+  }
+
+  createSessionDiagnosis(sessionID: number, notes: Notes): Observable<Notes> {
+    return this.http.post<Notes>(`${this.sessionUrl}/diagnosis/create/${sessionID}`, notes);
+  }
+
+  getSessionDiagnosis(sessionID: number): Observable<Notes> {
+    return this.http.get<Notes>(`${this.sessionUrl}/diagnosis/details/${sessionID}`);
+  }
+
+  updateSessionDiagnosis(notesID: number, notes: Notes): Observable<Notes> {
+    return this.http.put<Notes>(`${this.sessionUrl}/diagnosis/update/${notesID}`, notes);
+  }
+
+  createSessionTreatment(sessionID: number, notes: Notes): Observable<Notes> {
+    return this.http.post<Notes>(`${this.sessionUrl}/treatment/create/${sessionID}`, notes);
+  }
+
+  getSessionTreatment(sessionID: number): Observable<Notes> {
+    return this.http.get<Notes>(`${this.sessionUrl}/treatment/details/${sessionID}`);
+  }
+
+  updateSessionTreatment(notesID: number, notes: Notes): Observable<Notes> {
+    return this.http.put<Notes>(`${this.sessionUrl}/treatment/update/${notesID}`, notes);
+  }
+
+  createSessionRemarks(sessionID: number, notes: Notes): Observable<Notes> {
+    return this.http.post<Notes>(`${this.sessionUrl}/remarks/create/${sessionID}`, notes);
+  }
+
+  getSessionRemarks(sessionID: number): Observable<Notes> {
+    return this.http.get<Notes>(`${this.sessionUrl}/remarks/details/${sessionID}`);
+  }
+
+  updateSessionRemarks(notesID: number, notes: Notes): Observable<Notes> {
+    return this.http.put<Notes>(`${this.sessionUrl}/remarks/update/${notesID}`, notes);
   }
 
 }

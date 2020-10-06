@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { APIService } from '../../services/api/api.service';
-import { Session } from '../../models/session';
 import { NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Payment } from '../../models/payment';
@@ -17,7 +16,7 @@ export class PaymentsComponent implements OnInit {
   sessionID: number;
   payments: Payment[] = [];
   selectedPaymentInformation: Payment;
-  fetchDataError: HttpErrorResponse
+  fetchDataError: HttpErrorResponse;
   modalFormSubmited: boolean;
   dataAvailable: boolean;
 

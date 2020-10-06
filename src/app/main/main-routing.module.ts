@@ -12,7 +12,13 @@ import { FollowUpComponent } from './follow-up/follow-up.component';
 
 import { SessionComponent } from '../session/session.component';
 import { PaymentsComponent } from '../session/payments/payments.component';
-
+import { ComplaintsComponent } from '../session/complaints/complaints.component';
+import { PhysicalExamsComponent } from '../session/physical-exams/physical-exams.component';
+import { ComorbiditiesComponent } from '../session/comorbidities/comorbidities.component';
+import { InvestigationsComponent } from '../session/investigations/investigations.component';
+import { DiagnosisComponent } from '../session/diagnosis/diagnosis.component';
+import { TreatmentComponent } from '../session/treatment/treatment.component';
+import { RemarksComponent } from '../session/remarks/remarks.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent, children: [
@@ -28,6 +34,13 @@ const routes: Routes = [
     { path: 'session', component: SessionComponent, children: [
       { path: '',   redirectTo: 'payments', pathMatch: 'full' },
       { path: 'payments', component: PaymentsComponent },
+      { path: 'complaints', component: ComplaintsComponent },
+      { path: 'physical-exam', component: PhysicalExamsComponent },
+      { path: 'comorbidities', component: ComorbiditiesComponent },
+      { path: 'investigations', component: InvestigationsComponent },
+      { path: 'diagnosis', component: DiagnosisComponent },
+      { path: 'treatment', component: TreatmentComponent },
+      { path: 'remarks', component: RemarksComponent }
     ]}
   ] }
 ];

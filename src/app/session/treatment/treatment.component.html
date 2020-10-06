@@ -1,1 +1,156 @@
-<p>treatment works!</p>
+<div class="container">
+    <div class="consultation-data" *ngIf="fetchDataError === undefined; else errorTemplate">
+        <ngx-spinner></ngx-spinner>
+        <div *ngIf="sectionCompleted === false || edit === true">
+            <div class="card">
+                <div class="card-body">
+                    <div class="session-data-form-header">
+                        <h6 class="header-title">
+                            Treatment
+                        </h6>
+                    </div>
+                    <form [formGroup]='formGroup' autocomplete="off">
+                        <ol>
+                            <li>
+                                <div class="form-group float-label-control">
+                                    <input type="text" class="form-control" formControlName="entry1"
+                                        autocomplete="off">
+                                        <!-- [typeahead]="suggestions" [isAnimated]="true"  -->
+                                    <div *ngIf="data1.invalid && formGroupSubmitted">
+                                        <div *ngIf="data1.errors.required">
+                                            <small class="error-message">* required field!</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="form-group float-label-control">
+                                    <input type="text" class="form-control" formControlName="entry2"
+                                        [typeahead]="suggestions" [isAnimated]="true" autocomplete="off">
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="form-group float-label-control">
+                                    <input type="text" class="form-control" formControlName="entry3"
+                                        [typeahead]="suggestions" [isAnimated]="true" autocomplete="off">
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="form-group float-label-control">
+                                    <input type="text" class="form-control" formControlName="entry4"
+                                        [typeahead]="suggestions" [isAnimated]="true" autocomplete="off">
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="form-group float-label-control">
+                                    <input type="text" class="form-control" formControlName="entry5"
+                                        [typeahead]="suggestions" [isAnimated]="true" autocomplete="off">
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="form-group float-label-control">
+                                    <input type="text" class="form-control" formControlName="entry6"
+                                        [typeahead]="suggestions" [isAnimated]="true" autocomplete="off">
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="form-group float-label-control">
+                                    <input type="text" class="form-control" formControlName="entry7"
+                                        [typeahead]="suggestions" [isAnimated]="true" autocomplete="off">
+                                </div>
+                            </li>
+                        </ol>
+                    </form>
+
+                </div>
+                <div class="card-footer">
+                    <div>
+                        <button *ngIf="edit === true" class="btn btn-left"
+                            (click)="cancelEditor()"><i class="fa fa-times" aria-hidden="true"></i>CANCEL</button>
+                        <button class="btn btn-right" (click)="submitForm()"><i class="fa fa-check"
+                                aria-hidden="true"></i>SAVE</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div *ngIf="sectionCompleted === true && edit !== true">
+            <div class="card">
+                <div class="card-body">
+                    <div class="session-data-form-header">
+                        <h6 class="header-title">
+                            Treatment
+                        </h6>
+                    </div>
+                    <div class="details-section-body">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <ul>
+                                    <li>
+                                        <p class="details-section-data">{{notes?.entry1}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{notes?.entry2}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{notes?.entry3}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{notes?.entry4}}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <ul>
+                                    <li>
+                                        <p class="details-section-data">{{notes?.entry5}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{notes?.entry6}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{notes?.entry7}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data"></p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div>
+                        <button class="btn btn-right" (click)="Edit()"><i
+                                class="fa fa-pencil-square-o" aria-hidden="true"></i>EDIT</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #errorTemplate>
+        <div class="row">
+            <div class="col-12">
+                <div id="pageError" *ngIf="fetchDataError.status !== 404">
+                    <h4 id="error-code">{{fetchDataError?.status}} {{fetchDataError?.statusText}}!</h4>
+                    <p id="error-message">{{fetchDataError?.error.detail}}</p>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>
