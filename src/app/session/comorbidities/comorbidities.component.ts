@@ -5,6 +5,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { APIService } from '../../services/api/api.service';
 import { Notes } from '../../models/notes';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-comorbidities',
@@ -20,6 +22,8 @@ export class ComorbiditiesComponent implements OnInit {
   edit: boolean;
   notes: Notes;
   notesCopy: Notes;
+  suggestions: Observable<string>;
+  user: User;
 
   constructor(
     private router: Router,
@@ -30,6 +34,7 @@ export class ComorbiditiesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.user = this.apiservice.getUser();
     this.route.queryParams.subscribe(params => {
       if (params.sessionID !== undefined && params.sessionID !== null) {
         this.sessionID = params.sessionID;
@@ -62,6 +67,48 @@ export class ComorbiditiesComponent implements OnInit {
       entry5: [this.notes !== undefined ? this.notes.entry5 : ''],
       entry6: [this.notes !== undefined ? this.notes.entry6 : ''],
       entry7: [this.notes !== undefined ? this.notes.entry7 : '']
+    });
+
+    this.formGroup.get('entry1').valueChanges.subscribe(value => {
+      if(value !== '') {
+        this.suggestions = this.apiservice.getComorbiditiesSuggestions(value);
+      }
+    });
+
+    this.formGroup.get('entry2').valueChanges.subscribe(value => {
+      if(value !== '') {
+        this.suggestions = this.apiservice.getComorbiditiesSuggestions(value);
+      }
+    });
+
+    this.formGroup.get('entry3').valueChanges.subscribe(value => {
+      if(value !== '') {
+        this.suggestions = this.apiservice.getComorbiditiesSuggestions(value);
+      }
+    });
+
+    this.formGroup.get('entry4').valueChanges.subscribe(value => {
+      if(value !== '') {
+        this.suggestions = this.apiservice.getComorbiditiesSuggestions(value);
+      }
+    });
+
+    this.formGroup.get('entry5').valueChanges.subscribe(value => {
+      if(value !== '') {
+        this.suggestions = this.apiservice.getComorbiditiesSuggestions(value);
+      }
+    });
+
+    this.formGroup.get('entry6').valueChanges.subscribe(value => {
+      if(value !== '') {
+        this.suggestions = this.apiservice.getComorbiditiesSuggestions(value);
+      }
+    });
+
+    this.formGroup.get('entry7').valueChanges.subscribe(value => {
+      if(value !== '') {
+        this.suggestions = this.apiservice.getComorbiditiesSuggestions(value);
+      }
     });
   }
 

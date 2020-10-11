@@ -15,8 +15,6 @@ export class PatientRecordsComponent implements OnInit, OnDestroy {
   patientsList: Array<Patient> = [];
   mainPatientsList: Array<Patient> = [];
   paginatedPatientList: Array<Patient> = []
-  // is_filtering = false;
-  // poll: any;
   currentPaginationPage: number;
 
   constructor(
@@ -29,11 +27,6 @@ export class PatientRecordsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.spinner.show();
     this.fetchPatientsList();
-    // this.poll = setInterval(() => {
-    //   if (!this.is_filtering) {
-    //     this.fetchPatientsList();
-    //   } 
-    // }, 60000);
   }
 
   fetchPatientsList() {
@@ -56,24 +49,25 @@ export class PatientRecordsComponent implements OnInit, OnDestroy {
   onKey(event: any) {
     const searchTerm = event.target.value;
     if (searchTerm !== '' || searchTerm !== undefined) {
-      // this.is_filtering = true;
       const searchTermLower = searchTerm.toLowerCase();
       const newPatientsList = [];
+      console.log(searchTermLower)
       for (const patient of this.mainPatientsList) {
-        const patientId = patient.patientRegistrationNumber.toString();
         const mainPhoneNumber = patient.mainPhoneNumber;
         const firstName = patient.firstName.toLowerCase();
         const middleName = patient.middleName.toLowerCase();
         const surname = patient.surname.toLowerCase();
-        if (patientId.includes(searchTermLower)  || surname.includes(searchTermLower)  || firstName.includes(searchTermLower) ||
-          middleName.includes(searchTermLower) || mainPhoneNumber.includes(searchTermLower)) {
+
+        if (surname.includes(searchTermLower)  || firstName.includes(searchTermLower) ||  middleName.includes(searchTermLower) ||
+          mainPhoneNumber.includes(searchTermLower)) {
             newPatientsList.push(patient);
         }
       }
       this.patientsList = newPatientsList;
+      this.paginatedPatientList = this.patientsList.slice(0, 10);
     } else {
       this.patientsList = this.mainPatientsList;
-      // this.is_filtering = false;
+      this.paginatedPatientList = this.patientsList.slice(0, 10);
     }
   }
 
@@ -102,9 +96,7 @@ export class PatientRecordsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // if (this.poll) {
-    //   clearInterval(this.poll);
-    // }
+
   }
 
 }

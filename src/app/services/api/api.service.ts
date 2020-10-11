@@ -4,7 +4,7 @@ import { PersistenceService, StorageType } from 'angular-persistence';
 import { Observable, throwError } from 'rxjs';
 import { User } from '../../models/user';
 import { Patient } from '../../models/patient';
-import { Session } from '../../models/session';
+import { Session, MergedSessions } from '../../models/session';
 import { Payment } from '../../models/payment';
 import { Notes } from '../../models/notes';
 
@@ -39,6 +39,10 @@ export class APIService {
 
   removeSession() {
     this.persistence.remove('session', StorageType.SESSION);
+  }
+
+  checkIfPatientExists(patient: Patient): Observable<Array<Patient>> {
+    return this.http.post<Array<Patient>>(`${this.patientUrl}/check`, patient);
   }
 
   registerNewPatientToDatabase(patient: Patient): Observable<Patient> {
@@ -191,6 +195,46 @@ export class APIService {
 
   updateSessionRemarks(notesID: number, notes: Notes): Observable<Notes> {
     return this.http.put<Notes>(`${this.sessionUrl}/remarks/update/${notesID}`, notes);
+  }
+
+  getComplaintsSuggestions(queryString: string): Observable<any> {
+    return this.http.get(`${this.sessionUrl}/complaints/suggestions`, {params: {queryString: queryString}});
+  }
+
+  getPhysicalSuggestions(queryString: string): Observable<any> {
+    return this.http.get(`${this.sessionUrl}/phyc-exams/suggestions`, {params: {queryString: queryString}});
+  }
+
+  getComorbiditiesSuggestions(queryString: string): Observable<any> {
+    return this.http.get(`${this.sessionUrl}/comorbidities/suggestions`, {params: {queryString: queryString}});
+  }
+
+  getInvestigationsSuggestions(queryString: string): Observable<any> {
+    return this.http.get(`${this.sessionUrl}/investigations/suggestions`, {params: {queryString: queryString}});
+  }
+
+  getDiagnosisSuggestions(queryString: string): Observable<any> {
+    return this.http.get(`${this.sessionUrl}/diagnosis/suggestions`, {params: {queryString: queryString}});
+  }
+
+  getTreatmentSuggestions(queryString: string): Observable<any> {
+    return this.http.get(`${this.sessionUrl}/treatment/suggestions`, {params: {queryString: queryString}});
+  }
+
+  getRemarksSuggestions(queryString: string): Observable<any> {
+    return this.http.get(`${this.sessionUrl}/remarks/suggestions`, {params: {queryString: queryString}});
+  }
+
+  checkForOpenFollowUp(): Observable<Array<Session>> {
+    return this.http.get<Array<Session>>(`${this.sessionUrl}/follow-up/open/list`);
+  }
+
+  getPreviousMergedSession(sessionID: number): Observable<Array<Session>> {
+    return this.http.get<Array<Session>>(`${this.sessionUrl}/merged/previous/${sessionID}`);
+  }
+
+  getNextMergedSession(sessionID: number): Observable<Array<Session>> {
+    return this.http.get<Array<Session>>(`${this.sessionUrl}/merged/next/${sessionID}`);
   }
 
 }

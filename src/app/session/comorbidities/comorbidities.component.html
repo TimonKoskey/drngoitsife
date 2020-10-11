@@ -1,7 +1,7 @@
 <div class="container">
     <div class="consultation-data" *ngIf="fetchDataError === undefined; else errorTemplate">
         <ngx-spinner></ngx-spinner>
-        <div *ngIf="sectionCompleted === false || edit === true">
+        <div *ngIf="(sectionCompleted === false || edit === true) && user?.is_superuser">
             <div class="card">
                 <div class="card-body">
                     <div class="session-data-form-header">
@@ -14,8 +14,7 @@
                             <li>
                                 <div class="form-group float-label-control">
                                     <input type="text" class="form-control" formControlName="entry1"
-                                        autocomplete="off">
-                                        <!-- [typeahead]="suggestions" [isAnimated]="true"  -->
+                                        [typeahead]="suggestions" [typeaheadAsync]="true" [isAnimated]="true" autocomplete="off">
                                     <div *ngIf="data1.invalid && formGroupSubmitted">
                                         <div *ngIf="data1.errors.required">
                                             <small class="error-message">* required field!</small>
@@ -27,42 +26,42 @@
                             <li>
                                 <div class="form-group float-label-control">
                                     <input type="text" class="form-control" formControlName="entry2"
-                                        [typeahead]="suggestions" [isAnimated]="true" autocomplete="off">
+                                        [typeahead]="suggestions" [typeaheadAsync]="true" [isAnimated]="true" autocomplete="off">
                                 </div>
                             </li>
 
                             <li>
                                 <div class="form-group float-label-control">
                                     <input type="text" class="form-control" formControlName="entry3"
-                                        [typeahead]="suggestions" [isAnimated]="true" autocomplete="off">
+                                        [typeahead]="suggestions" [typeaheadAsync]="true" [isAnimated]="true" autocomplete="off">
                                 </div>
                             </li>
 
                             <li>
                                 <div class="form-group float-label-control">
                                     <input type="text" class="form-control" formControlName="entry4"
-                                        [typeahead]="suggestions" [isAnimated]="true" autocomplete="off">
+                                        [typeahead]="suggestions" [typeaheadAsync]="true" [isAnimated]="true" autocomplete="off">
                                 </div>
                             </li>
 
                             <li>
                                 <div class="form-group float-label-control">
                                     <input type="text" class="form-control" formControlName="entry5"
-                                        [typeahead]="suggestions" [isAnimated]="true" autocomplete="off">
+                                        [typeahead]="suggestions" [typeaheadAsync]="true" [isAnimated]="true" autocomplete="off">
                                 </div>
                             </li>
 
                             <li>
                                 <div class="form-group float-label-control">
                                     <input type="text" class="form-control" formControlName="entry6"
-                                        [typeahead]="suggestions" [isAnimated]="true" autocomplete="off">
+                                        [typeahead]="suggestions" [typeaheadAsync]="true" [isAnimated]="true" autocomplete="off">
                                 </div>
                             </li>
 
                             <li>
                                 <div class="form-group float-label-control">
                                     <input type="text" class="form-control" formControlName="entry7"
-                                        [typeahead]="suggestions" [isAnimated]="true" autocomplete="off">
+                                        [typeahead]="suggestions" [typeaheadAsync]="true" [isAnimated]="true" autocomplete="off">
                                 </div>
                             </li>
                         </ol>
@@ -133,7 +132,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer">
+                <div class="card-footer" *ngIf="user?.is_superuser">
                     <div>
                         <button class="btn btn-right" (click)="Edit()"><i
                                 class="fa fa-pencil-square-o" aria-hidden="true"></i>EDIT</button>

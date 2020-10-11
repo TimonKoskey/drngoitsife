@@ -1,6 +1,6 @@
 // import { Vitals } from './vitals';
 import { Payment } from './payment';
-// import { DoctorsInput } from './notes';
+import { Notes } from './notes';
 import { Patient } from './patient';
 
 export interface Session {
@@ -11,17 +11,21 @@ export interface Session {
 
     payments?: Array<Payment>;
     // vitals: Vitals;
-    // complaints: DoctorsInput;
-    // physicalExamination: DoctorsInput;
-    // comorbidities: DoctorsInput;
-    // investigations: DoctorsInput;
-    // diagnosis: DoctorsInput;
-    // treatment: DoctorsInput;
-    // remarks: DoctorsInput;
+    complaints?: Notes;
+    physicalExams?: Notes;
+    comorbidities?: Notes;
+    investigations?: Notes;
+    diagnosis?: Notes;
+    treatment?: Notes;
+    remarks?: Notes;
 
     followUpDate?: Date;
     followUpStatus?: string;
-    previousSession?: Session;
-    nextSession?: Session;
+}
+
+export interface MergedSessions {
+    id?: number;
+    previous?: Session;
+    next?: Session;
 }
 

@@ -41,6 +41,7 @@ export class PatientDetailsComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       const patientID = params.id;
       this.apiservice.getPatientDetails(patientID).subscribe(results => {
+        console.log(results);
         this.patient = results;
         this.getSessionHistory();
       }, error => {

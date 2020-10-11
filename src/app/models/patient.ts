@@ -1,5 +1,3 @@
-// import { Session } from './session';
-
 export interface Patient {
     id?: number;
     patientRegistrationNumber?: number;
@@ -7,6 +5,7 @@ export interface Patient {
     middleName?: string;
     surname?: string;
     gender?: string;
+    dateOfBirth?: Date;
     age?: string;
     mainPhoneNumber?: string;
     alternativePhoneNumber?: string;
@@ -16,10 +15,6 @@ export interface Patient {
     estateOrArea?: string;
     registrationDate?: Date;
     lastUpdated?: Date;
-
-    // activeSession?: Session;
-
-    // sessionHistory?: Array<Session>;
 }
 
 

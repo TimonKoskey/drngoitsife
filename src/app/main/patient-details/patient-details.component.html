@@ -16,10 +16,10 @@
                             <div class="table-responsive">
                                 <table class="table table-user-information">
                                     <tbody>
-                                        <!-- <tr>
-                                        <td>Registration Number:</td>
-                                        <td>{{patient?.patientID}}</td>
-                                    </tr> -->
+                                        <tr>
+                                            <td>Registration Number:</td>
+                                            <td>{{patient?.patientRegistrationNumber}}</td>
+                                        </tr>
                                         <tr>
                                             <td>Name:</td>
                                             <td>{{patient?.firstName}} {{patient?.middleName}} {{patient?.surname}}</td>
@@ -94,22 +94,22 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-6">
                                 <div class="row">
-                                    <!-- <div class="col-lg-4 col-md-5 col-sm-6">
+                                    <div class="col-lg-4 col-md-5 col-sm-6">
                                         <h6 class="editLabel">Registration Number:</h6>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6">
                                         <div class="form-group has-success bmd-form-group">
-                                            <input type="number" name="patientID" class="form-control"
-                                                [(ngModel)]="patient.patientID" #PatientID="ngModel" required>
+                                            <input type="number" name="patientRegistrationNumber" class="form-control"
+                                                [(ngModel)]="patient.patientRegistrationNumber" #PatientRegistrationNumber="ngModel" required>
 
-                                            <div *ngIf="PatientID.invalid && editPatientDetailsFormSubmitted === true">
-                                                <div *ngIf="PatientID.errors.required">
+                                            <div *ngIf="PatientRegistrationNumber.invalid && editPatientDetailsFormSubmitted === true">
+                                                <div *ngIf="PatientRegistrationNumber.errors.required">
                                                     <small class="error-message">*required field!</small>
                                                 </div>
                                             </div>
 
                                         </div>
-                                    </div> -->
+                                    </div>
 
                                     <div class="col-lg-4 col-md-5 col-sm-6">
                                         <h6 class="editLabel">First Name:</h6>

@@ -1,0 +1,371 @@
+<!-- <div id="follow-up-details-page">
+    <div class="card follow-up-details-content" *ngIf="mergedSessionAvailable || openFollowUpAppointmentListAvailable">
+        <div class="card-body">
+            <div id="nav-sessions" *ngIf="mergedSessionAvailable">
+                <div class="nav-sessions previous-session-sect">
+                    <a class="previous-session" (click)="getPreviousFromCurrentSession(mergedSessionsList[0])"><i class="fa fa-arrow-left" aria-hidden="true"></i>PREVIOUS</a>
+                </div>
+                <div class="nav-sessions next-session-sect" *ngIf="mergedSessionsList[0]?.next !== undefined">
+                    <a *ngIf="mergedSessionsList[0]?.session.id !== session?.id" class="next-session" (click)="getNextFromCurrentSession(mergedSessionsList[0])">NEXT<i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                </div>
+            </div>
+
+            <div class="notification-section">
+                <h6 class="notification" *ngIf="openFollowUpAppointmentListAvailable === true">This patient has an OPEN follow up appointment.</h6>
+
+                <h6 class="notification" *ngIf="mergedSessionAvailable === true">Previous Merged Session.</h6>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <p class="session-data"><span class="session-label"><i><b>Registration Date:</b></i></span><span
+                            class="session-value"><b>{{sessionToDisplay?.registrationDate.toDate() | date: 'dd/MM/yyyy'}}</b></span></p>
+                </div>
+                <div class="col-sm-4">
+                    <p class="session-data"><span class="session-label"><i><b>Follow up Date:</b></i></span><span
+                            class="session-value"><b>{{sessionToDisplay?.followUpDate | date: 'dd/MM/yyyy'}}</b></span></p>
+                </div>
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="details-section-header">
+                                <p class="header-title">
+                                    Complaints
+                                </p>
+                            </div>
+                            <div class="details-section-body">
+                                <ul>
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.complaints?.data1}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.complaints?.data2}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.complaints?.data3}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.complaints?.data4}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.complaints?.data5}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.complaints?.data6}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.complaints?.data7}}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="details-section-header">
+                                <p class="header-title">
+                                    Physical Examination
+                                </p>
+                            </div>
+                            <div class="details-section-body">
+                                <ul>
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.physicalExamination?.data1}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.physicalExamination?.data2}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.physicalExamination?.data3}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.physicalExamination?.data4}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.physicalExamination?.data5}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.physicalExamination?.data6}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.physicalExamination?.data7}}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="details-section-header">
+                                <p class="header-title">
+                                    Comorbidities
+                                </p>
+                            </div>
+                            <div class="details-section-body">
+                                <ul>
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.comorbidities?.data1}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.comorbidities?.data2}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.comorbidities?.data3}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.comorbidities?.data4}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.comorbidities?.data5}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.comorbidities?.data6}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.comorbidities?.data7}}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="details-section-header">
+                                <p class="header-title">
+                                    Investigations
+                                </p>
+                            </div>
+                            <div class="details-section-body">
+                                <ul>
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.investigations?.data1}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.investigations?.data2}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.investigations?.data3}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.investigations?.data4}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.investigations?.data5}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.investigations?.data6}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.investigations?.data7}}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="details-section-header">
+                                <p class="header-title">
+                                    Diagnosis
+                                </p>
+                            </div>
+                            <div class="details-section-body">
+                                <ul>
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.diagnosis?.data1}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.diagnosis?.data2}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.diagnosis?.data3}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.diagnosis?.data4}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.diagnosis?.data5}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.diagnosis?.data6}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.diagnosis?.data7}}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="details-section-header">
+                                <p class="header-title">
+                                    Treatment
+                                </p>
+                            </div>
+                            <div class="details-section-body">
+                                <ul>
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.treatment?.data1}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.treatment?.data2}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.treatment?.data3}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.treatment?.data4}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.treatment?.data5}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.treatment?.data6}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.treatment?.data7}}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="details-section-header">
+                                <p class="header-title">
+                                    Remarks
+                                </p>
+                            </div>
+                            <div class="details-section-body">
+                                <ul>
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.remarks?.data1}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.remarks?.data2}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.remarks?.data3}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.remarks?.data4}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.remarks?.data5}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.remarks?.data6}}</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="details-section-data">{{sessionToDisplay?.remarks?.data7}}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="details-section-header">
+                                <p class="header-title">
+                                    Vitals
+                                </p>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-user-information">
+                                    <tbody>
+                                        <tr>
+                                            <td>Systolic:</td>
+                                            <td>{{sessionToDisplay?.vitals?.systolic}} mmHg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Diastolic:</td>
+                                            <td>{{sessionToDisplay?.vitals?.diastolic}} mmHg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pulse Rate:</td>
+                                            <td>{{sessionToDisplay?.vitals?.pulseRate}} /min</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Temperature:</td>
+                                            <td>{{sessionToDisplay?.vitals?.temperature}} celsius</td>
+                                        </tr>
+                                        <tr>
+                                            <td>SPO2:</td>
+                                            <td>{{sessionToDisplay?.vitals?.spo2}}%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Weight:</td>
+                                            <td>{{sessionToDisplay?.vitals?.weight}} Kg</td>
+                                        </tr>
+    
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="details-section-header">
+                                <p class="header-title">
+                                    Payments
+                                </p>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="table-info">
+                                        <tr>
+                                            <th></th>
+                                            <th>Payment For</th>
+                                            <th>Method</th>
+                                            <th>Amount (Ksh)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let payment of sessionToDisplay?.paymentInformation; let i = index" class="session-entry">
+                                            <td>{{(i+1)}}</td>
+                                            <td>{{payment.paymentFor}}</td>
+                                            <td>{{payment.paymentMethod}}</td>
+                                            <td>{{payment.amount ? payment.amount : ''}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <button *ngIf="openAppointment === true" class="btn btn-cancel btn-left" (click)="cancelFollowUp()">Cancel Appointment</button>
+                            <button *ngIf="openAppointment === true" class="btn btn-merge btn-right" (click)="mergetFollowUpWithInputSession()">Merge with Current Session</button>
+                            <button class="btn btn-merge btn-right" (click)="navToSessionDetails()" style="margin-right: 20px;">View Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->

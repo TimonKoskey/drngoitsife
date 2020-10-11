@@ -5,6 +5,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { APIService } from '../../services/api/api.service';
 import { Notes } from '../../models/notes';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-complaints',
@@ -20,6 +22,8 @@ export class ComplaintsComponent implements OnInit {
   editComplaints: boolean;
   complaints: Notes;
   complaintsCopy: Notes;
+  suggestions: Observable<string>;
+  user: User;
 
   constructor(
     private router: Router,
@@ -30,11 +34,13 @@ export class ComplaintsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.user = this.apiservice.getUser();
     this.route.queryParams.subscribe(params => {
       if (params.sessionID !== undefined && params.sessionID !== null) {
         this.sessionID = params.sessionID;
         this.spinner.show();
         this.apiservice.getSessionComplaints(this.sessionID).subscribe(results => {
+          this.spinner.hide();
           this.complaints = results;
           this.complaintsSectionCompleted = true;
         }, (error: HttpErrorResponse) => {
@@ -49,6 +55,8 @@ export class ComplaintsComponent implements OnInit {
         });
       }
     });
+
+    // this.suggestions = this.apiservice.getComplaintsSuggestions()
   }
 
   initComplaintsForm() {
@@ -61,6 +69,48 @@ export class ComplaintsComponent implements OnInit {
       entry5: [this.complaints !== undefined ? this.complaints.entry5 : ''],
       entry6: [this.complaints !== undefined ? this.complaints.entry6 : ''],
       entry7: [this.complaints !== undefined ? this.complaints.entry7 : '']
+    });
+
+    this.complaintsFormGroup.get('entry1').valueChanges.subscribe(value => {
+      if(value !== '') {
+        this.suggestions = this.apiservice.getComplaintsSuggestions(value);
+      }
+    });
+
+    this.complaintsFormGroup.get('entry2').valueChanges.subscribe(value => {
+      if(value !== '') {
+        this.suggestions = this.apiservice.getComplaintsSuggestions(value);
+      }
+    });
+
+    this.complaintsFormGroup.get('entry3').valueChanges.subscribe(value => {
+      if(value !== '') {
+        this.suggestions = this.apiservice.getComplaintsSuggestions(value);
+      }
+    });
+
+    this.complaintsFormGroup.get('entry4').valueChanges.subscribe(value => {
+      if(value !== '') {
+        this.suggestions = this.apiservice.getComplaintsSuggestions(value);
+      }
+    });
+
+    this.complaintsFormGroup.get('entry5').valueChanges.subscribe(value => {
+      if(value !== '') {
+        this.suggestions = this.apiservice.getComplaintsSuggestions(value);
+      }
+    });
+
+    this.complaintsFormGroup.get('entry6').valueChanges.subscribe(value => {
+      if(value !== '') {
+        this.suggestions = this.apiservice.getComplaintsSuggestions(value);
+      }
+    });
+
+    this.complaintsFormGroup.get('entry7').valueChanges.subscribe(value => {
+      if(value !== '') {
+        this.suggestions = this.apiservice.getComplaintsSuggestions(value);
+      }
     });
   }
 

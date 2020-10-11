@@ -24,8 +24,7 @@ export class PaymentsComponent implements OnInit {
     'NHIF (Comprehensive)', 'NHIF (NPS)', 'Resolution', 'UAP', 'UOE', 'MADISON', 'AAR', 'Co-operative Bank', 'Liaison', 'Sanlam',
     'Heritage', 'First Insurance', 'HFCK', 'Saham', 'Kenindia', 'KCB', 'Pacis', 'Kenya Alliance', 'Cigna' ];
 
-  concepts: string[] = ['Flexible Pharyngoscopy', 'Consultation', 'Ear Syringing', 'Nasal Packaging', 'Ear Wax Removal', 'Foreign Body Nose Removal',
-    'Foreign Body Ear Removal', 'Foreign Body Throat Removal', 'Neck Ultrasound', 'Tissue Biopsy Under Local Anesthesia'];
+  concepts: string[] = ['Consultation', 'Medical Report'];
 
 
   constructor(

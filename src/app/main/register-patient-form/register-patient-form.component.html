@@ -11,7 +11,7 @@
 
                     <!-- PATIENT IDENTIFICATION INPUT -->
 
-                    <!-- <div class="card data-form-card">
+                    <div class="card data-form-card">
                         <div class="card-header">
                             <span class="card-title">Patient Registration Number</span>
                         </div>
@@ -19,15 +19,15 @@
                             <div class="row">
                                 <div class="col-md-6 col-sm-6">
                                     <div class="form-group has-success bmd-form-group">
-                                        <label for="patientIdentification" class="bmd-label-floating">
+                                        <label for="patientRegistrationNumber" class="bmd-label-floating">
                                             <span>Registration Number</span>
                                             <span class="input-required">(required)</span>
                                         </label>
-                                        <input type="number" class="form-control" id="patientIdentification"
+                                        <input type="number" class="form-control" id="patientRegistrationNumber"
                                             formControlName="patientRegistrationNumber">
 
-                                        <div *ngIf="patientIdentification.invalid && patientRecordFormSubmitted">
-                                            <div *ngIf="patientIdentification.errors.required">
+                                        <div *ngIf="patientRegistrationNumber.invalid && patientRecordFormSubmitted">
+                                            <div *ngIf="patientRegistrationNumber.errors.required">
                                                 <small class="error-message">*required field!</small>
                                             </div>
                                         </div>
@@ -36,7 +36,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
 
                     <!-- PATIENT NAME INPUT -->
 
@@ -123,19 +123,51 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-6">
-                                    <div class="form-group has-success bmd-form-group">
-                                        <label for="age" class="bmd-label-floating">
-                                            <span>Age</span>
+                                    <div class="form-group has-success bmd-form-group" [formGroup]="dateOfBirth">
+                                        <label for="dateOfBirth" class="bmd-label-floating">
+                                            <span>Date of Birth</span>
                                             <span class="input-required">(required)</span>
                                         </label>
-                                        <input type="text" class="form-control" id="age" formControlName="age" autocomplete="off">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <!-- <div> -->
+                                                <input type="text" class="form-control" id="year" formControlName="year"
+                                                    [typeahead]="yearsArray()" [adaptivePosition]="true" autocomplete="off"
+                                                    placeholder="Year...">
 
-                                        <div *ngIf="age.invalid && patientRecordFormSubmitted">
-                                            <div *ngIf="age.errors.required">
-                                                <small class="error-message">*required field!</small>
+                                                <div *ngIf="yearOfBirth.invalid && patientRecordFormSubmitted">
+                                                    <div *ngIf="yearOfBirth.errors.required">
+                                                        <small class="error-message">*required field!</small>
+                                                    </div>
+                                                </div>
+                                                <!-- </div> -->
                                             </div>
-                                        </div>
 
+                                            <div class="col-md-4">
+                                                <!-- <div class="form-group has-success bmd-form-group"> -->
+                                                <input type="text" class="form-control" id="month"
+                                                    formControlName="month" [typeahead]="months" [adaptivePosition]="true" autocomplete="off" placeholder="Month...">
+
+                                                <div *ngIf="monthOfBirth.invalid && patientRecordFormSubmitted">
+                                                    <div *ngIf="monthOfBirth.errors.required">
+                                                        <small class="error-message">*required field!</small>
+                                                    </div>
+                                                </div>
+                                                <!-- </div> -->
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" id="day" formControlName="day"
+                                                    autocomplete="off" placeholder="Day....">
+
+                                                <div *ngIf="dayOfBirth.invalid && patientRecordFormSubmitted">
+                                                    <div *ngIf="dayOfBirth.errors.required">
+                                                        <small class="error-message">*required field!</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -181,7 +213,8 @@
                                 <div class="col-md-4 col-sm-6">
                                     <div class="form-group has-success bmd-form-group">
                                         <label for="email" class="bmd-label-floating">Email address</label>
-                                        <input type="email" class="form-control" id="email" formControlName="email" autocomplete="off">
+                                        <input type="email" class="form-control" id="email" formControlName="email"
+                                            autocomplete="off">
 
                                     </div>
                                 </div>
@@ -260,7 +293,7 @@
                 <div class="card-body">
                     <div class="data-exists-error">
                         <h5 class="data-exists-error-title">
-                            A patient with the same <u>{{queryString}}</u> already exists.
+                            A patient with the same <u>Name and Phone Number</u> already exists.
                         </h5>
                         <div class="table-responsive">
                             <table class="table">
@@ -268,7 +301,6 @@
                                     <tr>
                                         <th></th>
                                         <th>Name</th>
-                                        <th>Reg Number</th>
                                         <th>Gender</th>
                                         <th>Age</th>
                                         <th>Reg Date</th>
@@ -280,10 +312,9 @@
                                         (click)="goToDetails(patient)">
                                         <td>{{(i+1)}}</td>
                                         <td>{{patient.firstName}} {{patient.middleName}} {{patient.surname}}</td>
-                                        <td>{{patient.patientID}}</td>
                                         <td>{{patient.gender}}</td>
                                         <td>{{patient.age}}</td>
-                                        <td>{{patient.dateCreated.toDate() | date: 'dd/MM/yyyy'}}</td>
+                                        <td>{{patient.registrationDate | date: 'dd/MM/yyyy'}}</td>
                                     </tr>
                                 </tbody>
                             </table>

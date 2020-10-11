@@ -188,9 +188,10 @@
 
     </div>
 
-    <!-- <div *ngIf="session !== undefined">
-        <app-follow-up-details [patient]="patient" [session]="session"></app-follow-up-details>
-    </div> -->
+    <div *ngIf="session !== undefined">
+        <app-merged-sessions [session]="session"></app-merged-sessions>
+        <!-- <app-follow-up-details [patient]="patient" [session]="session"></app-follow-up-details> -->
+    </div>
 </div>
 
 <ng-template #errorTemplate>

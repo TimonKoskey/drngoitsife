@@ -53,7 +53,6 @@ export class RetrieveSessionComponent implements OnInit {
     this.spinner.show();
     this.apiservice.getSessionByDate(dateTimeString).subscribe(results => {
       this.spinner.hide();
-      console.log(results);
       if (results.length === 0) {
         this.recordsAvailable = false;
       } else {

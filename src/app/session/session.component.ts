@@ -101,7 +101,11 @@ export class SessionComponent implements OnInit, OnDestroy {
     this.apiservice.updateSessionDetails(this.session.id, updateData).subscribe(results => {
       this.spinner.hide();
       this.session = results;
-      this.apiservice.setSession(this.session);
+      if (!this.dateEditing) {
+        this.router.navigate(['../active-sessions'], {relativeTo: this.route});
+      } else {
+        this.apiservice.setSession(this.session);
+      }
     }, error => {
       this.spinner.hide();
       this.fetchDataError = error;

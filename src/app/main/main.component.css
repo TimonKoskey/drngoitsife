@@ -9,13 +9,41 @@
     min-height: 100vh;
 }
 
+.sidebar-title {
+    padding: 0px 5px;
+    color: white;
+    margin-top: 10px;
+    /* border-bottom: 1px solid whitesmoke; */
+    margin-left: 60px;
+}
+
+.wrapper .toggle-button {
+    padding: 5px 5px;
+    position: absolute;
+    top: 5px;
+}
+
+.wrapper .toggle-button span {
+    display: block;
+    width: 30px;
+    height: 5px;
+    background: whitesmoke;
+    margin: 5px 0px;
+}
+
+.nav-title .logo {
+    width:40px;
+    margin-top: -7px;
+    border-radius: 10px;
+}
+
 .wrapper #sidebar {
     position: fixed;
     width: 250px;
     height: 100%;
-    background: #151719;
-    left: -250px;
-    z-index: 2000;
+    background: #ced4da;
+    /* left: -250px; */
+    z-index: 1000;
     font-family: sans-serif;
 }
 
@@ -23,13 +51,8 @@
     left: 0px;
 }
 
-#sidebar .sidebar-title {
-    padding: 12px 15px;
-    color: white;
-    border-bottom: 1px solid whitesmoke;
-}
-
 #sidebar .nav {
+    margin-top: 80px;
     padding-top: 20px;
     margin-right: 2px;
 }
@@ -56,28 +79,14 @@
     margin-right: 5px;
 }
 
-.wrapper #sidebar .toggle-button {
-    position: absolute;
-    left: 260px;
-    top: 10px;
-}
-
-.wrapper .toggle-button span {
-    display: block;
-    width: 30px;
-    height: 5px;
-    background: whitesmoke;
-    margin: 5px 0px;
-}
-
-.wrapper.toggled #main-content {
+.wrapper #main-content {
     margin-left: 250px;
     min-height: 100vh;
 }
 
 
 .navbar-dark {
-    background-color: #00796B;
+    background-color: #bd2130de;
 }
 
 .navbar-dark .navbar-brand {
@@ -85,17 +94,19 @@
 }
 
 .navbar-dark .navbar-nav .nav-link {
-    color: #dee2e6
+    color: #dee2e6;
+    font-size: 18px;
 }
 
 .nav-item .nav-link i {
     margin-right: 5px;
-    width: 25px;
-    height: 25px;
-    line-height: 25px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
     text-align: center;
     border-radius: 4px;
-    background-color: #569289;
+    background-color: #e7eaf6;
+    color: #c2374c;
 }
 
 .navbar-dark .navbar-nav .nav-link:hover {
@@ -116,7 +127,7 @@
 
 #afya-app-content {
     background-color: whitesmoke;
-    padding: 75px 0px;
+    padding-top: 75px;
     font-family: sans-serif;
     /* width: 100%; */
 }

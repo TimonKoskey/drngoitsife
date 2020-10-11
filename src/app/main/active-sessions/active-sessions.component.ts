@@ -70,8 +70,10 @@ export class ActiveSessionsComponent implements OnInit, OnDestroy {
         }
       }
       this.sessionsList = newSessionList;
+      this.paginatedSessionList = this.sessionsList.slice(0, 10);
     } else {
       this.sessionsList = this.mainSessionsList;
+      this.paginatedSessionList = this.sessionsList.slice(0, 10);
       this.is_filtering = false;
     }
   }
