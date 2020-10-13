@@ -58,7 +58,7 @@ export class APIService {
   }
 
   updatePatientDetails(patient: Patient): Observable<Patient> {
-    return this.http.put<Patient>(`${this.patientUrl}/patient/details/${patient.id}`, patient);
+    return this.http.put<Patient>(`${this.patientUrl}/patient/details/update/${patient.id}`, patient);
   }
 
   deletePatientDetails(patientID: number): Observable<any> {

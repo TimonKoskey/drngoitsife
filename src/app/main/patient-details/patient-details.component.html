@@ -36,11 +36,6 @@
                                         </tr>
 
                                         <tr>
-                                            <td>Email:</td>
-                                            <td><span class="email-value"><i>{{patient?.email}}</i></span></td>
-                                        </tr>
-
-                                        <tr>
                                             <td>Number:</td>
                                             <td>
                                                 <span class="phone-number-label">1:</span>
@@ -60,6 +55,10 @@
                             <div class="table-responsive">
                                 <table class="table table-user-information">
                                     <tbody>
+                                        <tr>
+                                            <td>Email:</td>
+                                            <td><span class="email-value"><i>{{patient?.email}}</i></span></td>
+                                        </tr>
                                         <tr>
                                             <td>County:</td>
                                             <td>{{patient?.county}}</td>
@@ -155,14 +154,14 @@
                                     </div>
 
                                     <div class="col-lg-4 col-md-5 col-sm-6">
-                                        <h6 class="editLabel">Age:</h6>
+                                        <h6 class="editLabel">Date of Birth:</h6>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6">
                                         <div class="form-group has-success bmd-form-group">
-                                            <input type="text" name="age" class="form-control" [(ngModel)]="patient.age"
-                                                #Age="ngModel" required>
-                                            <div *ngIf="Age.invalid && editPatientDetailsFormSubmitted === true">
-                                                <div *ngIf="Age.errors.required">
+                                            <input type="date" name="dateOfBirth" class="form-control" [(ngModel)]="patient.dateOfBirth"
+                                                #dob="ngModel" required>
+                                            <div *ngIf="dob.invalid && editPatientDetailsFormSubmitted === true">
+                                                <div *ngIf="dob.errors.required">
                                                     <small class="error-message">*required field!</small>
                                                 </div>
                                             </div>

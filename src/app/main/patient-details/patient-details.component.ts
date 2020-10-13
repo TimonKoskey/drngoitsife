@@ -41,7 +41,6 @@ export class PatientDetailsComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       const patientID = params.id;
       this.apiservice.getPatientDetails(patientID).subscribe(results => {
-        console.log(results);
         this.patient = results;
         this.getSessionHistory();
       }, error => {
@@ -93,7 +92,8 @@ export class PatientDetailsComponent implements OnInit {
     if (formData.valid) {
       this.spinner.show();
       this.patient = formData.value;
-      this.patient.id = this.patientCopy.id
+      this.patient.id = this.patientCopy.id;
+      this.patient['dob'] = new Date(formData.value['dateOfBirth']).toUTCString();
       this.apiservice.updatePatientDetails(this.patient).subscribe(results => {
         this.spinner.hide();
         this.patient = results;
