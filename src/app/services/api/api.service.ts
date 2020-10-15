@@ -12,8 +12,8 @@ import { Notes } from '../../models/notes';
   providedIn: 'root'
 })
 export class APIService {
-  patientUrl = `http://127.0.0.1:8000/patients`;
-  sessionUrl = `http://127.0.0.1:8000/visits`
+  patientUrl = `http://10.128.0.8:8000/patients`;
+  sessionUrl = `http://10.128.0.8:8000/visits`
   // user: User
 
   constructor(
