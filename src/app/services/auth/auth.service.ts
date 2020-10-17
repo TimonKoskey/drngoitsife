@@ -8,7 +8,7 @@ import { Observable, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  userUrl = `http://10.128.0.8/users`;
+  userUrl = `https://backend.eldoretneurosurgery.co.ke/users`;
 
   constructor(
     private persistence: PersistenceService,
