@@ -27,10 +27,7 @@ export class SignInComponent implements OnInit {
     private authservice: AuthService
   ) { }
 
-  ngOnInit() {
-    this.username = 'test';
-    this.password = 'Timon1963';
-  }
+  ngOnInit() {}
 
   onSubmit(loginForm: NgForm) {
     this.logFormSubmitted = true;
