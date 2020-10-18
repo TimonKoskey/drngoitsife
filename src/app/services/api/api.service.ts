@@ -7,19 +7,25 @@ import { Patient } from '../../models/patient';
 import { Session, MergedSessions } from '../../models/session';
 import { Payment } from '../../models/payment';
 import { Notes } from '../../models/notes';
+import { isDevMode } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class APIService {
   patientUrl = `https://backend.eldoretneurosurgery.co.ke/patients`;
-  sessionUrl = `https://backend.eldoretneurosurgery.co.ke/visits`
+  sessionUrl = `https://backend.eldoretneurosurgery.co.ke/visits`;
   // user: User
 
   constructor(
     private http: HttpClient,
     private persistence: PersistenceService,
-  ) { }
+  ) {
+    if(isDevMode()) {
+      this.patientUrl = `http://127.0.0.1:8000/patients`;
+      this.sessionUrl = `http://127.0.0.1:8000/visits`;
+    }
+  }
 
   setUser(user: User) {
     this.persistence.set('user', user, { type: StorageType.SESSION });
