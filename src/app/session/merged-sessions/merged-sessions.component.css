@@ -1,0 +1,62 @@
+#nav-sessions {
+    margin-bottom: 10px;
+}
+
+.nav-sessions {
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    color: #117a8b;
+    font-size: 1.2em;
+}
+  
+.nav-sessions:hover {
+    color: #117a8b;
+    background-color: #ddd;
+}
+  
+.nav-sessions a.previous-session i {
+    margin-right: 5px;
+}
+
+.nav-sessions a.next-session i {
+    margin-left: 5px;
+}
+
+.nav-sessions.next-session-sect {
+    float: right;
+}
+
+.notification-section {
+    border-bottom: 1px solid #5c3b77;
+    margin-bottom: 20px;
+}
+
+h6.notification {
+    font-size: 1.1em;
+    margin-bottom: 2px;
+    color: #6d4e84;
+}
+
+.session-label {
+    color: #28a745;
+}
+
+.session-data {
+    font-size: 16px;
+    color: #247737;
+}
+
+.session-value {
+    margin-left: 15px;
+}
+
+.btn.btn-left {
+    float: left;
+    margin-top: 10px;
+}
+
+.btn.btn-right {
+    float: right;
+    margin-top: 10px;
+}

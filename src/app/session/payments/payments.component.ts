@@ -22,7 +22,7 @@ export class PaymentsComponent implements OnInit {
 
   InsuranceProviders: string[] = ['NPS', 'Kengen', 'APA', 'Britam', 'Jubilee', 'AON', 'CIC', 'Sedgwick', 'Takaful', 'G.A', 'KPLC', 'KRA', 'KPC',
     'NHIF (Comprehensive)', 'NHIF (NPS)', 'Resolution', 'UAP', 'UOE', 'MADISON', 'AAR', 'Co-operative Bank', 'Liaison', 'Sanlam',
-    'Heritage', 'First Insurance', 'HFCK', 'Saham', 'Kenindia', 'KCB', 'Pacis', 'Kenya Alliance', 'Cigna' ];
+    'Heritage', 'First Insurance', 'HFCK', 'Saham', 'Kenindia', 'KCB', 'Pacis', 'Kenya Alliance', 'Cigna', 'DOD'];
 
   concepts: string[] = ['Consultation', 'Medical Report'];
 

@@ -1,29 +1,29 @@
-<!-- <div id="follow-up-details-page">
-    <div class="card follow-up-details-content" *ngIf="mergedSessionAvailable || openFollowUpAppointmentListAvailable">
+<div id="follow-up-details-page">
+    <div class="card follow-up-details-content" *ngIf="(mergedSessionAvailable || openFollowUpAppointmentListAvailable) && sessionsList[0]?.id !== session.id">
         <div class="card-body">
             <div id="nav-sessions" *ngIf="mergedSessionAvailable">
-                <div class="nav-sessions previous-session-sect">
-                    <a class="previous-session" (click)="getPreviousFromCurrentSession(mergedSessionsList[0])"><i class="fa fa-arrow-left" aria-hidden="true"></i>PREVIOUS</a>
+                <div class="nav-sessions previous-session-sect" *ngIf="is_prev_available">
+                    <a class="previous-session" (click)="getPreviousSession(sessionsList[0])"><i class="fa fa-arrow-left" aria-hidden="true"></i>PREV</a>
                 </div>
-                <div class="nav-sessions next-session-sect" *ngIf="mergedSessionsList[0]?.next !== undefined">
-                    <a *ngIf="mergedSessionsList[0]?.session.id !== session?.id" class="next-session" (click)="getNextFromCurrentSession(mergedSessionsList[0])">NEXT<i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                <div class="nav-sessions next-session-sect" *ngIf="is_next_available">
+                    <a class="next-session" (click)="getNextSession(sessionsList[0])">NEXT<i class="fa fa-arrow-right" aria-hidden="true"></i></a>
                 </div>
             </div>
 
             <div class="notification-section">
                 <h6 class="notification" *ngIf="openFollowUpAppointmentListAvailable === true">This patient has an OPEN follow up appointment.</h6>
 
-                <h6 class="notification" *ngIf="mergedSessionAvailable === true">Previous Merged Session.</h6>
+                <h6 class="notification" *ngIf="mergedSessionAvailable === true">Related Sessions.</h6>
             </div>
 
             <div class="row">
                 <div class="col-sm-4">
                     <p class="session-data"><span class="session-label"><i><b>Registration Date:</b></i></span><span
-                            class="session-value"><b>{{sessionToDisplay?.registrationDate.toDate() | date: 'dd/MM/yyyy'}}</b></span></p>
+                            class="session-value"><b>{{sessionsList[0]?.date | date: 'dd/MM/yyyy'}}</b></span></p>
                 </div>
                 <div class="col-sm-4">
                     <p class="session-data"><span class="session-label"><i><b>Follow up Date:</b></i></span><span
-                            class="session-value"><b>{{sessionToDisplay?.followUpDate | date: 'dd/MM/yyyy'}}</b></span></p>
+                            class="session-value"><b>{{sessionsList[0]?.followUpDate | date: 'dd/MM/yyyy'}}</b></span></p>
                 </div>
                 <div class="col-12">
                     <div class="row">
@@ -36,31 +36,31 @@
                             <div class="details-section-body">
                                 <ul>
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.complaints?.data1}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.complaints?.entry1}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.complaints?.data2}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.complaints?.entry2}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.complaints?.data3}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.complaints?.entry3}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.complaints?.data4}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.complaints?.entry4}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.complaints?.data5}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.complaints?.entry5}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.complaints?.data6}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.complaints?.entry6}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.complaints?.data7}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.complaints?.entry7}}</p>
                                     </li>
                                 </ul>
                             </div>
@@ -74,31 +74,31 @@
                             <div class="details-section-body">
                                 <ul>
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.physicalExamination?.data1}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.physicalExams?.entry1}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.physicalExamination?.data2}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.physicalExams?.entry2}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.physicalExamination?.data3}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.physicalExams?.entry3}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.physicalExamination?.data4}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.physicalExams?.entry4}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.physicalExamination?.data5}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.physicalExams?.entry5}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.physicalExamination?.data6}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.physicalExams?.entry6}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.physicalExamination?.data7}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.physicalExams?.entry7}}</p>
                                     </li>
                                 </ul>
                             </div>
@@ -112,31 +112,31 @@
                             <div class="details-section-body">
                                 <ul>
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.comorbidities?.data1}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.comorbidities?.entry1}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.comorbidities?.data2}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.comorbidities?.entry2}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.comorbidities?.data3}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.comorbidities?.entry3}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.comorbidities?.data4}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.comorbidities?.entry4}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.comorbidities?.data5}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.comorbidities?.entry5}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.comorbidities?.data6}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.comorbidities?.entry6}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.comorbidities?.data7}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.comorbidities?.entry7}}</p>
                                     </li>
                                 </ul>
                             </div>
@@ -150,31 +150,31 @@
                             <div class="details-section-body">
                                 <ul>
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.investigations?.data1}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.investigations?.entry1}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.investigations?.data2}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.investigations?.entry2}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.investigations?.data3}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.investigations?.entry3}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.investigations?.data4}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.investigations?.entry4}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.investigations?.data5}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.investigations?.entry5}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.investigations?.data6}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.investigations?.entry6}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.investigations?.data7}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.investigations?.entry7}}</p>
                                     </li>
                                 </ul>
                             </div>
@@ -188,31 +188,31 @@
                             <div class="details-section-body">
                                 <ul>
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.diagnosis?.data1}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.diagnosis?.entry1}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.diagnosis?.data2}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.diagnosis?.entry2}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.diagnosis?.data3}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.diagnosis?.entry3}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.diagnosis?.data4}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.diagnosis?.entry4}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.diagnosis?.data5}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.diagnosis?.entry5}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.diagnosis?.data6}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.diagnosis?.entry6}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.diagnosis?.data7}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.diagnosis?.entry7}}</p>
                                     </li>
                                 </ul>
                             </div>
@@ -226,31 +226,31 @@
                             <div class="details-section-body">
                                 <ul>
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.treatment?.data1}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.treatment?.entry1}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.treatment?.data2}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.treatment?.entry2}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.treatment?.data3}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.treatment?.entry3}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.treatment?.data4}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.treatment?.entry4}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.treatment?.data5}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.treatment?.entry5}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.treatment?.data6}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.treatment?.entry6}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.treatment?.data7}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.treatment?.entry7}}</p>
                                     </li>
                                 </ul>
                             </div>
@@ -264,36 +264,36 @@
                             <div class="details-section-body">
                                 <ul>
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.remarks?.data1}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.remarks?.entry1}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.remarks?.data2}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.remarks?.entry2}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.remarks?.data3}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.remarks?.entry3}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.remarks?.data4}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.remarks?.entry4}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.remarks?.data5}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.remarks?.entry5}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.remarks?.data6}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.remarks?.entry6}}</p>
                                     </li>
 
                                     <li>
-                                        <p class="details-section-data">{{sessionToDisplay?.remarks?.data7}}</p>
+                                        <p class="details-section-data">{{sessionsList[0]?.remarks?.entry7}}</p>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <!-- <div class="col-md-4">
                             <div class="details-section-header">
                                 <p class="header-title">
                                     Vitals
@@ -304,37 +304,37 @@
                                     <tbody>
                                         <tr>
                                             <td>Systolic:</td>
-                                            <td>{{sessionToDisplay?.vitals?.systolic}} mmHg</td>
+                                            <td>{{sessionsList[0]?.vitals?.systolic}} mmHg</td>
                                         </tr>
                                         <tr>
                                             <td>Diastolic:</td>
-                                            <td>{{sessionToDisplay?.vitals?.diastolic}} mmHg</td>
+                                            <td>{{sessionsList[0]?.vitals?.diastolic}} mmHg</td>
                                         </tr>
                                         <tr>
                                             <td>Pulse Rate:</td>
-                                            <td>{{sessionToDisplay?.vitals?.pulseRate}} /min</td>
+                                            <td>{{sessionsList[0]?.vitals?.pulseRate}} /min</td>
                                         </tr>
                                         <tr>
                                             <td>Temperature:</td>
-                                            <td>{{sessionToDisplay?.vitals?.temperature}} celsius</td>
+                                            <td>{{sessionsList[0]?.vitals?.temperature}} celsius</td>
                                         </tr>
                                         <tr>
                                             <td>SPO2:</td>
-                                            <td>{{sessionToDisplay?.vitals?.spo2}}%</td>
+                                            <td>{{sessionsList[0]?.vitals?.spo2}}%</td>
                                         </tr>
                                         <tr>
                                             <td>Weight:</td>
-                                            <td>{{sessionToDisplay?.vitals?.weight}} Kg</td>
+                                            <td>{{sessionsList[0]?.vitals?.weight}} Kg</td>
                                         </tr>
     
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                        <div class="col-md-4">
+                        </div> -->
+                        <div class="col-md-8">
                             <div class="details-section-header">
                                 <p class="header-title">
-                                    Payments
+                                    Charges
                                 </p>
                             </div>
                             <div class="table-responsive">
@@ -344,28 +344,30 @@
                                             <th></th>
                                             <th>Payment For</th>
                                             <th>Method</th>
-                                            <th>Amount (Ksh)</th>
+                                            <th>Amount Paid (Ksh)</th>
+                                            <th>Balance (Ksh)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let payment of sessionToDisplay?.paymentInformation; let i = index" class="session-entry">
+                                        <tr *ngFor="let payment of sessionsList[0]?.payments; let i = index" class="session-entry">
                                             <td>{{(i+1)}}</td>
-                                            <td>{{payment.paymentFor}}</td>
-                                            <td>{{payment.paymentMethod}}</td>
-                                            <td>{{payment.amount ? payment.amount : ''}}</td>
+                                            <td>{{payment?.concept}}</td>
+                                            <td>{{payment?.method}}</td>
+                                            <td>{{payment?.amount}}</td>
+                                            <td>{{payment?.balance}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <button *ngIf="openAppointment === true" class="btn btn-cancel btn-left" (click)="cancelFollowUp()">Cancel Appointment</button>
-                            <button *ngIf="openAppointment === true" class="btn btn-merge btn-right" (click)="mergetFollowUpWithInputSession()">Merge with Current Session</button>
-                            <button class="btn btn-merge btn-right" (click)="navToSessionDetails()" style="margin-right: 20px;">View Details</button>
+                            <button *ngIf="openFollowUpAppointmentListAvailable === true" class="btn btn-cancel btn-left" (click)="cancelFollowUp(sessionsList[0])">Cancel Appointment</button>
+                            <button *ngIf="openFollowUpAppointmentListAvailable === true" class="btn btn-merge btn-right" (click)="mergeSessions(sessionsList[0])">Merge Sessions</button>
+                            <button class="btn btn-merge btn-right" (click)="navToSessionDetails(sessionsList[0])" style="margin-right: 20px;">View Details</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div> -->
+</div>

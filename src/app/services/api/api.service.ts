@@ -231,8 +231,8 @@ export class APIService {
     return this.http.get(`${this.sessionUrl}/remarks/suggestions`, {params: {queryString: queryString}});
   }
 
-  checkForOpenFollowUp(): Observable<Array<Session>> {
-    return this.http.get<Array<Session>>(`${this.sessionUrl}/follow-up/open/list`);
+  checkForOpenFollowUp(patientID: number): Observable<Array<Session>> {
+    return this.http.get<Array<Session>>(`${this.sessionUrl}/follow-up/open/list/${patientID}`);
   }
 
   getPreviousMergedSession(sessionID: number): Observable<Array<Session>> {
@@ -241,6 +241,10 @@ export class APIService {
 
   getNextMergedSession(sessionID: number): Observable<Array<Session>> {
     return this.http.get<Array<Session>>(`${this.sessionUrl}/merged/next/${sessionID}`);
+  }
+
+  mergeSessions(mergedSessions: MergedSessions) {
+    return this.http.post(`${this.sessionUrl}/merge`, mergedSessions);
   }
 
 }

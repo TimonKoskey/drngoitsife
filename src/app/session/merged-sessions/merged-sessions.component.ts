@@ -15,6 +15,8 @@ export class MergedSessionsComponent implements OnInit {
   openFollowUpAppointmentListAvailable: boolean;
   mergedSessionAvailable: boolean;
   sessionsList: Array<Session>;
+  is_prev_available = true;
+  is_next_available = true;
 
   constructor(
     private router: Router,
@@ -23,13 +25,17 @@ export class MergedSessionsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.apiservice.checkForOpenFollowUp().subscribe(results => {
-      console.log(results);
+    this.getFollowUpSessions();
+  }
+
+  getFollowUpSessions() {
+    this.apiservice.checkForOpenFollowUp(this.session.patient.id).subscribe(results => {
       if (results.length===0) {
-        this.openFollowUpAppointmentListAvailable = false;
+        this.openFollowUpAppointmentListAvailable = false; 
         this.getPreviousMergedSession(this.session);
       } else {
         this.openFollowUpAppointmentListAvailable = true;
+        this.mergedSessionAvailable = false
         this.sessionsList = results;
       }
     }, error => {
@@ -40,7 +46,6 @@ export class MergedSessionsComponent implements OnInit {
 
   getPreviousMergedSession(session: Session) {
     this.apiservice.getPreviousMergedSession(session.id).subscribe(results => {
-      console.log(results);
       if (results.length===0) {
         this.mergedSessionAvailable = false;
       } else {
@@ -50,6 +55,76 @@ export class MergedSessionsComponent implements OnInit {
     }, error => {
       this.fetchDataError = error;
       console.error(this.fetchDataError);
+    });
+  }
+
+  getPreviousSession(session: Session) {
+    this.apiservice.getPreviousMergedSession(session.id).subscribe(results => {
+      if (results.length !== 0) {
+        this.is_prev_available = true;
+        this.is_next_available = true;
+        this.sessionsList = results;
+      } else {
+        this.is_prev_available = false;
+      }
+    }, error => {
+      this.fetchDataError = error;
+      console.error(this.fetchDataError);
+    });
+  }
+
+  getNextSession(session: Session) {
+    this.apiservice.getNextMergedSession(session.id).subscribe(results => {
+      if (results.length !== 0) {
+        if (results[0].id === this.session.id) {
+          this.is_next_available = false;
+        } else {
+          this.is_next_available = true;
+          this.is_prev_available = true;
+          this.sessionsList = results;
+        }
+      } else {
+        this.is_next_available = false;
+      }
+    }, error => {
+      this.fetchDataError = error;
+      console.error(this.fetchDataError);
+    });
+  }
+
+  cancelFollowUp(session: Session) {
+    const updateData = {
+      followUpStatus: 'Cancelled'
+    }
+    this.apiservice.updateSessionDetails(session.id, updateData).subscribe(results => {
+      console.log(results);
+      this.getFollowUpSessions();
+    }, error => {
+      this.fetchDataError = error;
+      console.error(this.fetchDataError);
+    });
+  }
+
+  mergeSessions(session: Session) {
+    const mergedSessions: MergedSessions = {
+      previous: session,
+      next: this.session
+    }
+    this.apiservice.mergeSessions(mergedSessions).subscribe(results => {
+      console.log(results);
+      this.getFollowUpSessions();
+    }, error => {
+      this.fetchDataError = error;
+      console.error(this.fetchDataError);
+    });
+  }
+
+  navToSessionDetails(session: Session) {
+    this.router.navigate(['../session'], {
+      queryParams: {
+        sessionID: session.id
+      },
+      relativeTo: this.route
     });
   }
 
