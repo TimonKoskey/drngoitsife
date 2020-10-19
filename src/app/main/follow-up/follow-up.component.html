@@ -27,8 +27,8 @@
                                     <tr>
                                         <th></th>
                                         <th>Name</th>
+                                        <th>Reg No</th>
                                         <th>Status</th>
-                                        <th>Registration Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -36,8 +36,8 @@
                                         (click)="navToSessionDetails(session)">
                                         <td>{{i+1}}</td>
                                         <td>{{session.patient.firstName}} {{session.patient.middleName}} {{session.patient.surname}}</td>
+                                        <td>{{session.patient?.patientRegistrationNumber}}</td>
                                         <td>{{session.status}}</td>
-                                        <td>{{session.date | date: 'dd/MM/yyyy'}}</td>
                                     </tr>
                                 </tbody>
                             </table>
