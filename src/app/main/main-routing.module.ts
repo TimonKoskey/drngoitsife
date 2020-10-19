@@ -21,7 +21,7 @@ import { TreatmentComponent } from '../session/treatment/treatment.component';
 import { RemarksComponent } from '../session/remarks/remarks.component';
 
 const routes: Routes = [
-  { path: '', component: MainComponent, children: [
+  { path: 'account', component: MainComponent, children: [
     { path: '',   redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
     { path: 'register-patient', component: RegisterPatientFormComponent },

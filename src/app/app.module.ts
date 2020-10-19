@@ -7,6 +7,7 @@ import { PersistenceModule } from 'angular-persistence';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
+import { MainModule } from './main/main.module';
 
 import { httpInterceptorProviders } from './services/interceptors/index';
 
@@ -26,7 +27,8 @@ import { SignInComponent } from './auth/sign-in/sign-in.component';
     BrowserAnimationsModule,
     NgxSpinnerModule,
     PersistenceModule,
-    HttpClientModule
+    HttpClientModule,
+    MainModule
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]

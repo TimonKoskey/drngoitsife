@@ -11,9 +11,7 @@ const routes: Routes = [
   { path: '',   redirectTo: 'sign-in', pathMatch: 'full' },
   { path: 'sign-in', component: SignInComponent, canActivate: [SignInGuard] },
 
-  { path: 'account', loadChildren: () => import('./main/main.module').then(m => m.MainModule),canActivate: [AuthGuard] },
-
-  { path: 'session', loadChildren: () => import('./session/session.module').then(m => m.SessionModule) },
+  // { path: 'account', loadChildren: () => import('./main/main.module').then(m => m.MainModule),canActivate: [AuthGuard] }
 ];
 
 @NgModule({
