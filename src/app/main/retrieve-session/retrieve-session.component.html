@@ -45,6 +45,7 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Reg No</th>
+                                        <th>Date</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -54,6 +55,7 @@
                                         <td>{{session.patient.firstName}} {{session.patient.middleName}}
                                             {{session.patient.surname}}</td>
                                         <td>{{session.patient?.patientRegistrationNumber}}</td>
+                                        <td>{{session.date | date: 'dd/MM/yyyy'}}</td>
                                         <td>{{session.status}}</td>
                                     </tr>
                                 </tbody>
