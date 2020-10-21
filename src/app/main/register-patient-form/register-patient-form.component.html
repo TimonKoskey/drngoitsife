@@ -293,7 +293,7 @@
                 <div class="card-body">
                     <div class="data-exists-error">
                         <h5 class="data-exists-error-title">
-                            A patient with the same <u>Name and Phone Number</u> already exists.
+                            A patient with the same <u>Registration Number</u> OR <u>Name and Phone Number</u> already exists.
                         </h5>
                         <div class="table-responsive">
                             <table class="table">
@@ -303,7 +303,7 @@
                                         <th>Name</th>
                                         <th>Gender</th>
                                         <th>Age</th>
-                                        <th>Reg Date</th>
+                                        <th>Reg No</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -314,7 +314,7 @@
                                         <td>{{patient.firstName}} {{patient.middleName}} {{patient.surname}}</td>
                                         <td>{{patient.gender}}</td>
                                         <td>{{patient.age}}</td>
-                                        <td>{{patient.registrationDate | date: 'dd/MM/yyyy'}}</td>
+                                        <td>{{patient.patientRegistrationNumber}}</td>
                                     </tr>
                                 </tbody>
                             </table>
