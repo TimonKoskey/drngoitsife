@@ -1,0 +1,21 @@
+.input-group button.btn {
+    border: 0;
+    background-color: #17a2b8;
+    margin-bottom: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    color: #f8f9fa;
+    cursor: unset;
+    z-index: 2;
+    padding: 1px 10px;
+}
+
+#investigations-list-input {
+    padding: 20px 0px;
+}
+
+label.investigationTypeLabel {
+    float: right;
+    font-size: 18px;
+}

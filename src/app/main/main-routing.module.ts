@@ -19,6 +19,8 @@ import { InvestigationsComponent } from '../session/investigations/investigation
 import { DiagnosisComponent } from '../session/diagnosis/diagnosis.component';
 import { TreatmentComponent } from '../session/treatment/treatment.component';
 import { RemarksComponent } from '../session/remarks/remarks.component';
+import { CashReportComponent } from './cash-report/cash-report.component';
+import { LabResultsListComponent } from './lab-results-list/lab-results-list.component';
 
 const routes: Routes = [
   { path: 'account', component: MainComponent, children: [
@@ -30,6 +32,8 @@ const routes: Routes = [
     { path: 'active-sessions', component: ActiveSessionsComponent },
     { path: 'retrieve-session', component: RetrieveSessionComponent },
     { path: 'follow-up-sessions', component: FollowUpComponent },
+    { path: 'cash-report', component: CashReportComponent },
+    { path: 'lab-results', component: LabResultsListComponent },
 
     { path: 'session', component: SessionComponent, children: [
       { path: '',   redirectTo: 'payments', pathMatch: 'full' },

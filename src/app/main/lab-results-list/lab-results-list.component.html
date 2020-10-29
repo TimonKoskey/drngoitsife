@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="active-sessions">
+        <ngx-spinner></ngx-spinner>
+        <div class="card">
+            <div class="card-body page-content">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-header">
+                            <h4 class="page-title">Lab Results Sessions</h4>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div id="custom-search-input">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Enter Patient Reg Number, Name or Session ID"
+                                (keyup)="onKey($event)" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                  <button class="btn btn-outline-secondary" type="button"><span class="fa fa-search"></span> search </button>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="table-responsive" *ngIf="recordsAvailable === true">
+                            <table class="table">
+                                <thead class="table-info">
+                                    <tr>
+                                        <th></th>
+                                        <th>Name</th>
+                                        <th>Reg No</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let session of paginatedSessionList; let i = index" class="session-entry"
+                                        (click)="navToSessionDetails(session)">
+                                        <td>{{getItemCount(i)}}</td>
+                                        <td>{{session.patient.firstName}} {{session.patient.middleName}} {{session.patient.surname}}</td>
+                                        <td>{{session.patient?.patientRegistrationNumber}}</td>
+                                        <td>{{session.date | date: 'dd/MM/yyyy'}}</td>
+                                        <td>{{session.status}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <pagination [totalItems]="sessionsList.length" (pageChanged)="pageChanged($event)">
+                            </pagination>
+                        </div>
+    
+                        <div class="empty-list-feedback" *ngIf="recordsAvailable === false">
+                            <h5>No records available.</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

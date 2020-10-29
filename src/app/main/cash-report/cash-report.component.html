@@ -1,0 +1,117 @@
+<div class="container-fluid">
+    <div id="report-results">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div id="report-query">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <p class="options-link" (click)="todayCashReport()">Today</p>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <p class="options-link" (click)="sevenDayCashReport()">Last 7
+                                                            Days</p>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <p class="options-link" (click)="thirtyDayCashReport()">Last 30
+                                                            Days</p>
+                                                    </div>
+                                                </div>
+                                                <form class="form-inline">
+                                                    <label for="from-date" class="mr-sm-2">From:</label>
+                                                    <input type="date" class="form-control mb-2 mr-sm-2" id="from-date"
+                                                        max="{{minDateString}}" [(ngModel)]="dateFrom" name="from">
+                                                    <label for="to-date" class="mr-sm-2">To:</label>
+                                                    <input type="date" class="form-control mb-2 mr-sm-2" id="to-date"
+                                                        max="{{minDateString}}" [(ngModel)]="dateTo" name="to">
+                                                    <button type="submit" class="btn btn-primary mb-2" (click)="dateInputSubmit()">Submit</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-5">
+
+                        <div *ngIf="reportGenerated">
+                            <div class="row p-5">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="border-0 text-uppercase small font-weight-bold"></th>
+                                                <th class="border-0 text-uppercase small font-weight-bold">Name</th>
+                                                <th class="border-0 text-uppercase small font-weight-bold">Consultation
+                                                </th>
+                                                <th class="border-0 text-uppercase small font-weight-bold">Procedure
+                                                </th>
+                                                <th class="border-0 text-uppercase small font-weight-bold">Treatment
+                                                </th>
+                                                <th class="border-0 text-uppercase small font-weight-bold">Others</th>
+                                                <th class="border-0 text-uppercase small font-weight-bold">Invoice</th>
+                                                <th class="border-0 text-uppercase small font-weight-bold">Cash</th>
+                                                <th class="border-0 text-uppercase small font-weight-bold">Total</th>
+                                                <th class="border-0 text-uppercase small font-weight-bold">Balance</th>
+                                                <th class="border-0 text-uppercase small font-weight-bold">Grand Total
+                                                </th>
+                                                <th class="border-0 text-uppercase small font-weight-bold">Coop</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let report of cashReport[0]; let i = index">
+                                                <td>{{(i+1)}}</td>
+                                                <td>{{report.firstName}} {{report.surname}}</td>
+                                                <td>{{report.consultation}}</td>
+                                                <td>{{report.procedure}}</td>
+                                                <td>{{report.treatment}}</td>
+                                                <td>{{report.other}}</td>
+                                                <td>{{report.invoice}}</td>
+                                                <td>{{report.cash}}</td>
+                                                <td>{{report.total}}</td>
+                                                <td>{{report.balance}}</td>
+                                                <td>{{report.grandTotal}}</td>
+                                                <td>{{report.coop}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-row-reverse bg-dark text-white p-4">
+                                <div class="py-3 px-5 text-right">
+                                    <div class="mb-2">Grand Total</div>
+                                    <div class="h2 font-weight-light">{{cashReport[1]?.grandTotal}}</div>
+                                </div>
+                                <div class="py-3 px-5 text-right">
+                                    <div class="mb-2">Balance Total</div>
+                                    <div class="h2 font-weight-light">{{cashReport[1]?.balanceTotal}}</div>
+                                </div>
+
+                                <div class="py-3 px-5 text-right">
+                                    <div class="mb-2">Invoice Total</div>
+                                    <div class="h2 font-weight-light">{{cashReport[1]?.invoiceTotal}}</div>
+                                </div>
+
+                                <div class="py-3 px-5 text-right">
+                                    <div class="mb-2">Cash Total</div>
+                                    <div class="h2 font-weight-light">{{cashReport[1]?.cashTotal}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

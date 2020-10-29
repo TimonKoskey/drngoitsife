@@ -7,7 +7,9 @@ import { Patient } from '../../models/patient';
 import { Session, MergedSessions } from '../../models/session';
 import { Payment } from '../../models/payment';
 import { Notes } from '../../models/notes';
+import { Investigations } from '../../models/investigation';
 import { isDevMode } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,9 @@ import { isDevMode } from '@angular/core';
 export class APIService {
   patientUrl = `https://backend.eldoretneurosurgery.co.ke/patients`;
   sessionUrl = `https://backend.eldoretneurosurgery.co.ke/visits`;
-  // user: User
+
+  private session = new BehaviorSubject<Session>(null);
+  session$ = this.session.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -25,6 +29,14 @@ export class APIService {
       this.patientUrl = `http://127.0.0.1:8000/patients`;
       this.sessionUrl = `http://127.0.0.1:8000/visits`;
     }
+  }
+
+  setSession$(session: Session) {
+    this.session.next(session);
+  }
+
+  getSession$() {
+    return this.session$;
   }
 
   setUser(user: User) {
@@ -81,6 +93,10 @@ export class APIService {
 
   getActiveSessions(): Observable<Array<Session>> {
     return this.http.get<Array<Session>>(`${this.sessionUrl}/list/active`);
+  }
+
+  getLabResultsSessions(): Observable<Array<Session>> {
+    return this.http.get<Array<Session>>(`${this.sessionUrl}/list/lab-results`);
   }
 
   getFollowUpSessions(): Observable<Array<Session>> {
@@ -155,16 +171,24 @@ export class APIService {
     return this.http.put<Notes>(`${this.sessionUrl}/comorbidities/update/${notesID}`, notes);
   }
 
-  createSessionInvestigations(sessionID: number, notes: Notes): Observable<Notes> {
-    return this.http.post<Notes>(`${this.sessionUrl}/investigations/create/${sessionID}`, notes);
+  createSessionInvestigations(sessionID: number, notes: Notes): Observable<Investigations> {
+    return this.http.post<Investigations>(`${this.sessionUrl}/investigations/create/${sessionID}`, notes);
   }
 
-  getSessionInvestigations(sessionID: number): Observable<Notes> {
-    return this.http.get<Notes>(`${this.sessionUrl}/investigations/details/${sessionID}`);
+  getSessionInvestigations(sessionID: number): Observable<Investigations> {
+    return this.http.get<Investigations>(`${this.sessionUrl}/investigations/details/${sessionID}`);
   }
 
-  updateSessionInvestigations(notesID: number, notes: Notes): Observable<Notes> {
-    return this.http.put<Notes>(`${this.sessionUrl}/investigations/update/${notesID}`, notes);
+  createSessionInvestigationResults(sessionID: number, notes: Notes): Observable<Investigations> {
+    return this.http.post<Investigations>(`${this.sessionUrl}/investigations/results/create/${sessionID}`, notes);
+  }
+
+  updateSessionInvestigationRequest(notesID: number, notes: Notes): Observable<Notes> {
+    return this.http.put<Notes>(`${this.sessionUrl}/investigations/request/update/${notesID}`, notes);
+  }
+
+  updateSessionInvestigationResults(notesID: number, notes: Notes): Observable<Notes> {
+    return this.http.put<Notes>(`${this.sessionUrl}/investigations/results/update/${notesID}`, notes);
   }
 
   createSessionDiagnosis(sessionID: number, notes: Notes): Observable<Notes> {
@@ -215,8 +239,12 @@ export class APIService {
     return this.http.get(`${this.sessionUrl}/comorbidities/suggestions`, {params: {queryString: queryString}});
   }
 
-  getInvestigationsSuggestions(queryString: string): Observable<any> {
-    return this.http.get(`${this.sessionUrl}/investigations/suggestions`, {params: {queryString: queryString}});
+  getInvestigationsRequestSuggestions(): Observable<any> {
+    return this.http.get(`${this.sessionUrl}/investigations/request/suggestions`);
+  }
+
+  getInvestigationsResultsSuggestions(): Observable<any> {
+    return this.http.get(`${this.sessionUrl}/investigations/results/suggestions`);
   }
 
   getDiagnosisSuggestions(queryString: string): Observable<any> {
@@ -245,6 +273,10 @@ export class APIService {
 
   mergeSessions(mergedSessions: MergedSessions) {
     return this.http.post(`${this.sessionUrl}/merge`, mergedSessions);
+  }
+
+  getCashReport(timeRange: any) {
+    return this.http.post(`${this.sessionUrl}/cash-report`, timeRange);
   }
 
 }

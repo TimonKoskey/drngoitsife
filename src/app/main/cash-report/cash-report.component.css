@@ -1,0 +1,9 @@
+.form-control.mb-2.mr-sm-2 {
+    width: 300px;
+}
+
+p.options-link{
+    cursor: pointer;
+    color: blue;
+    text-transform: uppercase;
+}

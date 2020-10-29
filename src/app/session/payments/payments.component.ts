@@ -24,7 +24,7 @@ export class PaymentsComponent implements OnInit {
     'NHIF (Comprehensive)', 'NHIF (NPS)', 'Resolution', 'UAP', 'UOE', 'MADISON', 'AAR', 'Co-operative Bank', 'Liaison', 'Sanlam',
     'Heritage', 'First Insurance', 'HFCK', 'Saham', 'Kenindia', 'KCB', 'Pacis', 'Kenya Alliance', 'Cigna', 'DOD'];
 
-  concepts: string[] = ['Consultation', 'Medical Report'];
+  concepts: string[] = ['Consultation', 'Medical Report', 'Procedure', 'Treatment' ];
 
 
   constructor(

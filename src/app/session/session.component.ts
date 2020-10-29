@@ -46,10 +46,16 @@ export class SessionComponent implements OnInit, OnDestroy {
         }, error => {
           this.spinner.hide();
           this.fetchDataError = error;
-          console.error(this.fetchDataError);
+
         });
       }
     });
+
+    this.apiservice.getSession$().subscribe(session => {
+      if (session !== null) {
+        this.session = session;
+      }
+    })
   }
 
   minDate() {
@@ -78,8 +84,7 @@ export class SessionComponent implements OnInit, OnDestroy {
       });
     }, error => {
       this.spinner.hide();
-      this.fetchDataError = error;
-      console.error(this.fetchDataError);
+      this.fetchDataError = error
     });
   }
 
@@ -113,8 +118,7 @@ export class SessionComponent implements OnInit, OnDestroy {
       }
     }, error => {
       this.spinner.hide();
-      this.fetchDataError = error;
-      console.error(this.fetchDataError);
+      this.fetchDataError = error
     });
   }
 
@@ -123,6 +127,7 @@ export class SessionComponent implements OnInit, OnDestroy {
   }
 
   deleteSession(content: any) {
+    if (this.user.is_superuser) {
       this.config.size = 'lg';
       this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then(() => {
         this.spinner.show();
@@ -132,9 +137,10 @@ export class SessionComponent implements OnInit, OnDestroy {
         }, error => {
           this.spinner.hide();
           this.fetchDataError = error;
-          console.error(this.fetchDataError);
+
         });
       }, () => {});
+    }
   }
 
   goToDetails() {
@@ -143,6 +149,30 @@ export class SessionComponent implements OnInit, OnDestroy {
         id: this.session.patient.id
       },
       relativeTo: this.route
+    });
+  }
+
+  activateSession() {
+    const updateData = {
+      status: 'Active'
+    };
+    this.apiservice.updateSessionDetails(this.session.id, updateData).subscribe(results => {
+      this.session = results;
+    }, error => {
+      this.spinner.hide();
+      this.fetchDataError = error;
+    });
+  }
+
+  cancelSession() {
+    const updateData = {
+      status: 'Cancelled'
+    };
+    this.apiservice.updateSessionDetails(this.session.id, updateData).subscribe(results => {
+      this.session = results;
+    }, error => {
+      this.spinner.hide();
+      this.fetchDataError = error;
     });
   }
 

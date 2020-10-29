@@ -19,6 +19,8 @@ import { PatientDetailsComponent } from './patient-details/patient-details.compo
 import { ActiveSessionsComponent } from './active-sessions/active-sessions.component';
 import { FollowUpComponent } from './follow-up/follow-up.component';
 import { RetrieveSessionComponent } from './retrieve-session/retrieve-session.component';
+import { CashReportComponent } from './cash-report/cash-report.component';
+import { LabResultsListComponent } from './lab-results-list/lab-results-list.component';
 
 @NgModule({
 
@@ -30,7 +32,9 @@ import { RetrieveSessionComponent } from './retrieve-session/retrieve-session.co
     PatientDetailsComponent,
     ActiveSessionsComponent,
     FollowUpComponent,
-    RetrieveSessionComponent
+    RetrieveSessionComponent,
+    CashReportComponent,
+    LabResultsListComponent
   ],
 
   imports: [

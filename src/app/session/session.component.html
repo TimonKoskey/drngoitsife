@@ -76,17 +76,20 @@
                             <div class="session-data-section">
                                 <p class="session-data-header">Actions</p>
                                 <p class="session-data" *ngIf="session?.status !== 'Active'">
-                                    <a class="data-value as-link" (click)="startSession()"><u><i><b>Start New
-                                                    Session</b></i></u></a>
+                                    <a class="data-value as-link" (click)="startSession()"><u><i><b>Start New Session</b></i></u></a>
                                 </p>
                                 <p class="session-data" *ngIf="session?.status === 'Active'">
-                                    <a class="data-value as-link" (click)="open(content, false)"><u><i><b>Close
-                                                    Session</b></i></u></a>
+                                    <a class="data-value as-link" (click)="open(content, false)"><u><i><b>Close Session</b></i></u></a>
                                 </p>
-                                <p class="session-data">
-                                    <a class="data-value as-link" (click)="goToDetails()"><u><i><b>Session
-                                                    History</b></i></u></a>
+                                <p class="session-data" *ngIf="session?.status === 'Suspended'">
+                                    <a class="data-value as-link" (click)="activateSession()"><u><i><b>Active Session</b></i></u></a>
                                 </p>
+                                <p class="session-data" *ngIf="session?.status !== 'Cancelled'">
+                                    <a class="data-value as-link" (click)="cancelSession()"><u><i><b>Cancel Session</b></i></u></a>
+                                </p>
+                                <!-- <p class="session-data">
+                                    <a class="data-value as-link" (click)="goToDetails()"><u><i><b>Session History</b></i></u></a>
+                                </p> -->
                             </div>
                         </div>
 
@@ -137,7 +140,7 @@
                                     <span class="edit-data-value" (click)="open(content, true)"><i
                                             class="fa fa-pencil-square-o" aria-hidden="true"></i><b>Edit</b></span>
                                 </p>
-                                <p class="session-data session-data-warning">
+                                <p class="session-data session-data-warning" *ngIf="user.is_superuser">
                                     <a class="data-value as-link" (click)="deleteSession(deleteContentWarning)"><i
                                             class="fa fa-trash" aria-hidden="true"></i><i><b>Delete Session</b></i></a>
                                 </p>

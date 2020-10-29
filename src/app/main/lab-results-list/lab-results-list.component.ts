@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { APIService } from '../../services/api/api.service';
@@ -6,16 +6,16 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { Session } from '../../models/session';
 
 @Component({
-  selector: 'app-active-sessions',
-  templateUrl: './active-sessions.component.html',
-  styleUrls: ['./active-sessions.component.css']
+  selector: 'app-lab-results-list',
+  templateUrl: './lab-results-list.component.html',
+  styleUrls: ['./lab-results-list.component.css']
 })
-export class ActiveSessionsComponent implements OnInit, OnDestroy {
+export class LabResultsListComponent implements OnInit {
   recordsAvailable: boolean;
   sessionsList: Array<Session> = [];
   mainSessionsList: Array<Session> = [];
   paginatedSessionList: Array<Session> = [];
-  is_filtering = false;
+  // is_filtering = false;
   poll: any;
   currentPaginationPage: number;
 
@@ -24,21 +24,15 @@ export class ActiveSessionsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private spinner: NgxSpinnerService,
     private apiservice: APIService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.spinner.show();
     this.getActiveSessions();
-
-    this.poll = setInterval(() => {
-      if (!this.is_filtering) {
-        this.getActiveSessions();
-      } 
-    }, 30000);
   }
 
   getActiveSessions() {
-    this.apiservice.getActiveSessions().subscribe(results => {
+    this.apiservice.getLabResultsSessions().subscribe(results => {
       this.spinner.hide();
       if (results.length === 0) {
         this.recordsAvailable = false;
@@ -57,7 +51,6 @@ export class ActiveSessionsComponent implements OnInit, OnDestroy {
   onKey(event: any) {
     const searchTerm = event.target.value;
     if (searchTerm !== '' || searchTerm !== undefined) {
-      this.is_filtering = true;
       const searchTermLower = searchTerm.toLowerCase();
       const newSessionList = [];
       for (const session of this.mainSessionsList) {
@@ -74,7 +67,6 @@ export class ActiveSessionsComponent implements OnInit, OnDestroy {
     } else {
       this.sessionsList = this.mainSessionsList;
       this.paginatedSessionList = this.sessionsList.slice(0, 10);
-      this.is_filtering = false;
     }
   }
 
@@ -95,7 +87,7 @@ export class ActiveSessionsComponent implements OnInit, OnDestroy {
 
 
   navToSessionDetails(session: Session) {
-    this.router.navigate(['../session'], {
+    this.router.navigate(['../session/investigations'], {
       queryParams: {
         sessionID: session.id
       },

@@ -2,6 +2,7 @@
 import { Payment } from './payment';
 import { Notes } from './notes';
 import { Patient } from './patient';
+import { Investigations } from './investigation';
 
 export interface Session {
     id?: number;
@@ -14,7 +15,7 @@ export interface Session {
     complaints?: Notes;
     physicalExams?: Notes;
     comorbidities?: Notes;
-    investigations?: Notes;
+    investigations?: Investigations;
     diagnosis?: Notes;
     treatment?: Notes;
     remarks?: Notes;
