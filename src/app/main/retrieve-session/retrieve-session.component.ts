@@ -42,14 +42,15 @@ export class RetrieveSessionComponent implements OnInit {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then(() => {
       if (this.ngbDate !== undefined) {
         this.dateTime = new Date(this.ngbDate.year, this.ngbDate.month - 1, this.ngbDate.day);
+        this.dateTime.setHours(23,59.59,0)
         this.retrieveSessionByDate();
       }
     }, () => {});
   }
 
   retrieveSessionByDate() {
+    console.log(this.dateTime)
     const dateTimeString = this.dateTime.toUTCString();
-    console.log(dateTimeString);
     this.spinner.show();
     this.apiservice.getSessionByDate(dateTimeString).subscribe(results => {
       this.spinner.hide();
