@@ -9,7 +9,7 @@ import { Payment } from '../../models/payment';
 import { Notes } from '../../models/notes';
 import { Investigations } from '../../models/investigation';
 import { isDevMode } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
