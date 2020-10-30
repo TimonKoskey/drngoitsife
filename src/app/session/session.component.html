@@ -82,7 +82,7 @@
                                     <a class="data-value as-link" (click)="open(content, false)"><u><i><b>Close Session</b></i></u></a>
                                 </p>
                                 <p class="session-data" *ngIf="session?.status === 'Suspended'">
-                                    <a class="data-value as-link" (click)="activateSession()"><u><i><b>Active Session</b></i></u></a>
+                                    <a class="data-value as-link" (click)="activateSession()"><u><i><b>Activate Session</b></i></u></a>
                                 </p>
                                 <p class="session-data" *ngIf="session?.status !== 'Cancelled'">
                                     <a class="data-value as-link" (click)="cancelSession()"><u><i><b>Cancel Session</b></i></u></a>
