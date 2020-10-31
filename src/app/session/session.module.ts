@@ -17,6 +17,7 @@ import { DiagnosisComponent } from './diagnosis/diagnosis.component';
 import { TreatmentComponent } from './treatment/treatment.component';
 import { RemarksComponent } from './remarks/remarks.component';
 import { MergedSessionsComponent } from './merged-sessions/merged-sessions.component';
+import { VitalsComponent } from './vitals/vitals.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { MergedSessionsComponent } from './merged-sessions/merged-sessions.compo
     DiagnosisComponent,
     TreatmentComponent,
     RemarksComponent,
-    MergedSessionsComponent
+    MergedSessionsComponent,
+    VitalsComponent
   ],
 
   imports: [

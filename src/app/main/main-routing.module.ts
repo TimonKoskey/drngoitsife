@@ -21,6 +21,7 @@ import { TreatmentComponent } from '../session/treatment/treatment.component';
 import { RemarksComponent } from '../session/remarks/remarks.component';
 import { CashReportComponent } from './cash-report/cash-report.component';
 import { LabResultsListComponent } from './lab-results-list/lab-results-list.component';
+import { VitalsComponent } from '../session/vitals/vitals.component';
 
 const routes: Routes = [
   { path: 'account', component: MainComponent, children: [
@@ -38,6 +39,7 @@ const routes: Routes = [
     { path: 'session', component: SessionComponent, children: [
       { path: '',   redirectTo: 'payments', pathMatch: 'full' },
       { path: 'payments', component: PaymentsComponent },
+      { path: 'vitals', component: VitalsComponent },
       { path: 'complaints', component: ComplaintsComponent },
       { path: 'physical-exam', component: PhysicalExamsComponent },
       { path: 'comorbidities', component: ComorbiditiesComponent },

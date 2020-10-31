@@ -1,4 +1,4 @@
-// import { Vitals } from './vitals';
+import { Vitals } from './vitals';
 import { Payment } from './payment';
 import { Notes } from './notes';
 import { Patient } from './patient';
@@ -11,7 +11,7 @@ export interface Session {
     status?: string;
 
     payments?: Array<Payment>;
-    // vitals: Vitals;
+    vitals?: Vitals;
     complaints?: Notes;
     physicalExams?: Notes;
     comorbidities?: Notes;

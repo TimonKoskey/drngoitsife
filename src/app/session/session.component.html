@@ -17,10 +17,10 @@
                                     <a role="button" class="btn btn-default">Payments</a>
                                 </li>
 
-                                <!-- <li class="nav-item" routerLink="./vitals" routerLinkActive="active"
+                                <li class="nav-item" routerLink="./vitals" routerLinkActive="active"
                                     [queryParams]="{'sessionID': session.id}">
                                     <a role="button" class="btn btn-default">Vitals</a>
-                                </li> -->
+                                </li>
 
                                 <li class="nav-item" routerLink="./complaints" routerLinkActive="active"
                                     [queryParams]="{'sessionID': session.id}">
@@ -29,7 +29,7 @@
 
                                 <li class="nav-item" routerLink="./physical-exam" routerLinkActive="active"
                                     [queryParams]="{'sessionID': session.id}">
-                                    <a role="button" class="btn btn-default">Physical Exam</a>
+                                    <a role="button" class="btn btn-default">Physical</a>
                                 </li>
 
                                 <li class="nav-item" routerLink="./comorbidities" routerLinkActive="active"
@@ -74,19 +74,19 @@
 
                         <div class="col-md-12 col-sm-4">
                             <div class="session-data-section">
-                                <p class="session-data-header">Actions</p>
-                                <p class="session-data" *ngIf="session?.status !== 'Active'">
-                                    <a class="data-value as-link" (click)="startSession()"><u><i><b>Start New Session</b></i></u></a>
-                                </p>
-                                <p class="session-data" *ngIf="session?.status === 'Active'">
-                                    <a class="data-value as-link" (click)="open(content, false)"><u><i><b>Close Session</b></i></u></a>
-                                </p>
-                                <p class="session-data" *ngIf="session?.status === 'Suspended'">
-                                    <a class="data-value as-link" (click)="activateSession()"><u><i><b>Activate Session</b></i></u></a>
-                                </p>
-                                <p class="session-data" *ngIf="session?.status !== 'Cancelled'">
-                                    <a class="data-value as-link" (click)="cancelSession()"><u><i><b>Cancel Session</b></i></u></a>
-                                </p>
+                                <!-- <p class="session-data-header">Actions</p> -->
+                                <span class="actions" *ngIf="session?.status === 'Suspended' || session?.status === 'Cancelled'">
+                                    <button class="btn btn-success" (click)="activateSession()">Activate Session</button>
+                                </span>
+                                <span class="actions" *ngIf="session?.status === 'Closed' || session?.status === 'Cancelled'">
+                                    <button class="btn btn-info" (click)="startSession()">Start New Session</button>
+                                </span>
+                                <span class="actions" *ngIf="session?.status === 'Active'">
+                                    <button class="btn btn-info" (click)="open(content, false)">Close Session</button>
+                                </span>
+                                <span class="actions" *ngIf="session?.status === 'Active'">
+                                    <button class="btn btn-danger" (click)="cancelSession()">Cancel Session</button>
+                                </span>
                                 <!-- <p class="session-data">
                                     <a class="data-value as-link" (click)="goToDetails()"><u><i><b>Session History</b></i></u></a>
                                 </p> -->

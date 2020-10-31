@@ -10,6 +10,7 @@ import { Notes } from '../../models/notes';
 import { Investigations } from '../../models/investigation';
 import { isDevMode } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { Vitals } from '../../models/vitals';
 
 @Injectable({
   providedIn: 'root'
@@ -145,6 +146,18 @@ export class APIService {
 
   updateSessionComplaintsDetails(notesID: number, notes: Notes): Observable<Notes> {
     return this.http.put<Notes>(`${this.sessionUrl}/complaints/update/${notesID}`, notes);
+  }
+
+  createSessionVitals(sessionID: number, vitals: Vitals): Observable<Vitals> {
+    return this.http.post<Vitals>(`${this.sessionUrl}/vitals/create/${sessionID}`, vitals);
+  }
+
+  getSessionVitals(sessionID: number): Observable<Vitals> {
+    return this.http.get<Vitals>(`${this.sessionUrl}/vitals/details/${sessionID}`);
+  }
+
+  updateSessionVitalsDetails(vitalsID: number, vitals: Vitals): Observable<Vitals> {
+    return this.http.put<Vitals>(`${this.sessionUrl}/vitals/update/${vitalsID}`, vitals);
   }
 
   createSessionPhycExam(sessionID: number, notes: Notes): Observable<Notes> {

@@ -1,0 +1,168 @@
+<div class="container">
+    <ngx-spinner></ngx-spinner>
+    <div id="vitals-page" *ngIf="fetchDataError === undefined; else errorTemplate">
+        <div class="card">
+            <div class="card-body">
+                <form class="form" [formGroup]='vitalsForm' *ngIf="vitalsSectionCompleted === false || editVitals === true">
+                    <div class="row">
+    
+                        <div class="col-md-4 col-sm-6">
+                            <label for="systolic" class="input-label-right">
+                                <span>Systolic</span>
+                                <span class="input-required">(SBP)</span>
+                            </label>
+                        </div>
+    
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <input type="number" name="systolic" class="form-control" placeholder="mmHg" formControlName="systolic" required />
+                                <div *ngIf="systolic.invalid && vitalsFormSubmited">
+                                    <div *ngIf="systolic.errors.required">
+                                        <small class="error-message">*required field!</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-md-4 col-sm-6">
+                            <label for="diastolic" class="input-label-right">
+                                <span>Diastolic</span>
+                                <span class="input-required">(DBP)</span>
+                            </label>
+                        </div>
+    
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <input type="number" name="diastolic" class="form-control" placeholder="mmHg" formControlName="diastolic" required />
+                                <div *ngIf="diastolic.invalid && vitalsFormSubmited">
+                                    <div *ngIf="diastolic.errors.required">
+                                        <small class="error-message">*required field!</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-6">
+                            <label for="pulse" class="input-label-right">
+                                <span>Pulse Rate</span>
+                            </label>
+                        </div>
+                        
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <input type="number" name="pulse" class="form-control" placeholder="/minute"  formControlName="pulseRate" required>
+                                <div *ngIf="pulseRate.invalid && vitalsFormSubmited">
+                                    <div *ngIf="pulseRate.errors.required">
+                                        <small class="error-message">*required field!</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-md-4 col-sm-6">
+                            <label for="temperature" class="input-label-right">
+                                <span>Temperature</span>
+                            </label>
+                        </div>
+                        
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <input type="number" name="temperature" class="form-control" placeholder="celsius" formControlName="temperature" >
+                            </div>
+                        </div>
+    
+                        <div class="col-md-4 col-sm-6">
+                            <label for="SPO2" class="input-label-right">
+                                <span>SPO2</span>
+                            </label>
+                        </div>
+                        
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <input type="number" name="spo2" class="form-control" placeholder="percentage %" formControlName="SPO2">
+                            </div>
+                        </div>
+    
+                        <div class="col-md-4 col-sm-6">
+                            <label for="weight" class="input-label-right">
+                                <span>Weight</span>
+                            </label>
+                        </div>
+                        
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <input type="number" name="weight" class="form-control" placeholder="kilograms" formControlName="weight"/>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12" style="text-align: center; margin-top: 20px;">
+                            <button *ngIf="editVitals === true" class="btn btn-left" (click)="cancelEditor()"><i class="fa fa-times" aria-hidden="true"></i>CANCEL</button>
+                            <button class="btn btn-right" (click)="onSubmit(vitalsForm)"><i class="fa fa-check" aria-hidden="true"></i>SAVE</button>
+                            <!-- <button (click)="onSubmit(vitalsForm)" class="btn btn-primary submit-button">submit</button> -->
+                        </div>
+                    </div>
+                </form>
+
+                <div *ngIf="vitalsSectionCompleted === true && editVitals !== true">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-user-information">
+                                    <tbody>
+                                        <tr>
+                                            <td>Systolic:</td>
+                                            <td>{{vitals?.systolic}} mmHg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Diastolic:</td>
+                                            <td>{{vitals?.diastolic}} mmHg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pulse Rate:</td>
+                                            <td>{{vitals?.pulseRate}} /min</td>
+                                        </tr>
+    
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-user-information">
+                                    <tbody>
+                                        <tr *ngIf="vitals?.temperature !== null && vitals?.temperature !== undefined && vitals?.temperature !== ''">
+                                            <td>Temperature:</td>
+                                            <td>{{vitals?.temperature}} celsius</td>
+                                        </tr>
+                                        <tr *ngIf="vitals?.SPO2 !== null && vitals?.SPO2 !== undefined && vitals?.SPO2 !== ''">
+                                            <td>SPO2:</td>
+                                            <td>{{vitals?.SPO2}}%</td>
+                                        </tr>
+                                        <tr *ngIf="vitals?.weight !== null && vitals?.weight !== undefined && vitals?.weight !== ''">
+                                            <td>Weight:</td>
+                                            <td>{{vitals?.weight}} Kg</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-right" (click)="EditVitals()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>EDIT VITALS</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #errorTemplate>
+        <div class="row">
+            <div class="col-12">
+                <div id="pageError" *ngIf="fetchDataError.status !== 404">
+                    <h4 id="error-code">{{fetchDataError?.status}} {{fetchDataError?.statusText}}!</h4>
+                    <p id="error-message">{{fetchDataError?.error.detail}}</p>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>
