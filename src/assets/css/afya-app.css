@@ -223,28 +223,6 @@ input:focus{
     background-color: rgb(232, 240, 254);
     color: black;
   }
-
-  /* .sidebar-menu ul li.nav-item {
-      margin-top: 10px;
-  }
-  
-  .sidebar-menu ul li a {
-    border-radius: 3px;
-    color: #3c4858;
-    padding-left: 10px;
-    padding-right: 10px;
-    text-transform: capitalize;
-    padding: 10px 15px;
-  }
-  
-  .sidebar-menu ul li.active>a {
-    color: #1b5829 !important;
-    background-color: #c7d5ca;
-  }
-
-  .chiller-theme .sidebar-wrapper .sidebar-menu ul li.active>a i  {
-    background: #dee2e6 !important;
-} */
   
   .nav-item .nav-link {
     cursor: pointer;
