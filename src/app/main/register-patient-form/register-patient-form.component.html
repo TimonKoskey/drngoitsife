@@ -24,7 +24,7 @@
                                             <span class="input-required">(required)</span>
                                         </label>
                                         <input type="text" class="form-control" id="patientRegistrationNumber"
-                                            formControlName="patientRegistrationNumber">
+                                            formControlName="patientRegistrationNumber" autocomplete="off">
 
                                         <div *ngIf="patientRegistrationNumber.invalid && patientRecordFormSubmitted">
                                             <div *ngIf="patientRegistrationNumber.errors.required">

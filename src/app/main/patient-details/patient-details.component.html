@@ -99,8 +99,8 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6">
                                         <div class="form-group has-success bmd-form-group">
-                                            <input type="number" name="patientRegistrationNumber" class="form-control"
-                                                [(ngModel)]="patient.patientRegistrationNumber" #PatientRegistrationNumber="ngModel" required>
+                                            <input type="text" name="patientRegistrationNumber" class="form-control"
+                                                [(ngModel)]="patient.patientRegistrationNumber" #PatientRegistrationNumber="ngModel" autocomplete="off" required>
 
                                             <div *ngIf="PatientRegistrationNumber.invalid && editPatientDetailsFormSubmitted === true">
                                                 <div *ngIf="PatientRegistrationNumber.errors.required">
