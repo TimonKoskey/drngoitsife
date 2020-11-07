@@ -1,4 +1,4 @@
-<div class="wrapper" #afyaMain id="afya-app-main">
+<div class="wrapper chiller-theme" #afyaMain id="afya-app-main">
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="navbar-brand">
             <span class="nav-title">
@@ -10,7 +10,7 @@
             aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-    
+
         <div class="collapse navbar-collapse" id="afya-main-navbar">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -24,41 +24,141 @@
             </ul>
         </div>
     </nav>
-    <div id="sidebar">
+    <!-- <div id="sidebar">
         <div class="nav">
             <ul>
 
                 <li class="nav-item">
-                    <a routerLink="/account/patient-records" routerLinkActive="active"><i class="fa fa-book" aria-hidden="true"></i>Patient Records</a>
+                    <a routerLink="/account/patient-records" routerLinkActive="active"><i class="fa fa-book"
+                            aria-hidden="true"></i>Patient Records</a>
                 </li>
 
                 <li class="nav-item">
-                    <a routerLink="/account/register-patient" routerLinkActive="active"><i class="fa fa-user-plus" aria-hidden="true"></i>Register Patient</a>
+                    <a routerLink="/account/register-patient" routerLinkActive="active"><i class="fa fa-user-plus"
+                            aria-hidden="true"></i>Register Patient</a>
                 </li>
 
                 <li class="nav-item">
-                    <a routerLink="/account/active-sessions" routerLinkActive="active"><i class="fa fa-user-circle" aria-hidden="true"></i>Active Sessions</a>
+                    <a routerLink="/account/active-sessions" routerLinkActive="active"><i class="fa fa-user-circle"
+                            aria-hidden="true"></i>Active Sessions</a>
                 </li>
 
                 <li class="nav-item">
-                    <a routerLink="/account/follow-up-sessions" routerLinkActive="active"><i class="fa fa-calendar" aria-hidden="true"></i>Follow Up Sessions</a>
+                    <a routerLink="/account/follow-up-sessions" routerLinkActive="active"><i class="fa fa-calendar"
+                            aria-hidden="true"></i>Follow Up Sessions</a>
                 </li>
 
                 <li class="nav-item">
-                    <a routerLink="/account/lab-results" routerLinkActive="active"><i class="fa fa-flask" aria-hidden="true"></i>Investigation Results</a>
+                    <a routerLink="/account/lab-results" routerLinkActive="active"><i class="fa fa-flask"
+                            aria-hidden="true"></i>Investigation Results</a>
                 </li>
 
                 <li class="nav-item">
-                    <a routerLink="/account/retrieve-session" routerLinkActive="active"><i class="fa fa-archive" aria-hidden="true"></i>Retrieve Session</a>
+                    <a routerLink="/account/retrieve-session" routerLinkActive="active"><i class="fa fa-archive"
+                            aria-hidden="true"></i>Retrieve Session</a>
                 </li>
 
                 <li class="nav-item">
-                    <a routerLink="/account/cash-report" routerLinkActive="active"><i class="fa fa-file" aria-hidden="true"></i>Cash Report</a>
+                    <a routerLink="/account/cash-report" routerLinkActive="active"><i class="fa fa-file"
+                            aria-hidden="true"></i>Cash Report</a>
                 </li>
-                
+
             </ul>
         </div>
-    </div>
+    </div> -->
+
+    <nav id="sidebar" class="sidebar-wrapper">
+        <div class="sidebar-content">
+            <div class="sidebar-brand">
+                <a href="#">pro sidebar</a>
+                <div id="close-sidebar">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="sidebar-header">
+                <div class="user-pic">
+                    <img class="img-responsive img-rounded"
+                        src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                        alt="User picture">
+                </div>
+                <div class="user-info">
+                    <span class="user-name">{{user?.first_name}}
+                        <strong>{{user?.last_name}}</strong>
+                    </span>
+                    <span class="user-role" *ngIf="user?.is_superuser">Administrator</span>
+                    <span class="user-role" *ngIf="user?.is_staff && !user?.is_superuser">Staff</span>
+                    <span class="user-status">
+                        <i class="fa fa-circle"></i>
+                        <span>Online</span>
+                    </span>
+                </div>
+            </div>
+            <div class="sidebar-menu">
+                <ul>
+
+                    <li class="header-menu">
+                        <span>Dashboard</span>
+                    </li>
+
+                    <li>
+                        <a routerLink="/account/patient-records" routerLinkActive="active">
+                            <i class="fa fa-book"></i>
+                            <span>Patient Records</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/account/register-patient" routerLinkActive="active">
+                            <i class="fa fa-user-plus"></i>
+                            <span>Register Patient</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/account/active-sessions" routerLinkActive="active">
+                            <i class="fa fa-user-circle"></i>
+                            <span>Active Sessions</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/account/follow-up-sessions" routerLinkActive="active">
+                            <i class="fa fa-calendar"></i>
+                            <span>Follow Up Sessions</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/account/lab-results" routerLinkActive="active">
+                            <i class="fa fa-flask"></i>
+                            <span>Investigation Results</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/account/retrieve-session" routerLinkActive="active">
+                            <i class="fa fa-archive"></i>
+                            <span>Retrieve Session</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/account/cash-report" routerLinkActive="active">
+                            <i class="fa fa-file"></i>
+                            <span>Cash Report</span>
+                        </a>
+                    </li>
+
+                    <li class="header-menu">
+                        <span>Account</span>
+                    </li>
+                    <li>
+                        <a href="https://www.eldoretneuro.co.ke:2096" target="_blank">
+                          <i class="fa fa-envelope"></i>
+                          <span>Emails</span>
+                          <span class="badge badge-pill badge-primary">info@eldoretneuro.co.ke</span>
+                        </a>
+                      </li>
+                </ul>
+            </div>
+            <!-- sidebar-menu  -->
+        </div>
+        <!-- sidebar-content  -->
+    </nav>
 
     <div id="main-content" class="main">
         <div id="afya-app-content">

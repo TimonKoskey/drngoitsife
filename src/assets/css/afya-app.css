@@ -224,7 +224,7 @@ input:focus{
     color: black;
   }
 
-  .sidebar-menu ul li.nav-item {
+  /* .sidebar-menu ul li.nav-item {
       margin-top: 10px;
   }
   
@@ -234,7 +234,6 @@ input:focus{
     padding-left: 10px;
     padding-right: 10px;
     text-transform: capitalize;
-    font-size: 13px;
     padding: 10px 15px;
   }
   
@@ -245,7 +244,7 @@ input:focus{
 
   .chiller-theme .sidebar-wrapper .sidebar-menu ul li.active>a i  {
     background: #dee2e6 !important;
-}
+} */
   
   .nav-item .nav-link {
     cursor: pointer;
