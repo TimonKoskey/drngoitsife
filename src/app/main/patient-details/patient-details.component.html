@@ -4,7 +4,7 @@
        
         <div id="patient-infor-section">
             <div id="start-session-button">
-                <button class="btn btn-start-session" (click)="startSession()"><i class="fa fa-plus-square"
+                <button class="btn btn-start-session" (click)="checkForSuspendedSession(suspendedSessionAvailableNotification)"><i class="fa fa-plus-square"
                         aria-hidden="true"></i>start session</button>
             </div>
             <div class="card">
@@ -317,6 +317,22 @@
                 </ng-template>
 
             </div>
+
+            <ng-template #suspendedSessionAvailableNotification let-modal>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title"> Investigation Results </h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h6>This patient has a suspended session awaiting investigation results.</h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" (click)="suspendedSessionNotifClose(true,modal)" style="margin-right: 50px;">Start New Session</button>
+                    <button type="button" class="btn btn-success" (click)="suspendedSessionNotifClose(false,modal)">Check Investigation Results List</button>
+                </div>
+            </ng-template>
         </div>
 
         <div id="sessions-list-section">

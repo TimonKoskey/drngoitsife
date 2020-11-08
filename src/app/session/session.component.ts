@@ -19,6 +19,8 @@ export class SessionComponent implements OnInit, OnDestroy {
   followUpDate: NgbDate;
   minFollowUpDate: any;
   dateEditing: boolean;
+  sessionHistoryExists: boolean;
+  sessionHistory: Array<Session> = [];
 
   constructor(
     private router: Router,
@@ -43,6 +45,7 @@ export class SessionComponent implements OnInit, OnDestroy {
           this.spinner.hide();
           this.session = results
           this.apiservice.setSession(this.session);
+          this.getSessionHistory();
         }, error => {
           this.spinner.hide();
           this.fetchDataError = error;
@@ -173,6 +176,29 @@ export class SessionComponent implements OnInit, OnDestroy {
     }, error => {
       this.spinner.hide();
       this.fetchDataError = error;
+    });
+  }
+
+  getSessionHistory() {
+    this.apiservice.getPatientSessionHistory(this.session.patient.id).subscribe(results => {
+      if (results.length === 0) {
+        this.sessionHistoryExists = false;
+      } else {
+        this.sessionHistoryExists = true;
+        this.sessionHistory = results;
+        this.sessionHistory.reverse();
+      }
+    }, error => {
+      console.error(error);
+    });
+  }
+
+  navToSessionDetails(session: Session) {
+    this.router.navigate(['../session'], {
+      queryParams: {
+        sessionID: session.id
+      },
+      relativeTo: this.route
     });
   }
 

@@ -66,9 +66,9 @@
 	color: green;
 }
 
-.session-data-section .session-data .data-value {
+/* .session-data-section .session-data .data-value {
 	margin-left: 10px;
-}
+} */
 
 .session-data .data-value.as-link {
 	color: blue;
@@ -116,6 +116,18 @@
 .actions button {
 	margin-right: 15px;
 	margin-top: 10px;
+}
+
+#right-sidebar {
+	max-height: 110vh;
+}
+
+#session-history-section {
+	margin-top: 15px;
+}
+
+#session-history-section .section-header {
+	color: purple;
 }
 
 

@@ -21,6 +21,7 @@ export class PatientDetailsComponent implements OnInit {
   sessionHistory: Array<Session> = [];
   editPatientDetails = false
   editPatientDetailsFormSubmitted: boolean;
+  completeStartNewSessionAction: boolean;
 
   constructor(
     private router: Router,
@@ -66,8 +67,29 @@ export class PatientDetailsComponent implements OnInit {
     });
   }
 
-  startSession() {
+  checkForSuspendedSession(content: any) {
     this.spinner.show();
+    this.apiservice.checkForSuspendedSessions(this.patient.id).subscribe(results => {
+      if (results.length === 0) {
+        this.startSession();
+      } else {
+        this.spinner.hide();
+        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then(() => {
+          if (this.completeStartNewSessionAction) {
+            this.spinner.show();
+            this.startSession();
+          } else {
+            this.router.navigate(['../lab-results'], { relativeTo: this.route });
+          }
+        }, () => {});
+      }
+    }, error => {
+      this.spinner.hide();
+      console.error(error); 
+    })
+  }
+
+  startSession() {
     this.apiservice.startNewSession(this.patient.id).subscribe(results => {
       this.spinner.hide();
       this.navToSessionDetails(results);
@@ -129,6 +151,11 @@ export class PatientDetailsComponent implements OnInit {
         })
       }, () => {});
     }
+  }
+
+  suspendedSessionNotifClose(proceed: boolean, modal: any) {
+    this.completeStartNewSessionAction = proceed;
+    modal.close();
   }
 
 }

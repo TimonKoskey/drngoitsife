@@ -106,47 +106,6 @@ export class InvestigationsComponent implements OnInit {
       entry7: [this.resultsNotes !== undefined ? this.resultsNotes.entry7 : '']
     });
 
-    // this.formGroup.get('entry1').valueChanges.subscribe(value => {
-    //   if(value !== '') {
-    //     this.investigationResultsSuggestions = ;
-    //   }
-    // });
-
-    // this.formGroup.get('entry2').valueChanges.subscribe(value => {
-    //   if(value !== '') {
-    //     this.investigationResultsSuggestions = this.apiservice.getInvestigationsResultsSuggestions(value);
-    //   }
-    // });
-
-    // this.formGroup.get('entry3').valueChanges.subscribe(value => {
-    //   if(value !== '') {
-    //     this.investigationResultsSuggestions = this.apiservice.getInvestigationsResultsSuggestions(value);
-    //   }
-    // });
-
-    // this.formGroup.get('entry4').valueChanges.subscribe(value => {
-    //   if(value !== '') {
-    //     this.investigationResultsSuggestions = this.apiservice.getInvestigationsResultsSuggestions(value);
-    //   }
-    // });
-
-    // this.formGroup.get('entry5').valueChanges.subscribe(value => {
-    //   if(value !== '') {
-    //     this.investigationResultsSuggestions = this.apiservice.getInvestigationsResultsSuggestions(value);
-    //   }
-    // });
-
-    // this.formGroup.get('entry6').valueChanges.subscribe(value => {
-    //   if(value !== '') {
-    //     this.investigationResultsSuggestions = this.apiservice.getInvestigationsResultsSuggestions(value);
-    //   }
-    // });
-
-    // this.formGroup.get('entry7').valueChanges.subscribe(value => {
-    //   if(value !== '') {
-    //     this.investigationResultsSuggestions = this.apiservice.getInvestigationsResultsSuggestions(value);
-    //   }
-    // });
   }
 
   submitForm() {

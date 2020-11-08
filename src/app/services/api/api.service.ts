@@ -292,4 +292,8 @@ export class APIService {
     return this.http.post(`${this.sessionUrl}/cash-report`, timeRange);
   }
 
+  checkForSuspendedSessions(patientID: number): Observable<Array<Session>> {
+    return this.http.get<Array<Session>>(`${this.sessionUrl}/patient/visits/suspended/${patientID}`);
+  }
+
 }

@@ -65,85 +65,125 @@
         </header>
         <div id="session-section-main">
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-xl-9">
                     <router-outlet></router-outlet>
+                    <div *ngIf="session !== undefined">
+                        <app-merged-sessions [session]="session"></app-merged-sessions>
+                    </div>
                 </div>
-                <div class="col-md-3" id="session-reg-details-section"
+                <div class="col-xl-3" id="session-reg-details-section"
                     *ngIf="session !== undefined && session !== null">
-                    <div class="row">
+                    <div id="right-sidebar">
+                        <div id="info-section">
+                            <div class="row">
 
-                        <div class="col-md-12 col-sm-4">
-                            <div class="session-data-section">
-                                <!-- <p class="session-data-header">Actions</p> -->
-                                <span class="actions" *ngIf="session?.status === 'Suspended' || session?.status === 'Cancelled'">
-                                    <button class="btn btn-success" (click)="activateSession()">Activate Session</button>
-                                </span>
-                                <span class="actions" *ngIf="session?.status === 'Closed' || session?.status === 'Cancelled'">
-                                    <button class="btn btn-info" (click)="startSession()">Start New Session</button>
-                                </span>
-                                <span class="actions" *ngIf="session?.status === 'Active'">
-                                    <button class="btn btn-info" (click)="open(content, false)">Close Session</button>
-                                </span>
-                                <span class="actions" *ngIf="session?.status === 'Active'">
-                                    <button class="btn btn-danger" (click)="cancelSession()">Cancel Session</button>
-                                </span>
-                                <!-- <p class="session-data">
-                                    <a class="data-value as-link" (click)="goToDetails()"><u><i><b>Session History</b></i></u></a>
-                                </p> -->
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="session-data-section">
+                                        <span class="actions"
+                                            *ngIf="session?.status === 'Suspended' || session?.status === 'Cancelled'">
+                                            <button class="btn btn-success" (click)="activateSession()">Activate
+                                                Session</button>
+                                        </span>
+                                        <span class="actions"
+                                            *ngIf="session?.status === 'Closed' || session?.status === 'Cancelled'">
+                                            <button class="btn btn-info" (click)="startSession()">Start New
+                                                Session</button>
+                                        </span>
+                                        <span class="actions" *ngIf="session?.status === 'Active'">
+                                            <button class="btn btn-info" (click)="open(content, false)">Close
+                                                Session</button>
+                                        </span>
+                                        <span class="actions" *ngIf="session?.status === 'Active'">
+                                            <button class="btn btn-danger" (click)="cancelSession()">Cancel
+                                                Session</button>
+                                        </span>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="session-data-section" style="margin-top: 10px;">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <p class="session-data">
+                                                    <span class="data-label"><i><b>Name:</b></i></span>
+                                                    <span class="data-value"><b>{{session?.patient?.firstName}}
+                                                            {{session?.patient?.middleName}}
+                                                            {{session?.patient?.surname}}</b></span>
+                                                </p>
+                                                <p class="session-data">
+                                                    <span class="data-label"><i><b>Gender:</b></i></span>
+                                                    <span class="data-value"><b>{{session?.patient?.gender}}</b></span>
+                                                </p>
+                                                <p class="session-data">
+                                                    <span class="data-label"><i><b>Age:</b></i></span>
+                                                    <span class="data-value"><b>{{session?.patient?.age}}</b></span>
+                                                </p>
+                                                <p class="session-data">
+                                                    <a class="data-value as-link" (click)="goToDetails()"><u><i><b>More
+                                                                    Patient
+                                                                    Details</b></i></u></a>
+                                                </p>
+                                                <p class="session-data">
+                                                    <span class="data-label"><i><b>Session Status:</b></i></span>
+                                                    <span class="data-value"><b>{{session?.status}}</b></span>
+                                                    <span class="mark-data-value"><i class="fa fa-star"
+                                                            aria-hidden="true"></i></span>
+                                                </p>
+                                                <p class="session-data">
+                                                    <span class="data-label"><i><b>Session Date:</b></i></span>
+                                                    <span
+                                                        class="data-value"><b>{{session?.date | date: 'dd/MM/yyyy'}}</b></span>
+                                                </p>
+                                                <p class="session-data"
+                                                    *ngIf="session?.followUpDate !== null && session?.followUpDate !== undefined">
+                                                    <span class="data-label"><i><b>Follow Up Date:</b></i></span>
+                                                    <span
+                                                        class="data-value"><b>{{session?.followUpDate | date: 'dd/MM/yyyy'}}</b></span>
+                                                    <span class="edit-data-value" (click)="open(content, true)"><i
+                                                            class="fa fa-pencil-square-o"
+                                                            aria-hidden="true"></i><b>Edit</b></span>
+                                                </p>
+                                                <p class="session-data session-data-warning" *ngIf="user.is_superuser">
+                                                    <a class="data-value as-link"
+                                                        (click)="deleteSession(deleteContentWarning)"><i
+                                                            class="fa fa-trash" aria-hidden="true"></i><i><b>Delete
+                                                                Session</b></i></a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="col-md-12 col-sm-4">
-                            <div class="session-data-section">
-                                <p class="session-data-header">Patient</p>
-                                <p class="session-data">
-                                    <span class="data-label"><i><b>Name:</b></i></span>
-                                    <span class="data-value"><b>{{session?.patient?.firstName}} {{session?.patient?.middleName}}
-                                            {{session?.patient?.surname}}</b></span>
-                                </p>
-                                <p class="session-data">
-                                    <span class="data-label"><i><b>Gender:</b></i></span>
-                                    <span class="data-value"><b>{{session?.patient?.gender}}</b></span>
-                                </p>
-                                <p class="session-data">
-                                    <span class="data-label"><i><b>Age:</b></i></span>
-                                    <span class="data-value"><b>{{session?.patient?.age}}</b></span>
-                                </p>
-                                <p class="session-data">
-                                    <a class="data-value as-link" (click)="goToDetails()" style="float: right;"><u><i><b>More Details</b></i></u></a>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12 col-sm-4">
-                            <div class="session-data-section">
-                                <p class="session-data-header">Session</p>
-                                <p class="session-data">
-                                    <span class="data-label"><i><b>Status:</b></i></span>
-                                    <span class="data-value"><b>{{session?.status}}</b></span>
-                                    <span class="mark-data-value"><i class="fa fa-star" aria-hidden="true"></i></span>
-                                </p>
-                                <p class="session-data">
-                                    <span class="data-label"><i><b>Registration Date:</b></i></span>
-                                    <span
-                                        class="data-value"><b>{{session?.date | date: 'dd/MM/yyyy'}}</b></span>
-                                </p>
-                                <p class="session-data">
-                                    <span class="data-label"><i><b>Registration Time:</b></i></span>
-                                    <span
-                                        class="data-value"><b>{{session?.date | date: 'shortTime'}}</b></span>
-                                </p>
-                                <p class="session-data" *ngIf="session?.followUpDate !== null && session?.followUpDate !== undefined">
-                                    <span class="data-label"><i><b>Follow Up Date:</b></i></span>
-                                    <span
-                                        class="data-value"><b>{{session?.followUpDate | date: 'dd/MM/yyyy'}}</b></span>
-                                    <span class="edit-data-value" (click)="open(content, true)"><i
-                                            class="fa fa-pencil-square-o" aria-hidden="true"></i><b>Edit</b></span>
-                                </p>
-                                <p class="session-data session-data-warning" *ngIf="user.is_superuser">
-                                    <a class="data-value as-link" (click)="deleteSession(deleteContentWarning)"><i
-                                            class="fa fa-trash" aria-hidden="true"></i><i><b>Delete Session</b></i></a>
-                                </p>
+                        <div id="session-history-section">
+                            <h5 class="section-header">Session History</h5>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div *ngIf="sessionHistoryExists === true" class="table-responsive">
+                                        <table class="table">
+                                            <!-- <thead class="table-info">
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Status</th>
+                                                    <th>Date</th>
+                                                </tr>
+                                            </thead> -->
+                                            <tbody>
+                                                <tr *ngFor="let session of sessionHistory; let i = index" class="session-entry"
+                                                    (click)="navToSessionDetails(session)">
+                                                    <td>{{(i+1)}}</td>
+                                                    <td>{{session.status}}</td>
+                                                    <td>{{session.date | date: 'dd/MM/yyyy'}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+        
+                                    <div class="empty-list-feedback" *ngIf="sessionHistoryExists === false">
+                                        <h5>No records available.</h5>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -189,11 +229,6 @@
             </div>
         </ng-template>
 
-    </div>
-
-    <div *ngIf="session !== undefined">
-        <app-merged-sessions [session]="session"></app-merged-sessions>
-        <!-- <app-follow-up-details [patient]="patient" [session]="session"></app-follow-up-details> -->
     </div>
 </div>
 
