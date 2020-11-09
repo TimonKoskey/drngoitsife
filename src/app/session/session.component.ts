@@ -194,12 +194,14 @@ export class SessionComponent implements OnInit, OnDestroy {
   }
 
   navToSessionDetails(session: Session) {
-    this.router.navigate(['../session'], {
-      queryParams: {
-        sessionID: session.id
-      },
-      relativeTo: this.route
-    });
+    if (session.id !== this.session.id) {
+      this.router.navigate(['../session'], {
+        queryParams: {
+          sessionID: session.id
+        },
+        relativeTo: this.route
+      });
+    }
   }
 
   ngOnDestroy() {
