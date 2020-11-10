@@ -78,10 +78,11 @@ export class CashReportComponent implements OnInit {
   }
 
   getCashReport(timeRange: any) {
+    this.spinner.show();
     this.apiservice.getCashReport(timeRange).subscribe(results => {
+      this.spinner.hide();
       this.cashReport = results;
       this.reportGenerated = true;
-      console.log(results);
     }, error => {
       this.spinner.hide();
       this.fetchDataError = error;
