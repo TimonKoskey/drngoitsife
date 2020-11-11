@@ -387,3 +387,10 @@
     font-family: sans-serif;
     /* width: 100%; */
 }
+
+a .account-link {
+  color: blue;
+  background-color: #b3d7ff;
+  padding: 1px 10px;
+  border-radius: 10px;
+}
