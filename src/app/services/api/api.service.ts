@@ -16,8 +16,8 @@ import { Vitals } from '../../models/vitals';
   providedIn: 'root'
 })
 export class APIService {
-  patientUrl = `https://backend.eldoretneurosurgery.co.ke/patients`;
-  sessionUrl = `https://backend.eldoretneurosurgery.co.ke/visits`;
+  patientUrl = `http://127.0.0.1:8000/patients`;
+  sessionUrl = `http://127.0.0.1:8000/visits`;
 
   private session = new BehaviorSubject<Session>(null);
   session$ = this.session.asObservable();

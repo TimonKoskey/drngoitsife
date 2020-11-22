@@ -9,7 +9,7 @@ import { isDevMode } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
-  userUrl = `https://backend.eldoretneurosurgery.co.ke/users`;
+  userUrl = `http://127.0.0.1:8000/users`;
 
   constructor(
     private persistence: PersistenceService,

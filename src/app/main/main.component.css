@@ -17,7 +17,7 @@
 
 
 .navbar-dark {
-    background-color: #a92c38;
+    background-color: #0a3e3e;
 }
 
 .navbar-dark .navbar-brand {
@@ -37,7 +37,7 @@
     text-align: center;
     border-radius: 4px;
     background-color: #e7eaf6;
-    color: #c2374c;
+    color: #545b62;
 }
 
 .navbar-dark .navbar-nav .nav-link:hover {
@@ -45,7 +45,7 @@
 }
 
 .navbar-dark .navbar-nav .nav-link.nav-logout {
-    color: black;
+    color: #adb5bd;
 }
 
 .navbar-dark .navbar-nav .nav-link.nav-logout:hover {
