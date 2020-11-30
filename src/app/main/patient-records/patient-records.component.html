@@ -48,7 +48,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <pagination [totalItems]="patientsList.length" (pageChanged)="pageChanged($event)">
+                            <pagination [totalItems]="patientsList.length" (pageChanged)="pageChanged($event)" [itemsPerPage]="30">
                             </pagination>
                         </div>
 

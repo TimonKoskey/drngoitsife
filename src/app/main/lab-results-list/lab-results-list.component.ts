@@ -40,7 +40,7 @@ export class LabResultsListComponent implements OnInit {
         this.recordsAvailable = true;
         this.sessionsList = results.reverse();
         this.mainSessionsList = results.reverse();
-        this.paginatedSessionList = this.sessionsList.slice(0, 10);
+        this.paginatedSessionList = this.sessionsList.slice(0, 30);
       }
     }, error => {
       this.spinner.hide();
@@ -63,10 +63,10 @@ export class LabResultsListComponent implements OnInit {
         }
       }
       this.sessionsList = newSessionList;
-      this.paginatedSessionList = this.sessionsList.slice(0, 10);
+      this.paginatedSessionList = this.sessionsList.slice(0, 30);
     } else {
       this.sessionsList = this.mainSessionsList;
-      this.paginatedSessionList = this.sessionsList.slice(0, 10);
+      this.paginatedSessionList = this.sessionsList.slice(0, 30);
     }
   }
 
@@ -80,7 +80,7 @@ export class LabResultsListComponent implements OnInit {
   getItemCount(index: number) {
     let itemCount = index + 1;
     if (this.currentPaginationPage > 1) {
-      itemCount = (10 * (this.currentPaginationPage - 1)) + (index + 1);
+      itemCount = (30 * (this.currentPaginationPage - 1)) + (index + 1);
     }
     return itemCount;
   }

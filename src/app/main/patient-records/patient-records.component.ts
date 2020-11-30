@@ -38,7 +38,7 @@ export class PatientRecordsComponent implements OnInit, OnDestroy {
         this.recordsAvailable = true;
         this.patientsList = results.reverse();
         this.mainPatientsList = results.reverse();
-        this.paginatedPatientList = this.patientsList.slice(0, 10);
+        this.paginatedPatientList = this.patientsList.slice(0, 30);
       }
     }, error => {
       this.spinner.hide();
@@ -64,10 +64,10 @@ export class PatientRecordsComponent implements OnInit, OnDestroy {
         }
       }
       this.patientsList = newPatientsList;
-      this.paginatedPatientList = this.patientsList.slice(0, 10);
+      this.paginatedPatientList = this.patientsList.slice(0, 30);
     } else {
       this.patientsList = this.mainPatientsList;
-      this.paginatedPatientList = this.patientsList.slice(0, 10);
+      this.paginatedPatientList = this.patientsList.slice(0, 30);
     }
   }
 
@@ -81,7 +81,7 @@ export class PatientRecordsComponent implements OnInit, OnDestroy {
   getItemCount(index: number) {
     let itemCount = index + 1;
     if (this.currentPaginationPage > 1) {
-      itemCount = (10 * (this.currentPaginationPage - 1)) + (index + 1);
+      itemCount = (30 * (this.currentPaginationPage - 1)) + (index + 1);
     }
     return itemCount;
   }
