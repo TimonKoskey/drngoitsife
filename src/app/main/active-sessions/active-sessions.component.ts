@@ -62,10 +62,11 @@ export class ActiveSessionsComponent implements OnInit, OnDestroy {
       const newSessionList = [];
       for (const session of this.mainSessionsList) {
         const firstName = session.patient.firstName.toLowerCase();
+        const regNo = session.patient.patientRegistrationNumber;
         const middleName = session.patient.middleName.toLowerCase();
         const surname = session.patient.surname.toLowerCase();
         if (surname.includes(searchTermLower)  ||
-            firstName.includes(searchTermLower) || middleName.includes(searchTermLower)) {
+            firstName.includes(searchTermLower) || middleName.includes(searchTermLower) || regNo.includes(searchTermLower)) {
               newSessionList.push(session);
         }
       }

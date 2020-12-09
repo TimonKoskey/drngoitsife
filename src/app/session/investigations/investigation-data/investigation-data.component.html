@@ -1,0 +1,21 @@
+<div class="card">
+    <div class="card-body">
+        <div *ngIf="test.results === null; else resultsDataTemplate">
+            <div class="form-group float-label-control">
+                <textarea class="form-control" rows="3" autocomplete="off" name="results" [(ngModel)]="results" required></textarea>
+            </div>
+
+            <div>
+                <button *ngIf="edit === true" class="btn btn-left"
+                    (click)="cancelEditor()"><i class="fa fa-times"
+                        aria-hidden="true"></i>CANCEL</button>
+                <button class="btn btn-right"
+                    (click)="saveResults()"><i class="fa fa-check"
+                        aria-hidden="true"></i>SAVE</button>
+            </div>
+        </div>
+        <ng-template #resultsDataTemplate>
+            {{test.results}}
+        </ng-template>
+    </div>
+</div>

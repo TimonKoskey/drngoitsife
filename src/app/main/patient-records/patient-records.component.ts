@@ -51,15 +51,15 @@ export class PatientRecordsComponent implements OnInit, OnDestroy {
     if (searchTerm !== '' || searchTerm !== undefined) {
       const searchTermLower = searchTerm.toLowerCase();
       const newPatientsList = [];
-      console.log(searchTermLower)
       for (const patient of this.mainPatientsList) {
         const mainPhoneNumber = patient.mainPhoneNumber;
+        const regNo = patient.patientRegistrationNumber;
         const firstName = patient.firstName.toLowerCase();
         const middleName = patient.middleName.toLowerCase();
         const surname = patient.surname.toLowerCase();
 
         if (surname.includes(searchTermLower)  || firstName.includes(searchTermLower) ||  middleName.includes(searchTermLower) ||
-          mainPhoneNumber.includes(searchTermLower)) {
+          mainPhoneNumber.includes(searchTermLower) || regNo.includes(searchTermLower)) {
             newPatientsList.push(patient);
         }
       }

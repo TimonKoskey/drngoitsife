@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, NgForm, FormArray } from '@angular/forms';
 import { APIService } from '../../services/api/api.service';
 import { Notes } from '../../models/notes';
 import { Investigations } from '../../models/investigation';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { User } from '../../models/user';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
@@ -20,22 +19,19 @@ export class InvestigationsComponent implements OnInit {
   fetchDataError: HttpErrorResponse;
   formGroup: FormGroup;
   formGroupSubmitted: boolean;
-  // sectionCompleted: boolean;
   edit: boolean;
-  // notes: Notes;
-  // notesCopy: Notes;
   investigationRequestSuggestions: Array<string>;
-  investigationResultsSuggestions: Array<string>;
+  // investigationResultsSuggestions: Array<string>;
   user: User;
   investigationType: string;
   buttonEnabled = true;
   investigations = [];
   requestCompleted: boolean;
-  resultsCompleted: boolean;
   investigationData: Investigations;
-  requestNotes: Notes;
-  resultsNotes: Notes;
-  resultsNotesCopy: Notes;
+  requestNotes = [];
+  test: any;
+  // resultsEntry: string
+  // resultsNotesCopy: Notes;
 
 
   constructor(
@@ -60,25 +56,19 @@ export class InvestigationsComponent implements OnInit {
         this.apiservice.getSessionInvestigations(this.sessionID).subscribe(results => {
           this.spinner.hide();
           this.investigationData = results;
-          if (this.investigationData.request === null) {
+          console.log(this.investigationData);
+          if (this.investigationData.request.length <=0) {
             this.requestCompleted = false
           } else {
             this.requestCompleted = true
             this.requestNotes = this.investigationData.request;
+            this.test = this.requestNotes[0];
+            // this.initComplaintsForm();
           }
-          if (this.investigationData.results === null) {
-            this.initComplaintsForm();
-            this.resultsCompleted = false
-          } else {
-            this.resultsCompleted = true;
-            this.resultsNotes = this.investigationData.results
-          }
-          console.log(this.investigationData);
         }, (error: HttpErrorResponse) => {
           this.spinner.hide();
           if(error.status === 404) {
             this.requestCompleted = false;
-            this.resultsCompleted = false;
           } else {
             this.fetchDataError = error;
           }
@@ -86,84 +76,85 @@ export class InvestigationsComponent implements OnInit {
         });
       }
     });
+    
     this.apiservice.getInvestigationsRequestSuggestions().subscribe(results => {
       this.investigationRequestSuggestions = results;
     });
-    this.apiservice.getInvestigationsResultsSuggestions().subscribe(results => {
-      this.investigationResultsSuggestions = results;
-    })
+    // this.apiservice.getInvestigationsResultsSuggestions().subscribe(results => {
+    //   this.investigationResultsSuggestions = results;
+    // })
   }
 
-  initComplaintsForm() {
-    this.formGroupSubmitted = false;
-    this.formGroup = this.fb.group({
-      entry1: [this.resultsNotes !== undefined ? this.resultsNotes.entry1 : '', Validators.required],
-      entry2: [this.resultsNotes !== undefined ? this.resultsNotes.entry2 : ''],
-      entry3: [this.resultsNotes !== undefined ? this.resultsNotes.entry3 : ''],
-      entry4: [this.resultsNotes !== undefined ? this.resultsNotes.entry4 : ''],
-      entry5: [this.resultsNotes !== undefined ? this.resultsNotes.entry5 : ''],
-      entry6: [this.resultsNotes !== undefined ? this.resultsNotes.entry6 : ''],
-      entry7: [this.resultsNotes !== undefined ? this.resultsNotes.entry7 : '']
-    });
+  // initComplaintsForm() {
+  //   this.formGroupSubmitted = false;
+  //   this.formGroup = this.fb.group({
+  //     results: this.fb.array([])
+  //   })
 
-  }
+  //   for (const test of this.requestNotes) {
+  //     this.results.push(this.fb.control('',Validators.required))
+  //   }
+  // }
 
-  submitForm() {
-    this.formGroupSubmitted = true;
-    if (this.formGroup.valid) {
-      this.spinner.show();
-      this.uploadData();
-    }
-  }
+  // submitForm(form: FormGroup, test: any, index: number) {
+  //   this.formGroupSubmitted = true;
+  //   console.log(form.value);
+  //   this.test = test
+  //   const testValue = form.value.results[index];
+  //   if (testValue !== undefined && testValue !== '') {
+  //     this.uploadData(testValue);
+  //   }
+  // }
 
-  uploadData() {
-    const formData: Notes = this.formGroup.value;
-    this.spinner.show();
-    if (this.edit) {
-      this.apiservice.updateSessionInvestigationResults(this.investigationData.results.id,formData).subscribe(results => {
-        this.spinner.hide();
-        this.resultsNotes = results;
-        this.investigationData.results = results;
-        this.edit = false;
-      }, error => {
-        this.spinner.hide();
-        this.resultsNotes = this.resultsNotesCopy;
-        this.fetchDataError = error;
-        this.edit = false;
-      });
-    } else {
-      this.apiservice.createSessionInvestigationResults(this.investigationData.id,formData).subscribe(results => {
-        this.spinner.hide();
-        this.investigationData = results;
-        this.resultsCompleted = true;
-        this.navToNext();
-      }, error => {
-        this.spinner.hide();
-        this.fetchDataError = error;
-        console.log(this.fetchDataError);
-      });
-    }
-  }
+  // uploadData(testValue: string) {
+  //   const data = {
+  //     entry1: testValue
+  //   }
 
-  Edit() {
-    this.edit = true;
-    this.resultsNotesCopy = this.resultsNotes;
-    this.initComplaintsForm();
-  }
+  //   this.spinner.show();
+  //   if (this.edit) {
+  //     this.apiservice.updateSessionInvestigationResults(this.test.results.id, data).subscribe(results => {
+  //       this.spinner.hide();
+  //       this.test.results = results;
+  //       this.edit = false;
+  //     }, error => {
+  //       this.spinner.hide();
+  //       this.fetchDataError = error;
+  //       this.edit = false;
+  //     });
+  //   } else {
+  //     this.apiservice.createSessionInvestigationResults(this.test.id, data).subscribe(results => {
+  //       this.spinner.hide();
+  //       this.investigationData = results;
+  //     }, error => {
+  //       this.spinner.hide();
+  //       this.fetchDataError = error;
+  //       console.log(this.fetchDataError);
+  //     });
+  //   }
+  // }
 
-  cancelEditor() {
-    this.resultsNotes = this.resultsNotesCopy;
-    this.edit = false;
-  }
+  // Edit(test: any, index: number) {
+  //   this.formGroup = this.fb.group({
+  //     entry1: [test.results.entry1, Validators.required],
+  //   });
+  //   this.formGroupSubmitted = false;
+  //   this.test = test
+  //   this.edit = true;
+  // }
 
-  navToNext() {
-    this.router.navigate(['../diagnosis'], {
-      queryParams: {
-        sessionID: this.sessionID
-      },
-      relativeTo: this.route
-    });
-  }
+  // cancelEditor() {
+  //   this.edit = false;
+  // }
+
+  // navToNext() {
+  //   this.router.navigate(['../diagnosis'], {
+  //     queryParams: {
+  //       sessionID: this.sessionID
+  //     },
+  //     relativeTo: this.route
+  //   });
+  // }
 
   investigationTypeInputFocus() {
     this.buttonEnabled = true;
@@ -183,42 +174,30 @@ export class InvestigationsComponent implements OnInit {
     if (index > -1) {
         this.investigations.splice(index, 1);
     }
-    // return this.payments;
   }
 
   suspendSessionPrompt(content: any) {
     this.config.size = 'lg';
-    this.requestNotes = {}
+    const testNotes = [];
     for (const entry of this.investigations) {
-      if (this.requestNotes.entry1 === undefined) {
-        this.requestNotes.entry1 = entry
-      } else if (this.requestNotes.entry2 === undefined) {
-        this.requestNotes.entry2 = entry
-      } else if (this.requestNotes.entry3 === undefined) {
-        this.requestNotes.entry3 = entry
-      } else if (this.requestNotes.entry4 === undefined) {
-        this.requestNotes.entry4 = entry
-      } else if (this.requestNotes.entry5 === undefined) {
-        this.requestNotes.entry5 = entry
-      } else if (this.requestNotes.entry6 === undefined) {
-        this.requestNotes.entry6 = entry
-      } else if (this.requestNotes.entry7 === undefined) {
-        this.requestNotes.entry7 = entry
+      const notes: Notes = {
+        entry1: entry
       }
+      testNotes.push(notes);
     }
     
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then(() => {
       this.spinner.show();
-      this.apiservice.createSessionInvestigations(this.sessionID,this.requestNotes).subscribe(results => {
+      this.apiservice.createSessionInvestigations(this.sessionID,testNotes).subscribe(results => {
         this.spinner.hide();
         this.investigationData = results;
-        this.initComplaintsForm();
+        this.requestNotes = this.investigationData.request;
         this.requestCompleted = true;
         const updateData = {
           status: 'Suspended'
         };
+        // this.initComplaintsForm();
         this.apiservice.updateSessionDetails(this.sessionID, updateData).subscribe(results => {
-          console.log(results);
           this.apiservice.setSession$(results);
         }, error => {
           this.spinner.hide();
@@ -232,11 +211,12 @@ export class InvestigationsComponent implements OnInit {
       });
     }, () => {
       this.spinner.show();
-      this.apiservice.createSessionInvestigations(this.sessionID,this.requestNotes).subscribe(results => {
+      this.apiservice.createSessionInvestigations(this.sessionID,testNotes).subscribe(results => {
         this.spinner.hide();
         this.investigationData = results;
-        this.initComplaintsForm();
+        this.requestNotes = this.investigationData.request;
         this.requestCompleted = true;
+        // this.initComplaintsForm();
       }, error => {
         this.spinner.hide();
         this.fetchDataError = error;
@@ -253,6 +233,12 @@ export class InvestigationsComponent implements OnInit {
     }
   }
 
-  get data1() { return this.formGroup.get('entry1'); }
+  setTest(test: any) {
+    this.test = test;
+    console.log(test);
+  }
+
+  // get data1() { return this.formGroup.get('entry1'); }
+
 
 }

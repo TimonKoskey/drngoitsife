@@ -1,6 +1,7 @@
 <div class="container">
+    <ngx-spinner></ngx-spinner>
     <div class="consultation-data" *ngIf="fetchDataError === undefined; else errorTemplate">
-        <ngx-spinner></ngx-spinner>
+
         <div id="investigations-list-input" *ngIf="requestCompleted === false && user?.is_superuser">
             <div class="card">
                 <div class="card-body">
@@ -36,9 +37,6 @@
                             <ng-template #suspendSession let-modal>
                                 <div class="modal-header">
                                     <h4 class="modal-title" id="modal-basic-title">Suspend Session</h4>
-                                    <!-- <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-                                    <span aria-hidden="true">&times;</span>
-                                </button> -->
                                 </div>
                                 <div class="modal-body">
                                     <h6>Suspend this session while waiting for results?</h6>
@@ -60,191 +58,94 @@
         <div id="investigations-list-results" *ngIf="requestCompleted === true">
             <div class="card">
                 <div class="card-body">
-                    <div class="session-data-form-header">
-                        <h6 class="header-title">
-                            Investigations
-                        </h6>
-                    </div>
-                    <div class="investigation-results">
-                        <!-- <div id="investigation-entries" *ngIf="investigations.length > 0"> -->
-                        <ol>
-                            <li *ngIf="investigationData.request.entry1 !== ''">
-                                <p>{{investigationData.request.entry1}}</p>
-                            </li>
-                            <li *ngIf="investigationData.request.entry2 !== ''">
-                                <p>{{investigationData.request.entry2}}</p>
-                            </li>
-                            <li *ngIf="investigationData.request.entry3 !== ''">
-                                <p>{{investigationData.request.entry3}}</p>
-                            </li>
-                            <li *ngIf="investigationData.request.entry4 !== ''">
-                                <p>{{investigationData.request.entry4}}</p>
-                            </li>
-                            <li *ngIf="investigationData.request.entry5 !== ''">
-                                <p>{{investigationData.request.entry5}}</p>
-                            </li>
-                            <li *ngIf="investigationData.request.entry6 !== ''">
-                                <p>{{investigationData.request.entry6}}</p>
-                            </li>
-                            <li *ngIf="investigationData.request.entry7 !== ''">
-                                <p>{{investigationData.request.entry7}}</p>
-                            </li>
-                        </ol>
-                        <!-- </div> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div *ngIf="(resultsCompleted === false || edit === true) && requestCompleted === true && user?.is_superuser">
-            <div class="card">
-                <div class="card-body">
-                    <div class="session-data-form-header">
-                        <h6 class="header-title">
-                            Investigation Results
-                        </h6>
-                    </div>
-                    <form [formGroup]='formGroup' autocomplete="off">
-                        <ol>
-                            <li>
-                                <div class="form-group float-label-control">
-                                    <input type="text" class="form-control" formControlName="entry1"
-                                        [typeahead]="investigationResultsSuggestions" [isAnimated]="true"
-                                        autocomplete="off">
-                                    <div *ngIf="data1.invalid && formGroupSubmitted">
-                                        <div *ngIf="data1.errors.required">
-                                            <small class="error-message">* required field!</small>
-                                        </div>
-                                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <ul>
+                                        <li *ngFor="let test of requestNotes" (click)="setTest(test)" class="test-name">{{test.test}}</li>
+                                    </ul>
                                 </div>
-                            </li>
-
-                            <li>
-                                <div class="form-group float-label-control">
-                                    <input type="text" class="form-control" formControlName="entry2"
-                                        [typeahead]="investigationResultsSuggestions" [isAnimated]="true"
-                                        autocomplete="off">
-                                </div>
-                            </li>
-
-                            <li>
-                                <div class="form-group float-label-control">
-                                    <input type="text" class="form-control" formControlName="entry3"
-                                        [typeahead]="investigationResultsSuggestions" [isAnimated]="true"
-                                        autocomplete="off">
-                                </div>
-                            </li>
-
-                            <li>
-                                <div class="form-group float-label-control">
-                                    <input type="text" class="form-control" formControlName="entry4"
-                                        [typeahead]="investigationResultsSuggestions" [isAnimated]="true"
-                                        autocomplete="off">
-                                </div>
-                            </li>
-
-                            <li>
-                                <div class="form-group float-label-control">
-                                    <input type="text" class="form-control" formControlName="entry5"
-                                        [typeahead]="investigationResultsSuggestions" [isAnimated]="true"
-                                        autocomplete="off">
-                                </div>
-                            </li>
-
-                            <li>
-                                <div class="form-group float-label-control">
-                                    <input type="text" class="form-control" formControlName="entry6"
-                                        [typeahead]="investigationResultsSuggestions" [isAnimated]="true"
-                                        autocomplete="off">
-                                </div>
-                            </li>
-
-                            <li>
-                                <div class="form-group float-label-control">
-                                    <input type="text" class="form-control" formControlName="entry7"
-                                        [typeahead]="investigationResultsSuggestions" [isAnimated]="true"
-                                        autocomplete="off">
-                                </div>
-                            </li>
-                        </ol>
-                    </form>
-
-                </div>
-                <div class="card-footer">
-                    <div>
-                        <button *ngIf="edit === true" class="btn btn-left" (click)="cancelEditor()"><i
-                                class="fa fa-times" aria-hidden="true"></i>CANCEL</button>
-                        <button class="btn btn-right" (click)="submitForm()"><i class="fa fa-check"
-                                aria-hidden="true"></i>SAVE</button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-
-        <div *ngIf="resultsCompleted === true && requestCompleted === true && edit !== true">
-            <div class="card">
-                <div class="card-body">
-                    <div class="session-data-form-header">
-                        <h6 class="header-title">
-                            Investigation Results
-                        </h6>
-                    </div>
-                    <div class="details-section-body">
-                        <div class="row">
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <ul>
-                                    <li>
-                                        <p class="details-section-data">{{investigationData?.results.entry1}}</p>
-                                    </li>
-
-                                    <li>
-                                        <p class="details-section-data">{{investigationData?.results.entry2}}</p>
-                                    </li>
-
-                                    <li>
-                                        <p class="details-section-data">{{investigationData?.results.entry3}}</p>
-                                    </li>
-
-                                    <li>
-                                        <p class="details-section-data">{{investigationData?.results.entry4}}</p>
-                                    </li>
-                                </ul>
                             </div>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <ul>
-                                    <li>
-                                        <p class="details-section-data">{{investigationData?.results.entry5}}</p>
-                                    </li>
-
-                                    <li>
-                                        <p class="details-section-data">{{investigationData?.results.entry6}}</p>
-                                    </li>
-
-                                    <li>
-                                        <p class="details-section-data">{{investigationData?.results.entry7}}</p>
-                                    </li>
-
-                                    <li>
-                                        <p class="details-section-data"></p>
-                                    </li>
-                                </ul>
+                        </div>
+                        <div class="col-lg-8">
+                            <div *ngIf="test !== undefined">
+                                <app-investigation-data [test]="test"></app-investigation-data>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer" *ngIf="user?.is_superuser">
-                    <div>
-                        <button class="btn btn-right" (click)="Edit()"><i class="fa fa-pencil-square-o"
-                                aria-hidden="true"></i>EDIT</button>
-                    </div>
-                </div>
             </div>
-        </div>
-    </div>
+            <!-- <div class="investigation-results">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="table-info">
+                                    <tr>
+                                        <th class="table-count"></th>
+                                        <th class="investigation-test">Test</th>
+                                        <th class="investigation-results">Results</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let test of requestNotes; let i = index">
+                                        <td class="table-count">{{(i+1)}}</td>
+                                        <td class="investigation-test">{{test.entry1}}</td>
+                                        <td class="investigation-results">
+                                            <div
+                                                *ngIf="(test.results === null || test.results === undefined || edit === true) && user?.is_superuser">
+                                                <form [formGroup]='formGroup' autocomplete="off">
+                                                    <div class="form-group float-label-control" formArrayName="results">
+                                                        <textarea class="form-control" rows="3"  [formControlName]="i"
+                                                            [typeahead]="investigationResultsSuggestions"
+                                                            [isAnimated]="true" autocomplete="off" required></textarea>
+                                                        <div *ngIf="ResultsEntry.invalid && formGroupSubmitted">
+                                                            <div *ngIf="ResultsEntry.errors.required">
+                                                                <small class="error-message">* required field!</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
+                                                    <div>
+                                                        <button *ngIf="edit === true" class="btn btn-left"
+                                                            (click)="cancelEditor()"><i class="fa fa-times"
+                                                                aria-hidden="true"></i>CANCEL</button>
+                                                        <button class="btn btn-right"
+                                                            (click)="submitForm(formGroup, test, i)"><i class="fa fa-check"
+                                                                aria-hidden="true"></i>SAVE</button>
+                                                    </div>
+                                                </form>
+
+                                            </div>
+
+
+                                            <div
+                                                *ngIf="test.results !== null && test.results !== undefined && edit !== true">
+                                                <div class="details-section-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <p class="details-section-data">
+                                                                {{test.results.entry1}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <button class="btn btn-right" (click)="Edit(test, index )"><i
+                                                            class="fa fa-pencil-square-o"
+                                                            aria-hidden="true"></i>EDIT</button>
+                                                </div>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div> -->
+        </div>
+
+    </div>
     <ng-template #errorTemplate>
         <div class="row">
             <div class="col-12">

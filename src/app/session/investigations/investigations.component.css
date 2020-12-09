@@ -19,3 +19,22 @@ label.investigationTypeLabel {
     float: right;
     font-size: 18px;
 }
+
+.table tr .table-count {
+    /* width: 10%; */
+    border: 1px solid black;
+}
+
+.table tr .investigation-test {
+    /* width: 30%; */
+    border: 1px solid black;
+}
+
+.table tr .investigation-results {
+    /* width: 60%; */
+    border: 1px solid black;
+}
+
+.test-name {
+    cursor: pointer;
+}

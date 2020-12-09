@@ -184,7 +184,7 @@ export class APIService {
     return this.http.put<Notes>(`${this.sessionUrl}/comorbidities/update/${notesID}`, notes);
   }
 
-  createSessionInvestigations(sessionID: number, notes: Notes): Observable<Investigations> {
+  createSessionInvestigations(sessionID: number, notes: any): Observable<Investigations> {
     return this.http.post<Investigations>(`${this.sessionUrl}/investigations/create/${sessionID}`, notes);
   }
 

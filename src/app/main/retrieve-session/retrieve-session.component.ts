@@ -32,11 +32,11 @@ export class RetrieveSessionComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  startSearch() {
-    if (this.queryString !== '' && this.queryString !== undefined) {
-      console.log(this.queryString);
-    }
-  }
+  // startSearch() {
+  //   if (this.queryString !== '' && this.queryString !== undefined) {
+  //     console.log(this.queryString);
+  //   }
+  // }
 
   open(content: any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then(() => {
@@ -49,7 +49,6 @@ export class RetrieveSessionComponent implements OnInit {
   }
 
   retrieveSessionByDate() {
-    console.log(this.dateTime)
     const dateTimeString = this.dateTime.toUTCString();
     this.spinner.show();
     this.apiservice.getSessionByDate(dateTimeString).subscribe(results => {
@@ -58,7 +57,7 @@ export class RetrieveSessionComponent implements OnInit {
         this.recordsAvailable = false;
       } else {
         this.recordsAvailable = true;
-        this.retrievedSessions = results.reverse();
+        this.retrievedSessions = results;
       }
     }, error => {
       this.spinner.hide();

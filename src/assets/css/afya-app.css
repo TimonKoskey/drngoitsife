@@ -309,10 +309,10 @@ input:focus{
 .float-label-control input, .float-label-control textarea {
   display: block;
   width: 100%;
-  padding: 0.1em 0em 1px 0em;
-  border: none;
+  padding: 5px;
+  /* border: none; */
   border-radius: 0px;
-  border-bottom: 1px solid #aaa;
+  /* border-bottom: 1px solid #aaa; */
   outline: none; margin: 0px;
   background: none;
 }

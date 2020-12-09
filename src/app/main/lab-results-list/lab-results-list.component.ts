@@ -54,11 +54,12 @@ export class LabResultsListComponent implements OnInit {
       const searchTermLower = searchTerm.toLowerCase();
       const newSessionList = [];
       for (const session of this.mainSessionsList) {
+        const regNo = session.patient.patientRegistrationNumber;
         const firstName = session.patient.firstName.toLowerCase();
         const middleName = session.patient.middleName.toLowerCase();
         const surname = session.patient.surname.toLowerCase();
         if (surname.includes(searchTermLower)  ||
-            firstName.includes(searchTermLower) || middleName.includes(searchTermLower)) {
+            firstName.includes(searchTermLower) || middleName.includes(searchTermLower) || regNo.includes(searchTermLower)) {
               newSessionList.push(session);
         }
       }

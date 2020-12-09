@@ -18,6 +18,7 @@ import { TreatmentComponent } from './treatment/treatment.component';
 import { RemarksComponent } from './remarks/remarks.component';
 import { MergedSessionsComponent } from './merged-sessions/merged-sessions.component';
 import { VitalsComponent } from './vitals/vitals.component';
+import { InvestigationDataComponent } from './investigations/investigation-data/investigation-data.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { VitalsComponent } from './vitals/vitals.component';
     TreatmentComponent,
     RemarksComponent,
     MergedSessionsComponent,
-    VitalsComponent
+    VitalsComponent,
+    InvestigationDataComponent
   ],
 
   imports: [
