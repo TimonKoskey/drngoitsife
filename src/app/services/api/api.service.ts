@@ -196,8 +196,8 @@ export class APIService {
     return this.http.post<Investigations>(`${this.sessionUrl}/investigations/results/create/${sessionID}`, notes);
   }
 
-  updateSessionInvestigationRequest(notesID: number, notes: Notes): Observable<Notes> {
-    return this.http.put<Notes>(`${this.sessionUrl}/investigations/request/update/${notesID}`, notes);
+  updateSessionInvestigationRequest(notesID: number, notes: any): Observable<any> {
+    return this.http.put<any>(`${this.sessionUrl}/investigations/request/update/${notesID}`, notes);
   }
 
   updateSessionInvestigationResults(notesID: number, notes: Notes): Observable<Notes> {

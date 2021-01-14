@@ -21,7 +21,6 @@ export class InvestigationsComponent implements OnInit {
   formGroupSubmitted: boolean;
   edit: boolean;
   investigationRequestSuggestions: Array<string>;
-  // investigationResultsSuggestions: Array<string>;
   user: User;
   investigationType: string;
   buttonEnabled = true;
@@ -30,9 +29,11 @@ export class InvestigationsComponent implements OnInit {
   investigationData: Investigations;
   requestNotes = [];
   test: any;
-  // resultsEntry: string
-  // resultsNotesCopy: Notes;
+  index: number;
 
+  results = "";
+  resultsSubmited: boolean;
+  editResults = false;
 
   constructor(
     private router: Router,
@@ -63,7 +64,7 @@ export class InvestigationsComponent implements OnInit {
             this.requestCompleted = true
             this.requestNotes = this.investigationData.request;
             this.test = this.requestNotes[0];
-            // this.initComplaintsForm();
+            this.index = 0;
           }
         }, (error: HttpErrorResponse) => {
           this.spinner.hide();
@@ -80,81 +81,7 @@ export class InvestigationsComponent implements OnInit {
     this.apiservice.getInvestigationsRequestSuggestions().subscribe(results => {
       this.investigationRequestSuggestions = results;
     });
-    // this.apiservice.getInvestigationsResultsSuggestions().subscribe(results => {
-    //   this.investigationResultsSuggestions = results;
-    // })
   }
-
-  // initComplaintsForm() {
-  //   this.formGroupSubmitted = false;
-  //   this.formGroup = this.fb.group({
-  //     results: this.fb.array([])
-  //   })
-
-  //   for (const test of this.requestNotes) {
-  //     this.results.push(this.fb.control('',Validators.required))
-  //   }
-  // }
-
-  // submitForm(form: FormGroup, test: any, index: number) {
-  //   this.formGroupSubmitted = true;
-  //   console.log(form.value);
-  //   this.test = test
-  //   const testValue = form.value.results[index];
-  //   if (testValue !== undefined && testValue !== '') {
-  //     this.uploadData(testValue);
-  //   }
-  // }
-
-  // uploadData(testValue: string) {
-  //   const data = {
-  //     entry1: testValue
-  //   }
-
-  //   this.spinner.show();
-  //   if (this.edit) {
-  //     this.apiservice.updateSessionInvestigationResults(this.test.results.id, data).subscribe(results => {
-  //       this.spinner.hide();
-  //       this.test.results = results;
-  //       this.edit = false;
-  //     }, error => {
-  //       this.spinner.hide();
-  //       this.fetchDataError = error;
-  //       this.edit = false;
-  //     });
-  //   } else {
-  //     this.apiservice.createSessionInvestigationResults(this.test.id, data).subscribe(results => {
-  //       this.spinner.hide();
-  //       this.investigationData = results;
-  //     }, error => {
-  //       this.spinner.hide();
-  //       this.fetchDataError = error;
-  //       console.log(this.fetchDataError);
-  //     });
-  //   }
-  // }
-
-  // Edit(test: any, index: number) {
-  //   this.formGroup = this.fb.group({
-  //     entry1: [test.results.entry1, Validators.required],
-  //   });
-  //   this.formGroupSubmitted = false;
-  //   this.test = test
-  //   this.edit = true;
-  // }
-
-  // cancelEditor() {
-  //   this.edit = false;
-  // }
-
-  // navToNext() {
-  //   this.router.navigate(['../diagnosis'], {
-  //     queryParams: {
-  //       sessionID: this.sessionID
-  //     },
-  //     relativeTo: this.route
-  //   });
-  // }
 
   investigationTypeInputFocus() {
     this.buttonEnabled = true;
@@ -180,8 +107,8 @@ export class InvestigationsComponent implements OnInit {
     this.config.size = 'lg';
     const testNotes = [];
     for (const entry of this.investigations) {
-      const notes: Notes = {
-        entry1: entry
+      const notes = {
+        test: entry
       }
       testNotes.push(notes);
     }
@@ -192,22 +119,22 @@ export class InvestigationsComponent implements OnInit {
         this.spinner.hide();
         this.investigationData = results;
         this.requestNotes = this.investigationData.request;
+        this.test = this.requestNotes[0];
+        this.index = 0;
         this.requestCompleted = true;
         const updateData = {
           status: 'Suspended'
         };
-        // this.initComplaintsForm();
         this.apiservice.updateSessionDetails(this.sessionID, updateData).subscribe(results => {
           this.apiservice.setSession$(results);
         }, error => {
           this.spinner.hide();
           this.fetchDataError = error;
-          console.log(this.fetchDataError);
         });
+        this.toActiveList();
       }, error => {
         this.spinner.hide();
         this.fetchDataError = error;
-        console.log(this.fetchDataError);
       });
     }, () => {
       this.spinner.show();
@@ -215,12 +142,13 @@ export class InvestigationsComponent implements OnInit {
         this.spinner.hide();
         this.investigationData = results;
         this.requestNotes = this.investigationData.request;
+        this.test = this.requestNotes[0];
+        this.index = 0;
         this.requestCompleted = true;
-        // this.initComplaintsForm();
+        this.toActiveList();
       }, error => {
         this.spinner.hide();
         this.fetchDataError = error;
-        console.log(this.fetchDataError);
       });
     });
   }
@@ -233,12 +161,47 @@ export class InvestigationsComponent implements OnInit {
     }
   }
 
-  setTest(test: any) {
+  setTest(test: any, index: number) {
     this.test = test;
-    console.log(test);
+    this.index = index;
+    this.results = "";
+    this.editResults = false;
   }
 
-  // get data1() { return this.formGroup.get('entry1'); }
+  testUpdate(test: any) {
+    this.test = test;
+    this.requestNotes[this.index] = test;
+  }
+
+  saveResults() {
+    this.resultsSubmited = true;
+    if (this.results !== undefined && this.results !== '') {
+      const testData = {
+        results: this.results
+      }
+
+      this.apiservice.updateSessionInvestigationRequest(this.test.id, testData).subscribe(results => {
+        this.test = results;
+        this.testUpdate(this.test);
+        this.results = '';
+        this.editResults = false;
+      });
+    }
+  }
+
+  Edit() {
+    this.results = this.test.results
+    this.editResults = true;
+  }
+
+  cancelEditor() {
+    this.results = '';
+    this.editResults = false;
+  }
+
+  toActiveList() {
+    this.router.navigate(['../active-sessions'], {relativeTo: this.route.parent});
+  }
 
 
 }

@@ -31,10 +31,27 @@ label.investigationTypeLabel {
 }
 
 .table tr .investigation-results {
-    /* width: 60%; */
     border: 1px solid black;
+}
+
+.card-body ul {
+    width: 100%;
+}
+
+.card-body ul li {
+    width: 100%;
 }
 
 .test-name {
     cursor: pointer;
+    padding: 5px 15px;
+    margin-top: 5px;
+}
+
+.card .card-header {
+    padding-bottom: 5px;
+}
+
+.card .card-header .card-title {
+    color: purple;
 }

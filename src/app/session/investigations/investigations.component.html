@@ -61,88 +61,56 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title">Investigations</h5>
+                                </div>
                                 <div class="card-body">
-                                    <ul>
-                                        <li *ngFor="let test of requestNotes" (click)="setTest(test)" class="test-name">{{test.test}}</li>
+                                    <ul style="list-style-type:none;">
+                                        <li *ngFor="let test of requestNotes; let i = index" (click)="setTest(test,i)" class="test-name" [style.background]="i === index ? '#dee2e6' : null">
+                                            <span>{{test.test}}</span>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-8">
                             <div *ngIf="test !== undefined">
-                                <app-investigation-data [test]="test"></app-investigation-data>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Results</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div *ngIf="test.results === null || editResults === true; else resultsDataTemplate">
+                                            <div class="form-group float-label-control">
+                                                <textarea class="form-control" rows="3" autocomplete="off" name="results" [(ngModel)]="results" required
+                                                    placeholder="Enter results here..........."></textarea>
+                                            </div>
+                                
+                                            <div>
+                                                <button *ngIf="editResults === true" class="btn btn-left" (click)="cancelEditor()"><i
+                                                        class="fa fa-times" aria-hidden="true"></i>CANCEL</button>
+                                                <button class="btn btn-right" (click)="saveResults()"><i class="fa fa-check"
+                                                        aria-hidden="true"></i>SAVE</button>
+                                            </div>
+                                        </div>
+                                        <ng-template #resultsDataTemplate>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <p>{{test.results}}</p>
+                                                    <div>
+                                                        <button class="btn btn-right" (click)="Edit()"><i class="fa fa-pencil-square-o"
+                                                                aria-hidden="true"></i>EDIT</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- <div class="investigation-results">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class="table-info">
-                                    <tr>
-                                        <th class="table-count"></th>
-                                        <th class="investigation-test">Test</th>
-                                        <th class="investigation-results">Results</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let test of requestNotes; let i = index">
-                                        <td class="table-count">{{(i+1)}}</td>
-                                        <td class="investigation-test">{{test.entry1}}</td>
-                                        <td class="investigation-results">
-                                            <div
-                                                *ngIf="(test.results === null || test.results === undefined || edit === true) && user?.is_superuser">
-                                                <form [formGroup]='formGroup' autocomplete="off">
-                                                    <div class="form-group float-label-control" formArrayName="results">
-                                                        <textarea class="form-control" rows="3"  [formControlName]="i"
-                                                            [typeahead]="investigationResultsSuggestions"
-                                                            [isAnimated]="true" autocomplete="off" required></textarea>
-                                                        <div *ngIf="ResultsEntry.invalid && formGroupSubmitted">
-                                                            <div *ngIf="ResultsEntry.errors.required">
-                                                                <small class="error-message">* required field!</small>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div>
-                                                        <button *ngIf="edit === true" class="btn btn-left"
-                                                            (click)="cancelEditor()"><i class="fa fa-times"
-                                                                aria-hidden="true"></i>CANCEL</button>
-                                                        <button class="btn btn-right"
-                                                            (click)="submitForm(formGroup, test, i)"><i class="fa fa-check"
-                                                                aria-hidden="true"></i>SAVE</button>
-                                                    </div>
-                                                </form>
-
-                                            </div>
-
-
-                                            <div
-                                                *ngIf="test.results !== null && test.results !== undefined && edit !== true">
-                                                <div class="details-section-body">
-                                                    <div class="row">
-                                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                                            <p class="details-section-data">
-                                                                {{test.results.entry1}}</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div>
-                                                    <button class="btn btn-right" (click)="Edit(test, index )"><i
-                                                            class="fa fa-pencil-square-o"
-                                                            aria-hidden="true"></i>EDIT</button>
-                                                </div>
-
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div> -->
         </div>
 
     </div>
