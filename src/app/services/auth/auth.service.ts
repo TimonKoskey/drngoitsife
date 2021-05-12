@@ -9,7 +9,7 @@ import { isDevMode } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
-  userUrl = `http://127.0.0.1:8000/users`;
+  userUrl = `https://backend.ngoitsihosp.co.ke/users`;
 
   constructor(
     private persistence: PersistenceService,

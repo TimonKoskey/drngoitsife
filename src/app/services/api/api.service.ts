@@ -16,8 +16,8 @@ import { Vitals } from '../../models/vitals';
   providedIn: 'root'
 })
 export class APIService {
-  patientUrl = `http://127.0.0.1:8000/patients`;
-  sessionUrl = `http://127.0.0.1:8000/visits`;
+  patientUrl = `https://backend.ngoitsihosp.co.ke/patients`;
+  sessionUrl = `https://backend.ngoitsihosp.co.ke/visits`;
 
   private session = new BehaviorSubject<Session>(null);
   session$ = this.session.asObservable();
